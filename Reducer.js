@@ -2,6 +2,7 @@ import {AT} from './Actions/Actions';
 
 const initialState = {
     user: null,
+    message: ""
 };
 
 const Reducer = (state, action) => {
