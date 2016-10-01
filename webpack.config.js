@@ -6,7 +6,6 @@ module.exports = {
     },
     module: {
         loaders: [
-            {test: /\.css$/, loader: "style!css"},
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
@@ -15,7 +14,8 @@ module.exports = {
                     presets: ['react', 'es2015']
                 }
             },
-            {test: /\.json$/, loader: "json-loader"}
+            {test: /\.json$/, loader: "json-loader"},
+            {test: /\.scss$/, loader: "style!css!sass"}
         ]
     }
 };

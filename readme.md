@@ -7,6 +7,7 @@ Front-endowa część projektu z przedmiotu Programowanie aplikacji webowych.
 * Webpack
 * Babel
 * JQuery
+* SASS
 
 # Instrukcje
 Projekt wykorzystuje paczki NPM (Node Package Manager), więc do instalacji i developmentu wymagany jest zainstalowany Node.js oraz NPM.

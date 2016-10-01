@@ -5,6 +5,8 @@ import {Provider} from 'react-redux';
 import App from './Components/App';
 import Reducer from './Reducer';
 
+import style from './Styles/Layout.scss';
+
 var store = createStore(Reducer);
 
 render(
