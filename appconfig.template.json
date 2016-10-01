@@ -1,0 +1,11 @@
+{
+    "inUse": "dev",
+    "configs": {
+        "dev": {
+            "host": "host_serwera_dev"
+        },
+        "production": {
+            "host": "host_serwera_produkcyjnego"
+        }
+    }
+}
