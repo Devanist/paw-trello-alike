@@ -2,7 +2,25 @@ import {AT} from './Actions/Actions';
 
 const initialState = {
     user: null,
-    message: ""
+    message: "",
+    currentBoard : {
+        title: "Example Board",
+        id: 0,
+        lists: [
+            {
+                id: 0,
+                title: "TO DO"
+            },
+            {
+                id: 1,
+                title: "IN WORK"
+            },
+            {
+                id: 2,
+                title: "DONE"
+            }
+        ]
+    }
 };
 
 const Reducer = (state, action) => {
