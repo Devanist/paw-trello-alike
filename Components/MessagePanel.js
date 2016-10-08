@@ -4,7 +4,7 @@ class MessagePanel extends Component{
 
     render(){
         return (
-                <p>{this.props.message}</p>
+            <p>{this.props.message}</p>
         );
     }
 

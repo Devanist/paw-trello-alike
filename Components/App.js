@@ -5,10 +5,13 @@ import MessagePanel from './MessagePanel';
 
 class App extends Component {
 
+    
+
     render(){
         return (
             <section>
                 <MessagePanel message={this.props.message} />
+                <Board board={this.props.currentBoard} />
                 Content holder
             </section>
         )
