@@ -16,15 +16,45 @@ const initialState = {
         lists: [
             {
                 id: 0,
-                title: "TO DO"
+                title: "TO DO",
+                listItems: [
+                    {
+                        id: 0,
+                        title: "Wash dishes"
+                    },
+                    {
+                        id: 1,
+                        title: "Do something"
+                    }
+                ]
             },
             {
                 id: 1,
-                title: "IN WORK"
+                title: "IN WORK",
+                listItems: [
+                    {
+                        id: 0,
+                        title: "Walk a dog"
+                    }
+                ]
             },
             {
                 id: 2,
-                title: "DONE"
+                title: "DONE",
+                listItems: [
+                    {
+                        id: 0,
+                        title: "Get some sleep"
+                    },
+                    {
+                        id: 1,
+                        title: "Do nothing"
+                    },
+                    {
+                        id: 2,
+                        title: "Wake up"
+                    }
+                ]
             }
         ]
     }
