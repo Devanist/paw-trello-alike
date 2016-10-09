@@ -1,8 +1,13 @@
+.board{
+    position: relative;
+    left: 20px;
+}
+
 section.list {
     float:left;
     overflow: hidden;
     width: 270px;
-    margin: 5px 5px 5px 5px;
+    margin-right: 2%;
     border-radius: 6px;
     background-color: #4C3617;
     color: #FFF4CC;
@@ -11,4 +16,10 @@ section.list {
         display: block;
         margin-left: 10px;
     }
+}
+
+section.listItem {
+    margin: 5px 5px 5px 5px;
+    border-radius: 6px;
+    background-color: #7F5F33;
 }
