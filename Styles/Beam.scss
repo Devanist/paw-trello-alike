@@ -65,6 +65,7 @@ $linkColor: #E5B572;
         top: 50px;
         background-color: $beamTextColor;
         display:none;
+        z-index: 999;
 
         ul {
             margin-left: 10px;

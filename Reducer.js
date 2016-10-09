@@ -3,7 +3,10 @@ import {AT} from './Actions/Actions';
 const initialState = {
     user: {
         id: 0,
-        name: "Example User",
+        fullname: "Example User",
+        name: "exuser1",
+        email: "user@example.com",
+        about: "Just a regular user...",
         profile_pic: ""
     },
     message: "",

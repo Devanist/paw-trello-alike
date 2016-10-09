@@ -26,9 +26,12 @@ class Beam extends Component{
         if(this.props.user.profile_pic === ""){
             userPic = "https://cdn4.iconfinder.com/data/icons/mayssam/512/user-128.png";
         }
+        else{
+            userPic = this.props.user.profile_pic;
+        }
         if(this.props.user !== null){
             asideContent =  <aside>
-                                <p>{this.props.user.name}</p>
+                                <p>{this.props.user.fullname}</p>
                                 <span onClick={this.extendMenu}>
                                     <img id="beam_profile_pic" src={userPic} />
                                 </span>

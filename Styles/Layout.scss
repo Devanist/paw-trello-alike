@@ -6,4 +6,18 @@ body {
     padding: 0;
     background-color: $background-color;
     color: $main-font-color;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#app{
+    height: 100%;
+    width: 100%;
+}
+
+section[data-reactroot]{
+    height: 100%;
+    width: 100%;
 }
