@@ -6,6 +6,8 @@ import App from './Components/App';
 import Reducer from './Reducer';
 
 import style from './Styles/Layout.scss';
+import liststyle from './Styles/List.scss';
+import listitemstyle from './Styles/ListItem.scss';
 
 var store = createStore(Reducer);
 
