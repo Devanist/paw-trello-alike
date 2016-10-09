@@ -11,10 +11,15 @@ class Beam extends Component{
     render(){
 
         let asideContent;
+        let userPic;
+
+        if(this.props.user.profile_pic === ""){
+            userPic = "https://cdn4.iconfinder.com/data/icons/mayssam/512/user-128.png";
+        }
         if(this.props.user !== null){
             asideContent =  <aside>
                                 {this.props.user.name}
-                                <img id="beam_profile_pic" src={this.props.user.profile_pic} onClick={this.extendMenu} />
+                                <img id="beam_profile_pic" src={userPic} onClick={this.extendMenu} />
                             </aside>;
         }
         else{

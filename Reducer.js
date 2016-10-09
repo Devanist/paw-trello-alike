@@ -4,7 +4,7 @@ const initialState = {
     user: {
         id: 0,
         name: "Example User",
-        profile_pic: "https://cdn4.iconfinder.com/data/icons/mayssam/512/user-128.png"
+        profile_pic: ""
     },
     message: "",
     currentBoard : {
