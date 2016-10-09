@@ -5,7 +5,17 @@ import $ from 'jquery';
 class Beam extends Component{
 
     extendMenu(){
-
+        $("#userMenu").toggle().
+            find('a:first').
+            focus().
+            on("click", function hideUserMenuOnClick(){
+                $("#userMenu").hide();
+            }).
+            on("focusout", function hideUserMenu(e){
+                setTimeout( ( ) => {
+                    $("#userMenu").hide();
+                }, 100);
+            });
     }
 
     render(){
@@ -18,8 +28,10 @@ class Beam extends Component{
         }
         if(this.props.user !== null){
             asideContent =  <aside>
-                                {this.props.user.name}
-                                <img id="beam_profile_pic" src={userPic} onClick={this.extendMenu} />
+                                <p>{this.props.user.name}</p>
+                                <span onClick={this.extendMenu}>
+                                    <img id="beam_profile_pic" src={userPic} />
+                                </span>
                             </aside>;
         }
         else{
@@ -29,8 +41,8 @@ class Beam extends Component{
         }
 
         return(
-            <section className="beam">
-                <Link to="/">Home</Link>
+            <section id="beam">
+                <Link id="beamHomeLink" to="/">Home</Link>
                 {asideContent}
                 <section id="userMenu">
                     <ul>
