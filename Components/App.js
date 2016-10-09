@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import Beam from './Beam';
 import MessagePanel from './MessagePanel';
 import Board from './Board';
 
@@ -10,9 +11,9 @@ class App extends Component {
 
         return (
             <section>
+                <Beam user={this.props.user} />
                 <MessagePanel message={this.props.message} />
-                <Board board={this.props.currentBoard} />
-                Content holder
+                {this.props.children}
             </section>
         )
     }
