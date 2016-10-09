@@ -9,6 +9,7 @@ import {Router, Route, IndexRoute, Link, hashHistory} from 'react-router';
 import Home from './Components/Views/Home';
 import Register from './Components/Views/Register';
 import Login from './Components/Views/Login';
+import User from './Components/Views/User';
 
 import style from './Styles/Layout.scss';
 
@@ -22,6 +23,7 @@ render(
                     <IndexRoute component={Home} />
                     <Route path="register" component={Register}/>
                     <Route path="login" component={Login}/>
+                    <Route path="user/:name" component={User} />
                 </Route>
             </Router>
         </Provider>

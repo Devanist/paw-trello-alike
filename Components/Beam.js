@@ -34,7 +34,7 @@ class Beam extends Component{
                 {asideContent}
                 <section id="userMenu">
                     <ul>
-                        <li>Profile</li>
+                        <li><Link to={`/user/${this.props.user.name}`}>Profile</Link></li>
                         <li>Boards</li>
                         <li>Settings</li>
                         <li>Log out</li>
