@@ -12,6 +12,7 @@ import Login from './Components/Views/Login';
 import User from './Components/Views/User';
 
 import style from './Styles/Layout.scss';
+import beamstyle from './Styles/Beam.scss';
 
 var store = createStore(Reducer);
 

@@ -1,0 +1,80 @@
+@import "Common";
+
+$beamColor: #0F364C;
+$beamTextColor: #3D7799;
+$linkColor: #E5B572;
+
+#beam {
+    @include reset-position;
+
+    background-color: $beamColor;
+    color: $beamTextColor;
+    height: 50px;
+    position: relative;
+
+    a {
+        display: inline-block;
+        color: $linkColor;
+        text-decoration: none;
+    }
+
+    #beamHomeLink{
+        margin-top:16px;
+        margin-left: 10px;
+    }
+
+    p{
+        display: inline-block;
+    }
+
+    aside{
+        display: inline-block;
+        position: absolute;
+        right: 20px;
+        height: 100%;
+
+        p{
+            position: relative;
+            top: -10px;
+            left: -10px;
+        }
+
+        span{
+            display: inline-block;
+            width: 80px;
+            height: 100%;
+            text-align: center;
+            &:hover{
+                background-color: $beamTextColor;
+            }
+        }
+
+    }
+
+    #beam_profile_pic {
+        display: inline-block;
+        height:40px;
+        top: 5px;
+        position: relative;
+    }
+
+    #userMenu{
+        position: absolute;
+        right: 0;
+        width: 140px;
+        top: 50px;
+        background-color: $beamTextColor;
+        display:none;
+
+        ul {
+            margin-left: 10px;
+            color: $beamColor;
+            padding: 0;
+            li{
+                list-style-type: none;
+            }
+        }
+
+    }
+
+}
