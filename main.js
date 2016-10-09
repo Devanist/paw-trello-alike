@@ -13,6 +13,7 @@ import User from './Components/Views/User';
 
 import style from './Styles/Layout.scss';
 import beamstyle from './Styles/Beam.scss';
+import userstyle from './Styles/User.scss';
 
 var store = createStore(Reducer);
 

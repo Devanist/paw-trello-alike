@@ -1,0 +1,27 @@
+#userView{
+    position: relative;
+    left: 20px;
+    height: 100%;
+
+    h2, h3, h4{
+        display: inline-block;
+    }
+
+    h4{
+        font-style: italic;
+    }
+
+    ul{
+        padding: 0;
+
+        li{
+            list-style: none;
+        }
+    }
+
+    #profile_pic{
+        float:right;
+        margin-right: 10%;
+        height: 25%;
+    }
+}
