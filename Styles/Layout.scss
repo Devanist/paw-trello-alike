@@ -5,3 +5,25 @@ body {
     background-color: $background-color;
     color: $main-font-color;
 }
+
+section {
+    border-spacing: 10px;
+    display: flex;
+    position: relative;
+
+}
+
+section.list {
+    flex: 1;
+    overflow: hidden;
+    width: 270px;
+    margin: 5px 5px 5px 5px;
+    border-radius: 6px;
+    background-color: greenyellow;
+}
+
+section.listItem {
+    margin: 5px 5px 5px 5px;
+    border-radius: 6px;
+    background-color: lightblue;
+}
