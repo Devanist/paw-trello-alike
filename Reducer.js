@@ -1,7 +1,14 @@
 import {AT} from './Actions/Actions';
 
 const initialState = {
-    user: null,
+    user: {
+        id: 0,
+        fullname: "Example User",
+        name: "exuser1",
+        email: "user@example.com",
+        about: "Just a regular user...",
+        profile_pic: ""
+    },
     message: "",
     currentBoard : {
         title: "Example Board",
