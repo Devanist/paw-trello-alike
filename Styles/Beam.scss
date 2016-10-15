@@ -12,11 +12,14 @@ $beamHeight: 50px;
     color: $beamTextColor;
     height: $beamHeight;
     width:100%;
+    min-width: 470px;
     position: relative;
     display: flex;
 
     #sidePanelTrigger{
         width: 20%;
+        max-width: 250px;
+        min-width: 155px;
         height: $beamHeight;
         background-color: $beamBoardsColor;
         text-align: center;

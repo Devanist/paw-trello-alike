@@ -34,6 +34,7 @@ section[data-reactroot]{
 #contentHolder{
     display:flex;
     height: 100%;
+    min-width: 470px;
 }
 
 #view{
@@ -42,6 +43,8 @@ section[data-reactroot]{
 
 #BoardsSidePanel{
     width: 20%;
+    max-width: 250px;
+    min-width: 155px;
     height: 100%;
     display: inline-block;
     background-color: $sideBoardsColor;
