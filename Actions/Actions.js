@@ -1,5 +1,6 @@
 export const AT = {
-    SET_MESSAGE: 'SET_MESSAGE'
+    SET_MESSAGE: 'SET_MESSAGE',
+    LOGOUT: 'LOGOUT'
 };
 
 export let Actions = {
@@ -7,6 +8,11 @@ export let Actions = {
         return {
             type: AT.SET_MESSAGE,
             message: message
+        };
+    },
+    logout : () => {
+        return{
+            type: AT.LOGOUT
         };
     }
 };

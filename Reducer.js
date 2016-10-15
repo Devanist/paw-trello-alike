@@ -76,6 +76,10 @@ const Reducer = (state, action) => {
             var newMessage = action.message;
             newState = Object.assign({}, state, {message: newMessage});
             break;
+        case AT.LOGOUT:
+            var newUser = null;
+            newState = Object.assign({}, state, {user: newUser});
+            break;
         default:
             console.error(`There is no defined action like ${action.type}`);
             break;

@@ -9,12 +9,18 @@ class App extends Component {
 
     render(){
 
+        let sidePanel = "";
+
+        if(this.props.user !== null){
+            sidePanel = <BoardsSidePanel boards={this.props.user.boardsList} />;
+        }
+
         return (
             <section>
-                <Beam user={this.props.user} />
+                <Beam dispatch={this.props.dispatch} user={this.props.user} />
                 <MessagePanel message={this.props.message} />
                 <section id="contentHolder">
-                    <BoardsSidePanel boards={this.props.user.boardsList} />
+                    {sidePanel}
                     <section id="view">
                         {this.props.children}
                     </section>
