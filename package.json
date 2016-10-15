@@ -23,6 +23,7 @@
         "sass-loader": "4.0.2"
     },
     "scripts": {
-        "devserv": "webpack-dev-server --hot --inline --progress --colors"
+        "devserv": "webpack-dev-server --hot --inline --progress --colors",
+        "compile": "webpack --prod --progress --colors && copy index.html OUTPUT\\index.html && powershell -Command \"(gc index.html) -replace 'bundle.js', 'bundle.min.js' | Out-File OUTPUT\\index.html\""
     }
 }
