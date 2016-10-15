@@ -1,0 +1,32 @@
+$buttonColor : #0D7F6C;
+
+#LoginForm{
+    
+    input{
+        display: block;
+        margin: 40px auto 40px auto;
+        width: 20%;
+        min-width: 240px;
+        font-size: 22pt;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    input[type=submit]{
+        background-color: $buttonColor;
+        border-color: $buttonColor;
+        color: white;
+    }
+
+    h1, h2{
+        text-align: center;
+    }
+
+    h1{
+        font-size: 2.4em;
+    }
+
+    p{
+        text-align: center;
+    }
+}

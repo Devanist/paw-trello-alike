@@ -1,14 +1,23 @@
 import React, {Component} from 'react';
-import {withRouter} from 'react-router';
+import {withRouter, Link} from 'react-router';
 import {connect} from 'react-redux';
+import Style from '../../Styles/Login.scss';
 
 class Login extends Component{
     render(){
 
-        return (<section>
-            <input type="text"/>
-            <input type="password" />
-            <input type="submit" value="Sign in" />
+        return (<section id="LoginForm">
+            <h1>Hello again!</h1>
+            <h2>We are happy to see you :)</h2> 
+            <input id="login" type="text" placeholder="Login"/>
+            <input id="password" type="password" placeholder="Password" />
+            <input id="submit" type="submit" value="Sign in" />
+            <p>
+                Don't remember your password? Don't worry and click <Link to="/forgotPassword">HERE</Link>.
+            </p>
+            <p>
+                You are not our client? <Link to="/register">HERE</Link> you can join us.
+            </p>
         </section>);
     }
 
