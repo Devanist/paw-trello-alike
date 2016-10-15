@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import Beam from './Beam';
 import MessagePanel from './MessagePanel';
-import Board from './Board';
+import BoardsSidePanel from './BoardsSidePanel';
 
 class App extends Component {
 
@@ -13,7 +13,12 @@ class App extends Component {
             <section>
                 <Beam user={this.props.user} />
                 <MessagePanel message={this.props.message} />
-                {this.props.children}
+                <section id="contentHolder">
+                    <BoardsSidePanel boards={this.props.user.boardsList} />
+                    <section id="view">
+                        {this.props.children}
+                    </section>
+                </section>
             </section>
         )
     }

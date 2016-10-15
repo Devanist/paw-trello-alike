@@ -1,21 +1,32 @@
 @import "Common";
 
 $beamColor: #0F364C;
+$beamBoardsColor: #0A2433;
 $beamTextColor: #3D7799;
-$linkColor: #E5B572;
+$beamHeight: 50px;
 
 #beam {
     @include reset-position;
 
     background-color: $beamColor;
     color: $beamTextColor;
-    height: 50px;
+    height: $beamHeight;
+    width:100%;
     position: relative;
+    display: flex;
 
-    a {
-        display: inline-block;
-        color: $linkColor;
-        text-decoration: none;
+    #sidePanelTrigger{
+        width: 20%;
+        height: $beamHeight;
+        background-color: $beamBoardsColor;
+        text-align: center;
+        cursor: pointer;
+        margin: 0;
+        float:left;
+
+        &:hover{
+            background-color: #123F59;
+        }
     }
 
     #beamHomeLink{

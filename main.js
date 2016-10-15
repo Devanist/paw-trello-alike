@@ -10,6 +10,7 @@ import Home from './Components/Views/Home';
 import Register from './Components/Views/Register';
 import Login from './Components/Views/Login';
 import User from './Components/Views/User';
+import Board from './Components/Board';
 
 import style from './Styles/Layout.scss';
 import boardstyle from './Styles/Board.scss';
@@ -27,6 +28,7 @@ render(
                     <Route path="register" component={Register}/>
                     <Route path="login" component={Login}/>
                     <Route path="user/:name" component={User} />
+                    <Route path="board/:id" component={Board} />
                 </Route>
             </Router>
         </Provider>

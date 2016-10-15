@@ -1,5 +1,7 @@
 $background-color: #99723D;
+$sideBoardsColor: #0A2433;
 $main-font-color: white;
+$linkColor: #E5B572;
 
 body {
     margin: 0;
@@ -10,6 +12,13 @@ body {
     width: 100%;
     position: absolute;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    display: inline-block;
+    color: $linkColor;
+    text-decoration: none;
 }
 
 #app{
@@ -20,4 +29,41 @@ body {
 section[data-reactroot]{
     height: 100%;
     width: 100%;
+}
+
+#contentHolder{
+    display:flex;
+    height: 100%;
+}
+
+#view{
+    flex: 1;
+}
+
+#BoardsSidePanel{
+    width: 20%;
+    height: 100%;
+    display: inline-block;
+    background-color: $sideBoardsColor;
+
+    h2{
+        margin-left: 20px;
+    }
+
+    ul{
+        padding: 0;
+
+        li{
+            list-style-type: none;
+            margin-left: 20px;
+        }
+    }
+}
+
+
+#MessagePanel{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    height: 20px;
 }
