@@ -5,7 +5,6 @@ import ListItem from './ListItem';
 class List extends Component{
 
     renderListItems(){
-        console.log(this.props.list);
         return this.props.list.listItems.map( (listItem) => {
             return <ListItem key={listItem.id} listItem={listItem} />
         });

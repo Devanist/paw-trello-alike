@@ -4,6 +4,10 @@ import $ from 'jquery';
 
 class Beam extends Component{
 
+    extendSidebar(){
+        $("#BoardsSidePanel").toggle();
+    }
+
     extendMenu(){
         $("#userMenu").toggle().
             find('a:first').
@@ -45,6 +49,7 @@ class Beam extends Component{
 
         return(
             <section id="beam">
+                <div id="sidePanelTrigger" onClick={this.extendSidebar}><p>Boards</p></div>
                 <Link id="beamHomeLink" to="/">Home</Link>
                 {asideContent}
                 <section id="userMenu">

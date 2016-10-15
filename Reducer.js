@@ -7,7 +7,10 @@ const initialState = {
         name: "exuser1",
         email: "user@example.com",
         about: "Just a regular user...",
-        profile_pic: ""
+        profile_pic: "",
+        boardsList: [
+            {id: 0, name: "Example Board"}
+        ]
     },
     message: "",
     currentBoard : {
