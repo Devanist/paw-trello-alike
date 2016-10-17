@@ -67,7 +67,26 @@ section[data-reactroot]{
 
 #MessagePanel{
     position: absolute;
-    width: 100%;
+    width: 70%;
+    border-radius: 5px;
+    background-color: #B2A36B;
+    border: 1px solid #665B33;
     text-align: center;
     height: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+.fail{
+    color: darkred;
+}
+
+.success{
+    color: green;
+}
+
+.hidden{
+    display: none;
 }

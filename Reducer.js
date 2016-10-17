@@ -1,5 +1,9 @@
 import {AT} from './Actions/Actions';
 
+/*
+let user = localStorage.getItem('user') || null;
+*/
+
 const initialState = {
     user: {
         id: 0,
@@ -7,12 +11,16 @@ const initialState = {
         name: "exuser1",
         email: "user@example.com",
         about: "Just a regular user...",
+        token: "as@$AX325d",
         profile_pic: "",
         boardsList: [
             {id: 0, name: "Example Board"}
         ]
     },
-    message: "",
+    messagePanel: {
+        message: "",
+        result: "hidden"
+    },
     currentBoard : {
         title: "Example Board",
         id: 0,
@@ -73,12 +81,16 @@ const Reducer = (state, action) => {
 
     switch(action.type){
         case AT.SET_MESSAGE:
-            var newMessage = action.message;
-            newState = Object.assign({}, state, {message: newMessage});
+            newState = Object.assign({}, state, {messagePanel: {message: action.message, result: action.result}});
             break;
         case AT.LOGOUT:
             var newUser = null;
             newState = Object.assign({}, state, {user: newUser});
+            localStorage.setItem('user', null);
+            break;
+        case AT.LOGIN:
+            newState = Object.assign({}, state, {user: action.user});
+            localStorage.setItem('user', action.user);
             break;
         default:
             console.error(`There is no defined action like ${action.type}`);

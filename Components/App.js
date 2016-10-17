@@ -18,7 +18,7 @@ class App extends Component {
         return (
             <section>
                 <Beam dispatch={this.props.dispatch} user={this.props.user} />
-                <MessagePanel message={this.props.message} />
+                <MessagePanel data={this.props.messagePanel} />
                 <section id="contentHolder">
                     {sidePanel}
                     <section id="view">
