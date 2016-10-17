@@ -32,7 +32,7 @@ $beamHeight: 50px;
         }
     }
 
-    #addBoard{
+    #addMenuTrigger{
         span{
             display: inline-block;
             width: 40px;
@@ -43,6 +43,39 @@ $beamHeight: 50px;
 
         &:hover{
             background-color: #E5B572;
+        }
+    }
+
+    #addMenu{
+        position: absolute;
+        top: $beamHeight;
+        left: 20%;
+        background-color: #E5B572;
+        width: 30%;
+        z-index: 999;
+        display:none;
+
+        h3{
+            margin-left: 20px;
+        }
+
+        a{
+            color: #4C3617;
+        }
+
+        ul{
+            padding: 0;
+        }
+
+        ul li{
+            display: inline-block;
+            list-style-type: none;
+
+            a section{
+                text-align: center;
+                display: inline-block;
+                margin-left: 20px;
+            }
         }
     }
 
@@ -106,4 +139,29 @@ $beamHeight: 50px;
 
     }
 
+}
+
+@media screen and (min-width: 787px){
+    #beam #addMenu{
+        left: 20%;
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 786px){
+    #beam #addMenu{
+        margin-left: 155px;
+        left: 0;
+    }
+}
+
+@media screen and (max-width: 480px){
+    #beam #addMenu {
+        text-align: center;
+        width: 325px;
+
+        h3, ul li a section{
+            margin-left:0;
+        }
+    }
 }

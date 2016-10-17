@@ -4,6 +4,11 @@ import $ from 'jquery';
 
 class Beam extends Component{
 
+    constructor(){
+        super();
+        this.addNewBoard = this.addNewBoard.bind(this);
+    }
+
     extendSidebar(){
         $("#BoardsSidePanel").toggle();
     }
@@ -20,6 +25,22 @@ class Beam extends Component{
                     $("#userMenu").hide();
                 }, 100);
             });
+    }
+
+    extendAddMenu(){
+        $("#addMenu").
+        toggle().
+        find('a:first').
+        focus().
+        on("focusout", function hideUserMenu(e){
+            setTimeout( ( ) => {
+                $("#addMenu").hide();
+            }, 100);
+        });
+    }
+
+    addNewBoard(){
+
     }
 
     render(){
@@ -50,13 +71,25 @@ class Beam extends Component{
         return(
             <section id="beam">
                 <div id="sidePanelTrigger" onClick={this.extendSidebar}><p>Boards</p></div>
-                <Link to="/" id="addBoard"><span></span></Link>
+                <div id="addMenuTrigger" onClick={this.extendAddMenu}><span></span></div>
+                <div id="addMenu">
+                    <h3>Add a...</h3>
+                    <ul>
+                        <li>
+                            <a href="#" onClick={this.addNewBoard}>
+                                <section>
+                                <h4>new board</h4>
+                                <img src="../../Assets/boards.png"/>
+                                </section>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
                 <Link id="beamHomeLink" to="/">Home</Link>
                 {asideContent}
                 <section id="userMenu">
                     <ul>
                         <li><Link to={`/user/${this.props.user.name}`}>Profile</Link></li>
-                        <li>Boards</li>
                         <li>Settings</li>
                         <li>Log out</li>
                     </ul>
