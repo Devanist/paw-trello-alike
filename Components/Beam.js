@@ -50,6 +50,7 @@ class Beam extends Component{
         return(
             <section id="beam">
                 <div id="sidePanelTrigger" onClick={this.extendSidebar}><p>Boards</p></div>
+                <Link to="/" id="addBoard"><span></span></Link>
                 <Link id="beamHomeLink" to="/">Home</Link>
                 {asideContent}
                 <section id="userMenu">

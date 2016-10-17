@@ -32,6 +32,20 @@ $beamHeight: 50px;
         }
     }
 
+    #addBoard{
+        span{
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-image: url('../Assets/addboard.png');
+            margin-top: 6px;
+        }
+
+        &:hover{
+            background-color: #E5B572;
+        }
+    }
+
     #beamHomeLink{
         margin-top:16px;
         margin-left: 10px;
