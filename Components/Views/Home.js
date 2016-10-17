@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 class Home extends Component{
     render(){
         return (
-            <Board board={this.props.currentBoard} />
+            <Board board={this.props.currentBoard} dispatch={this.props.dispatch} />
         ) 
     }
 }

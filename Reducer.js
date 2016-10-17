@@ -76,6 +76,10 @@ const Reducer = (state, action) => {
             var newMessage = action.message;
             newState = Object.assign({}, state, {message: newMessage});
             break;
+        case AT.SET_CURRENT_BOARD:
+            var newCurrentBoard = action.board;
+            newState = Object.assign({}, state, {currentBoard: newCurrentBoard});
+            break;
         default:
             console.error(`There is no defined action like ${action.type}`);
             break;

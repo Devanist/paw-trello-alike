@@ -11,7 +11,7 @@ class App extends Component {
 
         return (
             <section>
-                <Beam user={this.props.user} />
+                <Beam user={this.props.user} dispatch={this.props.dispatch} />
                 <MessagePanel message={this.props.message} />
                 <section id="contentHolder">
                     <BoardsSidePanel boards={this.props.user.boardsList} />

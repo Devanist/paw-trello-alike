@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import List from './List';
+import $ from 'jquery';
+import appConfig from '../config';
+import {Actions} from '../Actions/Actions';
 
 class Board extends Component {
 
@@ -17,6 +20,15 @@ class Board extends Component {
         else{
             //TO DO
             //Fetch board from server using it's id
+            $.get(`${appConfig.host}/board`).
+            done( (data) => {
+                if(data.error){
+
+                }
+                else{
+                    this.props.dispatch(Actions.setCurrentBoard(data));
+                }
+            })
         }
 
         return board;

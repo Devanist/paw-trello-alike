@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router';
+import {Link, withRouter} from 'react-router';
 import $ from 'jquery';
+import appConfig from '../config';
+import {Actions} from '../Actions/Actions';
 
 class Beam extends Component{
 
@@ -32,7 +34,10 @@ class Beam extends Component{
         toggle().
         find('a:first').
         focus().
-        on("focusout", function hideUserMenu(e){
+        on("click", function hideAddMenuOnClick(){
+            $("#addMenu").hide();
+        }).
+        on("focusout", function hideAddMenu(e){
             setTimeout( ( ) => {
                 $("#addMenu").hide();
             }, 100);
@@ -40,7 +45,18 @@ class Beam extends Component{
     }
 
     addNewBoard(){
+        $.get(`${appConfig.host}/newBoard`).
+        done((data) => {
+            if(data.error){
 
+            }
+            else{
+                this.props.router.push(`/board/${data}`);
+            }
+        }).
+        fail( (err) => {
+            this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+        });
     }
 
     render(){
@@ -99,5 +115,7 @@ class Beam extends Component{
     }
 
 }
+
+Beam = withRouter(Beam, {withRef: true});
 
 export default Beam;
