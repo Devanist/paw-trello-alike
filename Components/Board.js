@@ -32,12 +32,10 @@ class Board extends Component {
             board = this.props.board;
         }
         else{
-            //TO DO
-            //Fetch board from server using it's id
             $.get(`${appConfig.host}/board`).
             done( (data) => {
                 if(data.error){
-
+                    this.props.dispatch(Actions.setMessage("fail", "ERROR"));
                 }
                 else{
                     this.props.dispatch(Actions.setCurrentBoard(data));
@@ -72,13 +70,15 @@ class Board extends Component {
             $.post(`${appConfig.host}/saveBoardTitle`, {id: this.board.id, title: $("#boardTitle").text()}).
             done( (data) => {
                 if(data.error){
-
+                    this.props.dispatch(Actions.setMessage("fail", "ERROR"));
                 }
                 else{
                     this.props.dispatch(Actions.saveBoardTitle( $("#boardTitle").text() ));
                 }
             }).
-            error();
+            fail( (error) => {
+                this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+            });
         });
 
         $("#cancelBoardTitle").on("click", () => {
