@@ -1,6 +1,36 @@
+$iconSize : 20px;
+
 .board{
     position: relative;
     left: 20px;
+
+    h2{
+        display: inline-block;
+    }
+
+    span{
+        display: inline-block;
+        width: $iconSize;
+        height: $iconSize;
+        background-size: $iconSize $iconSize;
+        margin-left: 10px;
+    }
+
+    #editBoardTitle{
+        background-image: url('../Assets/editIcon.png');
+    }
+
+    #saveBoardTitle{
+        background-image: url('../Assets/saveIcon.png');
+    }
+
+    #cancelBoardTitle{
+        background-image: url('../Assets/cancelIcon.png');
+    }
+
+    .hidden{
+        display: none;
+    }
 }
 
 section.list {

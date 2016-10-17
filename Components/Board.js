@@ -6,10 +6,24 @@ import {Actions} from '../Actions/Actions';
 
 class Board extends Component {
 
+    constructor(){
+        super();
+        this.editTitle = this.editTitle.bind(this);
+        this.oldTitle = "";
+    }
+
     renderLists(){
         return this.board.lists.map( (list) => {
             return <List key={list.id} list={list} />
         });
+    }
+
+    editTitle(){
+        $("#saveBoardTitle, #cancelBoardTitle, #editBoardTitle").toggleClass("hidden");
+
+        let title = $("#boardTitle");
+        this.oldTitle = title.text().substr();
+        title.attr('contenteditable', 'true');
     }
 
     getBoard(){
@@ -42,10 +56,36 @@ class Board extends Component {
 
         return (
             <section id={`board_${this.board.id}`} className="board">
-                <h2>{this.board.title}</h2>
+                <h2 id="boardTitle" contentEditable="false">{this.board.title}</h2>
+                <span id="editBoardTitle" onClick={this.editTitle}></span>
+                <span id="saveBoardTitle" className="hidden"></span>
+                <span id="cancelBoardTitle" className="hidden"></span>
                 <section>{lists}</section>
             </section>
         )
+    }
+
+    componentDidMount(){
+        $("#saveBoardTitle").on("click", () => {
+            $("#cancelBoardTitle, #saveBoardTitle, #editBoardTitle").toggleClass("hidden");
+            $("#boardTitle").attr('contenteditable', 'false');
+            $.post(`${appConfig.host}/saveBoardTitle`, {id: this.board.id, title: $("#boardTitle").text()}).
+            done( (data) => {
+                if(data.error){
+
+                }
+                else{
+                    this.props.dispatch(Actions.saveBoardTitle( $("#boardTitle").text() ));
+                }
+            }).
+            error();
+        });
+
+        $("#cancelBoardTitle").on("click", () => {
+            $("#boardTitle").text(this.oldTitle);
+            $("#boardTitle").attr('contenteditable', 'false');
+            $("#cancelBoardTitle, #saveBoardTitle, #editBoardTitle").toggleClass("hidden");
+        });
     }
 }
 

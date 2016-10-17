@@ -1,6 +1,7 @@
 export const AT = {
     SET_MESSAGE: 'SET_MESSAGE',
-    SET_CURRENT_BOARD: 'SET_CURRENT_BOARD'
+    SET_CURRENT_BOARD: 'SET_CURRENT_BOARD',
+    SAVE_BOARD_TITLE: 'SAVE_BOARD_TITLE'
 };
 
 export let Actions = {
@@ -14,6 +15,12 @@ export let Actions = {
         return {
             type: AT.SET_CURRENT_BOARD,
             board: board 
+        };
+    },
+    saveBoardTitle : (title) => {
+        return {
+            type: AT.SAVE_BOARD_TITLE,
+            title: title
         };
     }
 };
