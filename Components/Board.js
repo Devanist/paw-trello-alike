@@ -58,7 +58,13 @@ class Board extends Component {
                 <span id="editBoardTitle" onClick={this.editTitle}></span>
                 <span id="saveBoardTitle" className="hidden"></span>
                 <span id="cancelBoardTitle" className="hidden"></span>
+                <span id="removeBoard"></span>
                 <section>{lists}</section>
+                <section id="confirmRemove" className="hidden">
+                    <p>Are you sure you want to remove this board?</p>
+                    <div className="confirmation">OK</div>
+                    <div className="abort">Cancel</div> 
+                </section>
             </section>
         )
     }
@@ -87,6 +93,40 @@ class Board extends Component {
             $("#boardTitle").text(this.oldTitle);
             $("#boardTitle").attr('contenteditable', 'false');
             $("#cancelBoardTitle, #saveBoardTitle, #editBoardTitle").toggleClass("hidden");
+        });
+
+        $("#removeBoard").on("click", () => {
+            let anwser = null;
+            $("#confirmRemove").toggleClass("hidden");
+            $(".confirmation").on('click', () => {
+                anwser = true;
+            });
+            $(".abort").on('click', () => {
+                anwser = false;
+            });
+
+            while(anwser !== null){
+
+            }
+
+            if(!anwser){
+                $("#confirmRemove").toggleClass("hidden");
+            }
+            else{
+                $.get(`${appConfig.host}/removeBoard/${this.board.id}`).
+                done( (data) => {
+                    if(data.error){
+                        this.props.dispatch(Actions.setMessage("fail", "ERROR"));
+                    }
+                    else{
+                        this.props.dispatch(Actions.setMessage("success", `Board ${this.board.title} was removed.`));
+                        this.props.dispatch(Actions.removeBoard(this.board.id));
+                    }
+                }).
+                fail( (error) => {
+                    this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+                });
+            }
         });
     }
 }
