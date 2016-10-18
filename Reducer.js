@@ -14,6 +14,11 @@ const initialState = {
     },
     message: "",
     currentBoard : {
+        title: "",
+        id: null,
+        lists: []
+    },
+    emptyBoard : {
         title: "Example Board",
         id: 0,
         lists: [
@@ -82,8 +87,7 @@ const Reducer = (state, action) => {
             break;
         case AT.SAVE_BOARD_TITLE:
             var newBoardTitle = action.title;
-            const index = state.user.boardsList.findIndex( (item) => {return item.id === state.currentBoard.id;});
-            console.log(index);
+            var index = state.user.boardsList.findIndex( (item) => {return item.id === state.currentBoard.id;});
             newState = {
                 ...state,
                 user: {
@@ -97,6 +101,19 @@ const Reducer = (state, action) => {
                 currentBoard: {
                     ...state.currentBoard,
                     title: action.title
+                }
+            };
+            break;
+        case AT.REMOVE_BOARD:
+            var index = state.user.boardsList.findIndex( (item) => {return item.id === action.id});
+            newState = {
+                ...state,
+                user: {
+                    ...state.user,
+                    boardsList : [
+                        ...state.user.boardsList.slice(0, index),
+                        ...state.user.boardsList.slice(index + 1)
+                    ]
                 }
             };
             break;
