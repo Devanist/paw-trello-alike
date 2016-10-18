@@ -9,7 +9,7 @@ const initialState = {
         about: "Just a regular user...",
         profile_pic: "",
         boardsList: [
-            {id: 0, name: "Example Board"}
+            {id: 0, title: "Example Board"}
         ]
     },
     message: "",
@@ -82,8 +82,18 @@ const Reducer = (state, action) => {
             break;
         case AT.SAVE_BOARD_TITLE:
             var newBoardTitle = action.title;
+            const index = state.user.boardsList.findIndex( (item) => {return item.id === state.currentBoard.id;});
+            console.log(index);
             newState = {
                 ...state,
+                user: {
+                    ...state.user,
+                    boardsList : [
+                        ...state.user.boardsList.slice(0, index),
+                        Object.assign({}, state.user.boardsList[index], {id: state.currentBoard.id, title: action.title}),
+                        ...state.user.boardsList.slice(index + 1)
+                    ]
+                },
                 currentBoard: {
                     ...state.currentBoard,
                     title: action.title

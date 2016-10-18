@@ -8,7 +8,7 @@ class BoardsSidePanel extends Component{
             return (
             <li key={board.id}>
                 <Link to={`/board/${board.id}`}>
-                    {board.name}
+                    {board.title}
                 </Link>
             </li>
             )

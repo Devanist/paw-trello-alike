@@ -71,13 +71,15 @@ class Board extends Component {
             done( (data) => {
                 if(data.error){
                     this.props.dispatch(Actions.setMessage("fail", "ERROR"));
+                    $("#boardTitle").text(this.oldTitle);
                 }
                 else{
-                    this.props.dispatch(Actions.saveBoardTitle( $("#boardTitle").text() ));
+                    this.props.dispatch(Actions.saveBoardTitle( $("#boardTitle").text()));
                 }
             }).
             fail( (error) => {
                 this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+                $("#boardTitle").text(this.oldTitle);
             });
         });
 
