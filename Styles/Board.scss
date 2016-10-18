@@ -28,6 +28,19 @@ $iconSize : 20px;
         background-image: url('../Assets/cancelIcon.png');
     }
 
+    .editListTitle{
+        background-image: url('../Assets/editListIcon.png');
+    }
+
+    .saveListTitle{
+        background-image: url('../Assets/saveListIcon.png');
+    }
+
+    .cancelListTitle{
+        background-image: url('../Assets/cancelListIcon.png');
+    }
+
+
     .hidden{
         display: none;
     }

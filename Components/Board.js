@@ -14,7 +14,7 @@ class Board extends Component {
 
     renderLists(){
         return this.board.lists.map( (list) => {
-            return <List key={list.id} list={list} />
+            return <List key={list.id} dispatch={this.props.dispatch} list={list} />
         });
     }
 
