@@ -41,15 +41,21 @@ class List extends Component{
         let that = this;
 
         $(".editListTitle").on("click", function() {
-            console.log(this);
             $(this).parent().find(".saveListTitle, .cancelListTitle, .editListTitle").toggleClass("hidden");
-            console.log(find(".saveListTitle, .cancelListTitle, .editListTitle"));
             let title = $(this).parent().find("#listTitle");
-            console.log(title);
+            //console.log(title);
             that.oldTitle = title.text().substr();
             title.attr('contenteditable', 'true');
-        });
+            title.get(0).focus();
 
+            /*
+            title.on("focusout", function() {
+                title.text(that.oldTitle);
+                title.attr('contenteditable', 'true');
+                $(this).parent().find(".cancelListTitle, .saveListTitle, .editListTitle").toggleClass("hidden");
+            });
+            */
+        });
 
         $(".saveListTitle").on("click", function() {
             $(this).parent().find(".cancelListTitle, .saveListTitle, .editListTitle").toggleClass("hidden");
