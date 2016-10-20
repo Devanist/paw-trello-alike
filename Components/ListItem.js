@@ -13,7 +13,7 @@ class ListItem extends Component{
     render(){
 
         return (
-            <section className="listItem" id={`listItem_${this.props.listItem.id}`}>
+            <section className="listItem" id={`list_${this.props.listID}_listItem_${this.props.listItem.id}`}>
                 <h3 id="listItemTitle" contentEditable="false">{this.props.listItem.title}</h3>
                 <span className="editListItemTitle" ></span>
                 <span className="saveListItemTitle hidden"></span>
@@ -23,45 +23,57 @@ class ListItem extends Component{
     }
 
     componentDidMount(){
-        let that = this;
 
-        $(".editListItemTitle").on("click", function() {
-            $(this).parent().find(".saveListItemTitle, .cancelListItemTitle, .editListItemTitle").toggleClass("hidden");
-            //console.log($(this).parent().find(".saveListItemTitle, .cancelListItemTitle, .editListItemTitle"));
-            let title = $(this).parent().find("#listItemTitle");
-            that.oldTitle = title.text().substr();
-            //console.log("tytul: " + title);
-            title.attr('contenteditable', 'true');
-            title.get(0).focus();
+        $(".editListItemTitle").on("click", handleEditListItem.bind(this));
 
-        });
+        $(".saveListItemTitle").on("click", handleSaveListItemTitle.bind(this));
 
-        $(".saveListItemTitle").on("click", function() {
-            $(this).parent().find(".cancelListItemTitle, .saveListItemTitle, .editListItemTitle").toggleClass("hidden");
-            $(this).parent().find("#listItemTitle").attr('contenteditable', 'false');
-            $.post(`${appConfig.host}/saveListItemTitle`, {id: that.props.list.id, title: $("#listItemTitle").text()}).
-            done( (data) => { 
-                if(data.error){
-                    that.props.dispatch(Actions.setMessage("fail", "ERROR"));
-                    $(this).parent().find("#listItemTitle").text(that.oldTitle);
-                }
-                else{
-                    that.props.dispatch(Actions.saveListItemTitle( $("#listItemTitle").text()));
-                }
-            }).
-            fail( (error) => {
-                that.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
-                $(this).parent().find("#listItemTitle").text(that.oldTitle);
-            });
-        });
-
-        $(".cancelListItemTitle").on("click", function() {
-            $(this).parent().find("#listItemTitle").text(that.oldTitle);
-            $(this).parent().find("#listItemTitle").attr('contenteditable', 'false');
-            $(this).parent().find(".cancelListItemTitle, .saveListItemTitle, .editListItemTitle").toggleClass("hidden");
-        });
+        $(".cancelListItemTitle").on("click", handleCancelListItemTitle.bind(this));
     }
 
+}
+
+function handleEditListItem(e) {
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    let parent = $(e.target).parent();
+    parent.find(".saveListItemTitle, .cancelListItemTitle, .editListItemTitle").toggleClass("hidden");
+    let title = parent.find("#listItemTitle");
+    this.oldTitle = title.text().substr();
+    title.attr('contenteditable', 'true');
+    title.get(0).focus();
+}
+
+function handleSaveListItemTitle(e) {
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    let parent = $(e.target).parent();
+
+    parent.find(".cancelListItemTitle, .saveListItemTitle, .editListItemTitle").toggleClass("hidden");
+    parent.find("#listItemTitle").attr('contenteditable', 'false');
+    $.post(`${appConfig.host}/saveListItemTitle`, {id: this.props.listItem.id, title: parent.find("#listItemTitle").text()}).
+    done( (data) => { 
+        if(data.error){
+            this.props.dispatch(Actions.setMessage("fail", "ERROR"));
+            parent.find("#listItemTitle").text(this.oldTitle);
+        }
+        else{
+            this.props.dispatch(Actions.saveListItemTitle( $("#listItemTitle").text()));
+        }
+    }).
+    fail( (error) => {
+        this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+        parent.find("#listItemTitle").text(this.oldTitle);
+    });
+}
+
+function handleCancelListItemTitle(e) {
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    let parent = $(e.target).parent();
+    parent.find("#listItemTitle").text(this.oldTitle);
+    parent.find("#listItemTitle").attr('contenteditable', 'false');
+    parent.find(".cancelListItemTitle, .saveListItemTitle, .editListItemTitle").toggleClass("hidden");
 }
 
 export default ListItem;

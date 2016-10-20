@@ -15,7 +15,7 @@ class List extends Component{
 
     renderListItems(){
         return this.props.list.listItems.map( (listItem) => {
-            return <ListItem key={listItem.id} listItem={listItem} />
+            return <ListItem key={listItem.id} listID={this.props.list.id} listItem={listItem} dispatch={this.props.dispatch}/>
         });
     }
 
