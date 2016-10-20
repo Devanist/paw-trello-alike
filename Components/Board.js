@@ -29,10 +29,10 @@ class Board extends Component {
         title.attr('contenteditable', 'true');
     }
 
-    getBoard(callback){
+    getBoard(){
 
         if(this.props && this.props.board){
-            this.board = this.props.board;
+            this.props.currentBoard = this.props.board;
         }
         else{
             $.get(`${appConfig.host}/board`).
@@ -44,7 +44,6 @@ class Board extends Component {
                 else{
                     this.props.dispatch(Actions.setCurrentBoard(data));
                 }
-                callback();
             }).
             fail( () => {
                 this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
@@ -96,7 +95,6 @@ class Board extends Component {
                         }
                     ]
                 }));
-                callback();
                 //this.props.push('/');
             });
         }
@@ -134,7 +132,7 @@ class Board extends Component {
         $("#saveBoardTitle").on("click", () => {
             $("#cancelBoardTitle, #saveBoardTitle, #editBoardTitle").toggleClass("hidden");
             $("#boardTitle").attr('contenteditable', 'false');
-            $.post(`${appConfig.host}/saveBoardTitle`, {id: this.board.id, title: $("#boardTitle").text()}).
+            $.post(`${appConfig.host}/saveBoardTitle`, {id: this.props.currentBoard.id, title: $("#boardTitle").text()}).
             done( (data) => {
                 if(data.error){
                     this.props.dispatch(Actions.setMessage("fail", "ERROR"));
@@ -146,6 +144,7 @@ class Board extends Component {
             }).
             fail( (error) => {
                 this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+                console.log('backup');
                 $("#boardTitle").text(this.oldTitle);
             });
         });
@@ -178,15 +177,15 @@ function handleUserInput(anwser){
         $("#confirmRemove").toggleClass("hidden");
     }
     else{
-        $.get(`${appConfig.host}/removeBoard/${this.board.id}`).
+        $.get(`${appConfig.host}/removeBoard/${this.props.currentBoard.id}`).
         done( (data) => {
             if(data.error){
                 this.props.dispatch(Actions.setMessage("fail", "ERROR"));
                 $("#confirmRemove").toggleClass("hidden");
             }
             else{
-                this.props.dispatch(Actions.setMessage("success", `Board ${this.board.title} was removed.`));
-                this.props.dispatch(Actions.removeBoard(this.board.id));
+                this.props.dispatch(Actions.setMessage("success", `Board ${this.props.currentBoard.title} was removed.`));
+                this.props.dispatch(Actions.removeBoard(this.props.currentBoard.id));
                 this.props.router.push('/');
                 $("#confirmRemove").toggleClass("hidden");
             }
@@ -194,7 +193,7 @@ function handleUserInput(anwser){
         fail( (error) => {
             this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
             $("#confirmRemove").toggleClass("hidden");
-            this.props.dispatch(Actions.removeBoard(this.board.id));
+            this.props.dispatch(Actions.removeBoard(this.props.currentBoard.id));
             this.props.router.push('/');
         });
     }
