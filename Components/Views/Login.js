@@ -68,6 +68,7 @@ class Login extends Component{
 
     componentWillMount(){
         if(this.props.user !== null){
+            this.props.dispatch(Actions.setMessage("fail", "You are already logged in."));
             this.props.router.push('/');
         }
     }

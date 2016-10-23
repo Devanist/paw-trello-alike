@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Actions} from '../Actions/Actions';
 
 import Beam from './Beam';
 import MessagePanel from './MessagePanel';
@@ -10,6 +11,10 @@ class App extends Component {
     render(){
 
         let sidePanel = "";
+
+        if(localStorage.getItem('user')){
+            this.props.dispatch(Actions.login( localStorage.getItem('user') ));
+        }
 
         if(this.props.user !== null){
             sidePanel = <BoardsSidePanel boards={this.props.user.boardsList} />;
