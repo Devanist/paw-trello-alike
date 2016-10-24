@@ -1,4 +1,4 @@
-$buttonColor : #0D7F6C;
+@import "Common";
 
 #LoginForm{
     
@@ -9,24 +9,10 @@ $buttonColor : #0D7F6C;
         min-width: 240px;
         font-size: 22pt;
         border-radius: 5px;
+    }
+
+    h1, h2, input, p{
         text-align: center;
     }
 
-    input[type=submit]{
-        background-color: $buttonColor;
-        border-color: $buttonColor;
-        color: white;
-    }
-
-    h1, h2{
-        text-align: center;
-    }
-
-    h1{
-        font-size: 2.4em;
-    }
-
-    p{
-        text-align: center;
-    }
 }

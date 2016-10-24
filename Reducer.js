@@ -86,7 +86,7 @@ const Reducer = (state, action) => {
         case AT.LOGOUT:
             var newUser = null;
             newState = Object.assign({}, state, {user: newUser});
-            localStorage.setItem('user', null);
+            localStorage.removeItem('user');
             break;
         case AT.LOGIN:
             newState = Object.assign({}, state, {user: action.user});

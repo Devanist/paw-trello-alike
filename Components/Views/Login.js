@@ -56,7 +56,7 @@ class Login extends Component{
             <h2>We are happy to see you :)</h2> 
             <input id="login" type="text" placeholder="Login"/>
             <input id="password" type="password" placeholder="Password" />
-            <input id="submit" type="submit" value="Sign in" onClick={this.login} />
+            <input className="confirmationButton" id="submit" type="submit" value="Sign in" onClick={this.login} />
             <p>
                 Don't remember your password? Don't worry and click <Link to="/forgotPassword">HERE</Link>.
             </p>

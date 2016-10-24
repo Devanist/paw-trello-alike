@@ -12,7 +12,7 @@ class App extends Component {
 
         let sidePanel = "";
 
-        if(localStorage.getItem('user')){
+        if(localStorage.getItem('user') !== null){
             this.props.dispatch(Actions.login( localStorage.getItem('user') ));
         }
 
