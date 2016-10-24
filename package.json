@@ -24,6 +24,7 @@
     },
     "scripts": {
         "devserv": "webpack-dev-server --hot --inline --progress --colors",
-        "compile": "webpack --prod --progress --colors && copy index.html OUTPUT\\index.html && powershell -Command \"(gc index.html) -replace 'bundle.js', 'bundle.min.js' | Out-File OUTPUT\\index.html\""
+        "compile": "webpack --prod --progress --colors && copy index.html OUTPUT\\index.html && powershell -Command \"(gc index.html) -replace 'bundle.js', 'bundle.min.js' | Out-File OUTPUT\\index.html\"",
+        "syncMaster": "git pull origin master && del webpack.config.js && copy webpack.config.template.js webpack.config.js && powershell -Command \"$path = (Get-Item -Path '.\\' -Verbose).FullName -replace '\\\\', '/'; $path = $path + '/main.js'; (gc webpack.config.js) -replace 'PATH_TO_main.js', $path | Out-File webpack.config.js \""
     }
 }
