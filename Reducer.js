@@ -12,6 +12,7 @@ const initialState = {
             {id: 0, title: "Example Board"}
         ]
     },
+    searchBoardsResults: [],
     message: "",
     currentBoard : {
         title: "",
@@ -115,6 +116,23 @@ const Reducer = (state, action) => {
                         ...state.user.boardsList.slice(index + 1)
                     ]
                 }
+            };
+            break;
+        case AT.SEARCH_BOARD:
+
+            let searchedBoards = [];
+            if(action.title !== ""){
+                searchedBoards = state.user.boardsList.
+                filter( (board) => {
+                    return board.title.
+                    toLowerCase().
+                    match(new RegExp(action.title.toLowerCase()), 'i') !== null;
+                });
+            }
+
+            newState = {
+                ...state,
+                searchBoardsResults : searchedBoards 
             };
             break;
         default:

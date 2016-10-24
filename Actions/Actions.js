@@ -2,7 +2,8 @@ export const AT = {
     SET_MESSAGE: 'SET_MESSAGE',
     SET_CURRENT_BOARD: 'SET_CURRENT_BOARD',
     SAVE_BOARD_TITLE: 'SAVE_BOARD_TITLE',
-    REMOVE_BOARD: 'REMOVE_BOARD'
+    REMOVE_BOARD: 'REMOVE_BOARD',
+    SEARCH_BOARD: 'SEARCH_BOARD'
 };
 
 export let Actions = {
@@ -28,6 +29,12 @@ export let Actions = {
         return {
             type: AT.REMOVE_BOARD,
             id: id
+        };
+    },
+    searchBoard : (title) => {
+        return {
+            type : AT.SEARCH_BOARD,
+            title: title
         };
     }
 };
