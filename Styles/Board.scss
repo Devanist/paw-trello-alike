@@ -16,6 +16,19 @@ $iconSize : 20px;
         margin-left: 10px;
     }
 
+    #addListTrigger{
+            display: inline-block;
+            width: 40px;
+            max-width: 40px;
+            height: 40px;
+            background-image: url('../Assets/addList.png');
+            background-color: #99723D;
+            //margin-top: 6px;
+        &:hover{
+            background-color: #E5B572;
+        }
+    }
+
     #editBoardTitle{
         background-image: url('../Assets/editIcon.png');
     }

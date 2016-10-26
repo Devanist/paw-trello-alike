@@ -59,6 +59,8 @@ class Board extends Component {
                 <span id="saveBoardTitle" className="hidden"></span>
                 <span id="cancelBoardTitle" className="hidden"></span>
                 <section>{lists}</section>
+                <section id="addListTrigger"  onClick={null}>
+                </section>
             </section>
         )
     }
