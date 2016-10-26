@@ -135,6 +135,17 @@ const Reducer = (state, action) => {
                 searchBoardsResults : searchedBoards 
             };
             break;
+        case AT.ADD_BOARD:
+            newState = {
+                ...state,
+                user : {
+                    ...state.user,
+                    boardsList : [
+                        ...state.user.boardsList.push(action.board)
+                    ]
+                }
+            }
+            break;
         default:
             console.error(`There is no defined action like ${action.type}`);
             break;

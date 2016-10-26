@@ -52,6 +52,7 @@ $beamHeight: 50px;
         left: 20%;
         background-color: #E5B572;
         width: 70%;
+        height: 350px;
         z-index: 999;
         display:none;
 
@@ -76,6 +77,17 @@ $beamHeight: 50px;
                 display: inline-block;
                 margin-left: 20px;
             }
+        }
+
+        .return{
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-image: url('../Assets/arrow_back.png');
+            background-size: 30px 30px;
+        }
+
+        #add_title{
         }
     }
 

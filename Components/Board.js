@@ -35,7 +35,7 @@ class Board extends Component {
             this.props.currentBoard = this.props.board;
         }
         else{
-            $.get(`${appConfig.host}/board`).
+            $.get(`${appConfig.host}/boards/${this.props.params.id}.json`).
             done( (data) => {
                 if(data.error){
                     this.props.dispatch(Actions.setMessage("fail", "ERROR"));

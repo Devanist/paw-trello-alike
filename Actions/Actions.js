@@ -3,7 +3,8 @@ export const AT = {
     SET_CURRENT_BOARD: 'SET_CURRENT_BOARD',
     SAVE_BOARD_TITLE: 'SAVE_BOARD_TITLE',
     REMOVE_BOARD: 'REMOVE_BOARD',
-    SEARCH_BOARD: 'SEARCH_BOARD'
+    SEARCH_BOARD: 'SEARCH_BOARD',
+    ADD_BOARD: 'ADD_BOARD'
 };
 
 export let Actions = {
@@ -35,6 +36,12 @@ export let Actions = {
         return {
             type : AT.SEARCH_BOARD,
             title: title
+        };
+    },
+    addBoard : (board) => {
+        return {
+            type : AT.ADD_BOARD,
+            board: board
         };
     }
 };
