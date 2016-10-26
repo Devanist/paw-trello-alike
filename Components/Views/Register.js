@@ -4,6 +4,8 @@ import {withRouter, Link} from 'react-router';
 import {Actions} from '../../Actions/Actions';
 import bcrypt from 'bcryptjs';
 import appConfig from '../../config';
+import $ from 'jquery';
+import Utils from '../../Utils';
 
 import Style from '../../Styles/Register.scss';
 
@@ -26,6 +28,51 @@ class Register extends Component{
             </section>
         );
     }
+
+    componentDidMount(){
+        $("#signupButton").on("click", registerUser.bind(this));
+    }
+
+}
+
+function registerUser(){
+    let form = {
+        login : $("#register_login").val(),
+        fullname : $("#register_fullname").val(),
+        email : $("#register_email").val(),
+        password : $("#register_password").val(),
+        hash : ""
+    };
+
+    if(form.password !== $("#register_repeatPassword")){
+        this.props.dispatch(Actions.setMessage("fail", "Given passwords do not match."));
+        return;
+    }
+
+    if(!Utils.validateEmail(form.email)){
+        this.props.dispatch(Actions.setMessage("fail", "Given email address is not valid."));
+        return;
+    }
+
+    form.password = bcrypt.hashSync(form.password, 10);
+    form.hash = bcrypt.getSalt(form.password);
+
+    $.post(`${appConfig.host}/register`, form).
+    done( (data) => {
+        if(data.error){
+            this.props.dispatch(Actions.setMessage("fail", data.error));
+            return;
+        }
+
+        this.props.dispatch(Actions.setMessage("success", "Your account was created. You can login now."));
+        setTimeout( () => {
+            this.props.router.push('/login');
+        }, 3000);
+
+    }).
+    fail( (error) => {
+        this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+    });
 }
 
 function mapStateToProps(state){
