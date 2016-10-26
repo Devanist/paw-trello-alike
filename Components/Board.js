@@ -46,6 +46,22 @@ class Board extends Component {
         return board;
     }
 
+/*
+    addNewList(){
+        $.get(`${appConfig.host}/newList`).
+        done((data) => {
+            if(data.error){
+
+            }
+            else{
+                this.props.router.push(`/board/${data}`);
+            }
+        }).
+        fail( (err) => {
+            this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+        });
+    }
+*/
     render(){
 
         this.board = this.getBoard();
@@ -59,7 +75,7 @@ class Board extends Component {
                 <span id="saveBoardTitle" className="hidden"></span>
                 <span id="cancelBoardTitle" className="hidden"></span>
                 <section>{lists}</section>
-                <section id="addListTrigger"  onClick={null}>
+                <section id="addListTrigger"  onClick={this.addNewList}>
                 </section>
             </section>
         )

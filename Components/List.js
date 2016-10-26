@@ -33,6 +33,8 @@ class List extends Component{
                 <span className="saveListTitle hidden"></span>
                 <span className="cancelListTitle hidden"></span>
                 <section>{listItems}</section>
+                <section id="addListItemTrigger"  onClick={null}>
+                </section>
             </section>
         )
     }
