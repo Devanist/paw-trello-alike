@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router';
 import List from './List';
 import $ from 'jquery';
 import 'jquery-ui/ui/core';
@@ -14,10 +15,8 @@ class Board extends Component {
         this.oldTitle = "";
     }
 
-    renderLists(){
-        return this.board.lists.map( (list) => {
-            return <List key={list.id} dispatch={this.props.dispatch} list={list} />
-        });
+    renderLists(list){
+        return <List key={list.id} dispatch={this.props.dispatch} list={list} />
     }
 
     editTitle(){
@@ -52,15 +51,13 @@ class Board extends Component {
 
         this.board = this.getBoard();
 
-        const lists = this.renderLists();
-
         return (
             <section id={`board_${this.board.id}`} className="board">
                 <h2 id="boardTitle" contentEditable="false">{this.board.title}</h2>
                 <span id="editBoardTitle" onClick={this.editTitle}></span>
                 <span id="saveBoardTitle" className="hidden"></span>
                 <span id="cancelBoardTitle" className="hidden"></span>
-                <section id="listsContainer">{lists}</section>
+                <section id="listsContainer">{this.board.lists.map(this.renderLists.bind(this))}</section>
             </section>
         )
     }
@@ -112,10 +109,24 @@ function listOrderChangeHandler(){
         }
     }
 
-    console.log(orders);
-    
-    this.props.dispatch(Actions.sortLists(orders));
+    $.post(`${appConfig.host}`, orders).
+    done( (data) => {
+        if(data.error){
+            this.props.dispatch(Actions.setMessage("fail", data.error));
+            //this.props.dispatch(Actions.sortLists());
+            this.props.router.push(`/board/${this.props.board.id}`);
+            return;
+        }
+        this.props.dispatch(Actions.sortLists(orders));
+    }).
+    fail( (error) => {
+        this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+        //this.props.dispatch(Actions.sortLists());
+        this.props.router.push(`/board/${this.props.board.id}`);
+    });
 
 }
+
+Board = withRouter(Board, {withRef: true});
 
 export default Board;

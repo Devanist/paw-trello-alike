@@ -24,7 +24,7 @@ export let Actions = {
             title: title
         };
     },
-    sortLists : (orders) => {
+    sortLists : (orders = null) => {
         return {
             type: AT.SORT_LISTS,
             orders: orders

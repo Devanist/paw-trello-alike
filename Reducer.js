@@ -105,13 +105,19 @@ const Reducer = (state, action) => {
             break;
         case AT.SORT_LISTS:
             let newLists = [];
-            for(let i = 0; i < action.orders.length; i++){
-                for(let j = 0; j < state.currentBoard.lists.length; j++){
-                    if( action.orders[i] === state.currentBoard.lists[j].id){
-                        newLists.push(state.currentBoard.lists[j]);
-                        newLists[i].order = i;
+
+            if(action.orders !== null){
+                for(let i = 0; i < action.orders.length; i++){
+                    for(let j = 0; j < state.currentBoard.lists.length; j++){
+                        if( action.orders[i] === state.currentBoard.lists[j].id){
+                            newLists.push(state.currentBoard.lists[j]);
+                            newLists[i].order = i;
+                        }
                     }
                 }
+            }
+            else{
+                newLists = state.currentBoard.lists;
             }
 
             newState = {
