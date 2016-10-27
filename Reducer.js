@@ -20,6 +20,7 @@ const initialState = {
             {
                 id: 0,
                 title: "TO DO",
+                order: 0,
                 listItems: [
                     {
                         id: 0,
@@ -33,6 +34,7 @@ const initialState = {
             },
             {
                 id: 1,
+                order: 1,
                 title: "IN WORK",
                 listItems: [
                     {
@@ -44,6 +46,7 @@ const initialState = {
             {
                 id: 2,
                 title: "DONE",
+                order: 2,
                 listItems: [
                     {
                         id: 0,
@@ -99,6 +102,25 @@ const Reducer = (state, action) => {
                     title: action.title
                 }
             };
+            break;
+        case AT.SORT_LISTS:
+            let newLists = [];
+            for(let i = 0; i < action.orders.length; i++){
+                for(let j = 0; j < state.currentBoard.lists.length; j++){
+                    if( action.orders[i] === state.currentBoard.lists[j].id){
+                        newLists.push(state.currentBoard.lists[j]);
+                        newLists[i].order = i;
+                    }
+                }
+            }
+
+            newState = {
+                ...state,
+                currentBoard: {
+                    ...state.currentBoard,
+                    lists : newLists
+                }
+            }
             break;
         default:
             console.error(`There is no defined action like ${action.type}`);

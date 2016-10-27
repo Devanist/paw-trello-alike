@@ -7,7 +7,8 @@
         "react-router": "2.8.1",
         "react-dom": "15.3.2",
         "redux": "3.6.0",
-        "bcryptjs": "2.3.0"
+        "bcryptjs": "2.3.0",
+        "jquery-ui": "1.12.1"
     },
     "devDependencies": {
         "webpack": "1.13.2",

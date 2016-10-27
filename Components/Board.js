@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import List from './List';
 import $ from 'jquery';
+import 'jquery-ui/ui/core';
+import 'jquery-ui/ui/widgets/sortable';
 import appConfig from '../config';
 import {Actions} from '../Actions/Actions';
 
@@ -58,7 +60,7 @@ class Board extends Component {
                 <span id="editBoardTitle" onClick={this.editTitle}></span>
                 <span id="saveBoardTitle" className="hidden"></span>
                 <span id="cancelBoardTitle" className="hidden"></span>
-                <section>{lists}</section>
+                <section id="listsContainer">{lists}</section>
             </section>
         )
     }
@@ -88,7 +90,32 @@ class Board extends Component {
             $("#boardTitle").attr('contenteditable', 'false');
             $("#cancelBoardTitle, #saveBoardTitle, #editBoardTitle").toggleClass("hidden");
         });
+
+        $("#listsContainer").
+        sortable().
+        on("sortstop", listOrderChangeHandler.bind(this));
+
     }
+}
+
+function listOrderChangeHandler(){
+    let lists = $("#listsContainer .list:not(.ui-sortable-placeholder)");
+    let orders = [];
+    
+    for(let list in lists){
+        if(lists.hasOwnProperty(list)){
+            
+            if(lists.get(list).id){
+                orders.push(parseInt(lists.get(list).id.substr(5)));
+            }
+
+        }
+    }
+
+    console.log(orders);
+    
+    this.props.dispatch(Actions.sortLists(orders));
+
 }
 
 export default Board;
