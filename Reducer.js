@@ -176,6 +176,16 @@ const Reducer = (state, action) => {
                 }
             }
             break;
+
+        case AT.SET_FAVOURITE_BOARD:
+            newState = {
+                ...state,
+                currentBoard : {
+                    ...state.currentBoard,
+                    isFav: action.fav
+                }
+            };
+            break;
         default:
             console.error(`There is no defined action like ${action.type}`);
             break;

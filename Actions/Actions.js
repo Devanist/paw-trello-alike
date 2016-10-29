@@ -5,7 +5,8 @@ export const AT = {
     SORT_LISTS: 'SORT_LISTS',
     REMOVE_BOARD: 'REMOVE_BOARD',
     SEARCH_BOARD: 'SEARCH_BOARD',
-    ADD_BOARD: 'ADD_BOARD'
+    ADD_BOARD: 'ADD_BOARD',
+    SET_FAVOURITE_BOARD: 'SET_FAVOURITE_BOARD'
 };
 
 export let Actions = {
@@ -49,6 +50,12 @@ export let Actions = {
         return {
             type : AT.ADD_BOARD,
             board: board
+        };
+    },
+    setFav : (fav) => {
+        return {
+            type: AT.SET_FAVOURITE_BOARD,
+            fav: fav
         };
     }
 };

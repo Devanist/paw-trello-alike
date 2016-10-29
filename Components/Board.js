@@ -178,6 +178,26 @@ class Board extends Component {
         sortable().
         on("sortstop", listOrderChangeHandler.bind(this));
 
+        $("#favBoard").on("click", () => {
+
+            let fav = true;
+            if(this.props.currentBoard.isFav === "fav"){
+                fav = false;
+            }
+            $.post(`${appConfig.host}/boards/${this.props.currentBoard.id}`, {fav: fav }).
+            done( (data) => {
+                if(data.error){
+                    this.props.dispatch(Actions.setMessage("fail", data.error));
+                    return;
+                }
+                this.props.dispatch(Actions.setFav(fav));
+            }).
+            fail( (error) => {
+                this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+            });
+
+        });
+
     }
 }
 
