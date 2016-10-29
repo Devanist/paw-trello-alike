@@ -9,7 +9,7 @@ const initialState = {
         about: "Just a regular user...",
         profile_pic: "",
         boardsList: [
-            {id: 0, title: "Example Board"}
+            {id: 0, title: "Example Board", isFav: "fav"}
         ]
     },
     searchBoardsResults: [],

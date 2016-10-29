@@ -13,9 +13,23 @@ class BoardsSidePanel extends Component{
         const userBoards = this.mapBoardsList();
         this.searchedBoards = this.props.searchResults.map(boardToListElement);
 
+        let favedBoards = this.props.boards.filter( (board) => {
+            return board.isFav === "fav";
+        });
+        
+        this.favedBoards = [];
+        if(favedBoards.length > 0){
+            this.favedBoards = favedBoards.map(boardToListElement);
+        }
+        console.log(this.favedBoards);
+
         return (<aside id="BoardsSidePanel">
             <input id="searchBoards" type="text" placeholder="Search for a board..." />
             <span id="clearSearchBoards" title="Clear search box"></span>
+            <h2>Starred boards</h2>
+            <ul>
+                {this.favedBoards}
+            </ul>
             <ul>
                 {this.searchedBoards}
             </ul>
