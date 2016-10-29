@@ -17,7 +17,8 @@ const initialState = {
     currentBoard : {
         title: "",
         id: null,
-        lists: []
+        lists: [],
+        isFav: false
     },
     emptyBoard : {
         title: "Example Board",

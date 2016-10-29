@@ -32,17 +32,17 @@ class Beam extends Component{
 
     extendAddMenu(){
         $("#addMenu").
-        toggle().
+        find("h3, ul").
+        removeClass("hidden");
+
+        $("#addMenu").
+        find("input, span").
+        addClass("hidden");
+
+        $("#addMenu").
+        toggleClass("hidden").
         find('a:first').
-        focus().
-        on("focusout", function hideAddMenu(e){
-            if(!$.contains($("#addMenu").get(0), e.target)){
-                console.log($.contains($("#addMenu").get(0), e.target));
-                setTimeout( ( ) => {
-                    $("#addMenu").hide();
-                }, 100);
-            }
-        });
+        focus();
     }
 
     showInput(e){
@@ -99,7 +99,7 @@ class Beam extends Component{
             <section id="beam">
                 <div id="sidePanelTrigger" onClick={this.extendSidebar}><p>Boards</p></div>
                 <div id="addMenuTrigger" onClick={this.extendAddMenu}><span></span></div>
-                <div id="addMenu">
+                <div id="addMenu" className="hidden">
                     <h3>Add a...</h3>
                     <ul>
                         <li>
@@ -135,6 +135,15 @@ class Beam extends Component{
         $(".addNewLink").on("click", function(){
             that.addWhat = $(this).attr("id");
             that.showInput();
+        });
+
+        $("#addBoardLink").on("focusout", function hideAddMenu(e){
+            console.log(!$.contains($("#addMenu").get(0), e.originalEvent.explicitOriginalTarget));
+            if(!$.contains($("#addMenu").get(0), e.originalEvent.explicitOriginalTarget)){
+                setTimeout( () => {
+                    $("#addMenu").toggleClass("hidden");
+                }, 150);
+            }
         });
     }
 

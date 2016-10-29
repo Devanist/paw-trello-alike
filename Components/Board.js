@@ -53,6 +53,7 @@ class Board extends Component {
                 this.props.dispatch(Actions.setCurrentBoard({
                     title: "Example Board",
                     id: 0,
+                    isFav: "fav",
                     lists: [
                         {
                             id: 0,
@@ -120,6 +121,7 @@ class Board extends Component {
                     <span id="saveBoardTitle" className="hidden"></span>
                     <span id="cancelBoardTitle" className="hidden"></span>
                     <span id="removeBoard"></span>
+                    <span id="favBoard" className={this.props.currentBoard.isFav}></span>
                     <section id="listsContainer">{this.renderLists()}</section>
                     <section id="confirmRemove" className="hidden">
                         <p>Are you sure you want to remove this board?</p>
