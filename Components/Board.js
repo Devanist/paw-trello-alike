@@ -41,6 +41,10 @@ class Board extends Component {
                 else{
                     this.props.dispatch(Actions.setCurrentBoard(data));
                 }
+            }).
+            fail( (error) => {
+                this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+                this.props.router.push('/');
             })
         }
 

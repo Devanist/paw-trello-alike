@@ -17,12 +17,12 @@ class BoardsSidePanel extends Component{
 
     render(){
 
-        const userBoards = this.mapBoardsList();
+        
 
         return (<aside id="BoardsSidePanel">
             <h2>All boards</h2>
             <ul>
-                {userBoards}
+                {this.mapBoardsList()}
             </ul>
         </aside>)
     }
