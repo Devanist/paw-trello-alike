@@ -12,8 +12,14 @@ const initialState = {
             {id: 0, title: "Example Board"}
         ]
     },
+    searchBoardsResults: [],
     message: "",
     currentBoard : {
+        title: "",
+        id: null,
+        lists: []
+    },
+    emptyBoard : {
         title: "Example Board",
         id: 0,
         lists: [
@@ -85,8 +91,7 @@ const Reducer = (state, action) => {
             break;
         case AT.SAVE_BOARD_TITLE:
             var newBoardTitle = action.title;
-            const index = state.user.boardsList.findIndex( (item) => {return item.id === state.currentBoard.id;});
-            console.log(index);
+            var index = state.user.boardsList.findIndex( (item) => {return item.id === state.currentBoard.id;});
             newState = {
                 ...state,
                 user: {
@@ -125,6 +130,48 @@ const Reducer = (state, action) => {
                 currentBoard: {
                     ...state.currentBoard,
                     lists : newLists
+                }
+            };
+
+            break;
+        case AT.REMOVE_BOARD:
+            var index = state.user.boardsList.findIndex( (item) => {return item.id === action.id});
+            newState = {
+                ...state,
+                user: {
+                    ...state.user,
+                    boardsList : [
+                        ...state.user.boardsList.slice(0, index),
+                        ...state.user.boardsList.slice(index + 1)
+                    ]
+                }
+            };
+            break;
+        case AT.SEARCH_BOARD:
+
+            let searchedBoards = [];
+            if(action.title !== ""){
+                searchedBoards = state.user.boardsList.
+                filter( (board) => {
+                    return board.title.
+                    toLowerCase().
+                    match(new RegExp(action.title.toLowerCase()), 'i') !== null;
+                });
+            }
+
+            newState = {
+                ...state,
+                searchBoardsResults : searchedBoards 
+            };
+            break;
+        case AT.ADD_BOARD:
+            newState = {
+                ...state,
+                user : {
+                    ...state.user,
+                    boardsList : [
+                        ...state.user.boardsList.push(action.board)
+                    ]
                 }
             }
             break;

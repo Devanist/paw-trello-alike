@@ -8,7 +8,8 @@ class Beam extends Component{
 
     constructor(){
         super();
-        this.addNewBoard = this.addNewBoard.bind(this);
+        this.addNew = this.addNew.bind(this);
+        this.showInput = this.showInput.bind(this);
     }
 
     extendSidebar(){
@@ -34,29 +35,39 @@ class Beam extends Component{
         toggle().
         find('a:first').
         focus().
-        on("click", function hideAddMenuOnClick(){
-            $("#addMenu").hide();
-        }).
         on("focusout", function hideAddMenu(e){
-            setTimeout( ( ) => {
-                $("#addMenu").hide();
-            }, 100);
+            if(!$.contains($("#addMenu").get(0), e.target)){
+                console.log($.contains($("#addMenu").get(0), e.target));
+                setTimeout( ( ) => {
+                    $("#addMenu").hide();
+                }, 100);
+            }
         });
     }
 
-    addNewBoard(){
-        $.get(`${appConfig.host}/newBoard`).
-        done((data) => {
-            if(data.error){
+    showInput(e){
+        $("#addMenu").
+        find("h3, ul, span, input").
+        toggleClass("hidden");
+    }
 
-            }
-            else{
-                this.props.router.push(`/board/${data}`);
-            }
-        }).
-        fail( (err) => {
-            this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
-        });
+    addNew(){
+
+        if(this.addWhat === "addBoardLink"){
+            $.post(`${appConfig.host}/boards`, {title: $("#add_title").val()}).
+            done( (data) => {
+                console.log(data);
+                if(data.error){
+                    this.props.dispatch(Actions.setMessage("fail", data.error));
+                }
+                this.props.dispatch(Actions.addBoard(data));
+                this.props.router.push(`/board/${data.id}`);
+            }).
+            fail((error) => {
+                this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+            });
+        }
+
     }
 
     render(){
@@ -92,7 +103,7 @@ class Beam extends Component{
                     <h3>Add a...</h3>
                     <ul>
                         <li>
-                            <a href="#" onClick={this.addNewBoard}>
+                            <a id="addBoardLink" className="addNewLink" href="#">
                                 <section>
                                 <h4>new board</h4>
                                 <img src="../../Assets/boards.png"/>
@@ -100,6 +111,9 @@ class Beam extends Component{
                             </a>
                         </li>
                     </ul>
+                    <span className="return hidden"></span>
+                    <input type="text" id="add_title" className="hidden" placeholder="Add a title..."/>
+                    <input type="submit" id="add_element" className="hidden" value="Add" onClick={this.addNew} />
                 </div>
                 <Link id="beamHomeLink" to="/">Home</Link>
                 {asideContent}
@@ -112,6 +126,16 @@ class Beam extends Component{
                 </section>
             </section>
         )
+    }
+
+    componentDidMount(){
+
+        var that = this;
+
+        $(".addNewLink").on("click", function(){
+            that.addWhat = $(this).attr("id");
+            that.showInput();
+        });
     }
 
 }
