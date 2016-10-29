@@ -26,15 +26,15 @@ class BoardsSidePanel extends Component{
         return (<aside id="BoardsSidePanel">
             <input id="searchBoards" type="text" placeholder="Search for a board..." />
             <span id="clearSearchBoards" title="Clear search box"></span>
-            <h2>Starred boards</h2>
-            <ul>
+            <h2 id="starredBoards">Starred boards</h2>
+            <ul id="starredBoardsList">
                 {this.favedBoards}
             </ul>
             <ul>
                 {this.searchedBoards}
             </ul>
-            <h2>All boards</h2>
-            <ul>
+            <h2 id="allBoards">All boards</h2>
+            <ul id="allBoardsList">
                 {this.mapBoardsList()}
             </ul>
         </aside>)
@@ -44,6 +44,12 @@ class BoardsSidePanel extends Component{
         $("#searchBoards").on("input", () => {
             this.props.dispatch( Actions.searchBoard( $("#searchBoards").val() ) );
         });
+
+        $("#BoardsSidePanel h2").on("click", function(e){
+            const id = `#${$(this).attr("id")}List`;
+            $(id).toggleClass("hidden");
+        });
+
     }
 
 
