@@ -77,13 +77,31 @@ $beamHeight: 50px;
                 margin-left: 20px;
             }
         }
+    }
+
+    #addMenuInputBox{
+
+        position: absolute;
+        left: 20%;
+        background-color: #E5B572;
+        top: $beamHeight;
+        z-index: 999;
+        height: 50px;
+        width: 350px;
+        text-align: center;
+
+        *{
+            margin-right: 10px;
+        }
 
         .return{
-            display: block;
+            display: inline-block;
             width: 30px;
             height: 30px;
             background-image: url('../Assets/arrow_back.png');
             background-size: 30px 30px;
+            position: relative;
+            top: 10px;
         }
 
         #add_title{

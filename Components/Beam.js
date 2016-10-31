@@ -46,9 +46,8 @@ class Beam extends Component{
     }
 
     showInput(e){
-        $("#addMenu").
-        find("h3, ul, span, input").
-        toggleClass("hidden");
+        $("#addMenuInputBox").toggleClass("hidden");
+        $("#add_title").focus();
     }
 
     addNew(){
@@ -111,9 +110,12 @@ class Beam extends Component{
                             </a>
                         </li>
                     </ul>
-                    <span className="return hidden"></span>
-                    <input type="text" id="add_title" className="hidden" placeholder="Add a title..."/>
-                    <input type="submit" id="add_element" className="hidden" value="Add" onClick={this.addNew} />
+                </div>
+                <div id="addMenuInputBox" className="hidden">
+                    <span className="return"></span>
+                    <input type="text" id="add_title" placeholder="Add a title..."/>
+                    <input type="submit" id="add_element" value="Add" onClick={this.addNew} />
+                    <input type="submit" id="cancel_add_element" value="Cancel" />
                 </div>
                 <Link id="beamHomeLink" to="/">Home</Link>
                 {asideContent}
@@ -134,16 +136,24 @@ class Beam extends Component{
 
         $(".addNewLink").on("click", function(){
             that.addWhat = $(this).attr("id");
+            $("#add_title").val("");
             that.showInput();
         });
 
         $("#addBoardLink").on("focusout", function hideAddMenu(e){
-            console.log(!$.contains($("#addMenu").get(0), e.originalEvent.explicitOriginalTarget));
-            if(!$.contains($("#addMenu").get(0), e.originalEvent.explicitOriginalTarget)){
-                setTimeout( () => {
-                    $("#addMenu").toggleClass("hidden");
-                }, 150);
-            }
+            setTimeout( () => {
+                $("#addMenu").toggleClass("hidden");
+            }, 150);
+        });
+
+        $(".return").on("click", function (){
+            $("#addMenu").toggleClass("hidden");
+            $("#addMenuInputBox").toggleClass("hidden");
+            $("#addBoardLink").focus();
+        });
+
+        $("#cancel_add_element").on("click", function(){
+            $("#addMenuInputBox").toggleClass("hidden");
         });
     }
 
