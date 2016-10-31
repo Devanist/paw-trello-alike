@@ -10,8 +10,8 @@ class List extends Component{
     constructor(){
         super();
         this.oldTitle = "";
+        this.addNewListItem = this.addNewListItem.bind(this);
     }
-
 
     renderListItems(){
         return this.props.list.listItems.map( (listItem) => {
@@ -19,11 +19,35 @@ class List extends Component{
         });
     }
 
-    //editTitle() {
+    toggleListItemNameInput(event) {
+        $(event.target).next().toggleClass("hidden");
+        console.log( $(event.target).next() );
+    }
 
-    //}
+    toggleListItemNameInputAddCancel(event) {
+        $(event.target).parent().toggleClass("hidden");
+        console.log( $(event.target).parent() );
+    }
 
-    render(){
+    addNewListItem(){
+        /*
+        $.post(`${appConfig.host}/cardlist`, {title: $("#add_list_title").val(), boardId: this.props.board.id}).
+        done((data) => {
+            console.log(data);
+            if(data.error){
+                this.props.dispatch(Actions.setMessage("fail", data.error));
+            }
+            this.props.dispatch(Actions.addList(data));
+            //Dokonczyc \/
+            //this.props.router.push(`//`);
+        }).
+        fail( (err) => {
+            this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+        });
+        */
+    }
+
+  render(){
         const listItems = this.renderListItems();
 
         return (
@@ -33,8 +57,15 @@ class List extends Component{
                 <span className="saveListTitle hidden"></span>
                 <span className="cancelListTitle hidden"></span>
                 <section>{listItems}</section>
-                <section id="addListItemTrigger"  onClick={null}>
-                </section>
+                <div>
+                    <section id="addListItemTrigger" onClick={this.toggleListItemNameInput}>
+                    </section>
+                    <section id="addListItemMenu" className="hidden">
+                        <input type="text" id="add_list_item_title" placeholder="Add a title..."/>
+                        <input type="submit" id="add_element_listItem" value="Add" onClick={(event)=>{this.toggleListItemNameInputAddCancel(event); this.addNewListItem(event);}}/>
+                        <input type="submit" id="cancel_add_element_listItem" value="Cancel" onClick={this.toggleListItemNameInputAddCancel}/>
+                    </section>
+                </div>
             </section>
         )
     }
@@ -83,6 +114,17 @@ class List extends Component{
             $(this).parent().find("#listTitle").attr('contenteditable', 'false');
             $(this).parent().find(".cancelListTitle, .saveListTitle, .editListTitle").toggleClass("hidden");
         });
+/*
+        $("#add_element_listItem").on("click", function(){
+            $("#addListItemMenu").toggleClass("hidden");
+        });
+
+        $("#cancel_add_element_listItem").on("click", function(){
+            $("#addListItemMenu").toggleClass("hidden");
+        });
+*/
+
+
     }
 
 }
