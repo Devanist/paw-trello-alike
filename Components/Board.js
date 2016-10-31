@@ -9,6 +9,8 @@ class Board extends Component {
     constructor(){
         super();
         this.editTitle = this.editTitle.bind(this);
+        this.getBoard = this.getBoard.bind(this);
+        this.addNewList = this.addNewList.bind(this);
         this.oldTitle = "";
     }
 
@@ -46,22 +48,28 @@ class Board extends Component {
         return board;
     }
 
-/*
-    addNewList(){
-        $.get(`${appConfig.host}/newList`).
-        done((data) => {
-            if(data.error){
 
+    toggleListNameInput() {
+        $("#addListMenu").toggleClass("hidden");
+    }
+
+    addNewList(){
+        $.post(`${appConfig.host}/cardlist`, {title: $("#add_list_title").val(), boardId: this.props.board.id}).
+        done((data) => {
+            console.log(data);
+            if(data.error){
+                this.props.dispatch(Actions.setMessage("fail", data.error));
             }
-            else{
-                this.props.router.push(`/board/${data}`);
-            }
+            this.props.dispatch(Actions.addList(data));
+            //Dokonczyc \/
+            //this.props.router.push(`//`);
         }).
         fail( (err) => {
             this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
         });
     }
-*/
+
+
     render(){
 
         this.board = this.getBoard();
@@ -75,8 +83,15 @@ class Board extends Component {
                 <span id="saveBoardTitle" className="hidden"></span>
                 <span id="cancelBoardTitle" className="hidden"></span>
                 <section>{lists}</section>
-                <section id="addListTrigger"  onClick={this.addNewList}>
-                </section>
+                <div>
+                    <section id="addListTrigger" onClick={this.toggleListNameInput}>
+                    </section>
+                    <section id="addListMenu" className="hidden">
+                        <input type="text" id="add_list_title" placeholder="Add a title..."/>
+                        <input type="submit" id="add_element" value="Add" onClick={this.addNewList}/>
+                        <input type="submit" id="cancel_add_element" value="Cancel"/>
+                    </section>
+                </div>
             </section>
         )
     }
@@ -106,6 +121,15 @@ class Board extends Component {
             $("#boardTitle").attr('contenteditable', 'false');
             $("#cancelBoardTitle, #saveBoardTitle, #editBoardTitle").toggleClass("hidden");
         });
+
+        $("#add_element").on("click", function(){
+            $("#addListMenu").toggleClass("hidden");
+        });
+
+        $("#cancel_add_element").on("click", function(){
+            $("#addListMenu").toggleClass("hidden");
+        });
+
     }
 }
 

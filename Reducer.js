@@ -100,6 +100,10 @@ const Reducer = (state, action) => {
                 }
             };
             break;
+
+        case AT.ADD_LIST:
+            //Dokonczyc
+            break;
         default:
             console.error(`There is no defined action like ${action.type}`);
             break;
