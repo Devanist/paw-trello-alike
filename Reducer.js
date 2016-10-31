@@ -102,7 +102,15 @@ const Reducer = (state, action) => {
             break;
 
         case AT.ADD_LIST:
-            //Dokonczyc
+            newState = {
+                ...state,
+                currentBoard: {
+                    ...state.currentBoard,
+                    lists : [
+                        ...state.currentBoard.lists.concat(action.list)
+                    ]
+                }
+            };
             break;
         default:
             console.error(`There is no defined action like ${action.type}`);
