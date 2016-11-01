@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Actions} from '../Actions/Actions';
 
 import Beam from './Beam';
 import MessagePanel from './MessagePanel';
@@ -9,12 +10,22 @@ class App extends Component {
 
     render(){
 
+        let sidePanel = "";
+
+        if(localStorage.getItem('user') !== null){
+            this.props.dispatch(Actions.login( localStorage.getItem('user') ));
+        }
+
+        if(this.props.user !== null){
+            sidePanel = <BoardsSidePanel boards={this.props.user.boardsList} />;
+        }
+
         return (
             <section>
-                <Beam user={this.props.user} dispatch={this.props.dispatch} />
-                <MessagePanel message={this.props.message} />
+                <Beam dispatch={this.props.dispatch} user={this.props.user} />
+                <MessagePanel data={this.props.messagePanel} />
                 <section id="contentHolder">
-                    <BoardsSidePanel boards={this.props.user.boardsList} />
+                    {sidePanel}
                     <section id="view">
                         {this.props.children}
                     </section>

@@ -25,7 +25,7 @@ class Beam extends Component{
             on("focusout", function hideUserMenu(e){
                 setTimeout( ( ) => {
                     $("#userMenu").hide();
-                }, 100);
+                }, 200);
             });
     }
 
@@ -62,33 +62,33 @@ class Beam extends Component{
     render(){
 
         let asideContent;
+        let sidePanelTrigger = "";
+        let addMenuTrigger = "";
+        let addMenu = "";
         let userPic;
+        let userMenu = "";
 
-        if(this.props.user.profile_pic === ""){
-            userPic = "https://cdn4.iconfinder.com/data/icons/mayssam/512/user-128.png";
-        }
-        else{
-            userPic = this.props.user.profile_pic;
-        }
         if(this.props.user !== null){
+
+            if(this.props.user.profile_pic === ""){
+                userPic = "https://cdn4.iconfinder.com/data/icons/mayssam/512/user-128.png";
+            }
+            else{
+                userPic = this.props.user.profile_pic;
+            }
+
             asideContent =  <aside>
                                 <p>{this.props.user.fullname}</p>
                                 <span onClick={this.extendMenu}>
                                     <img id="beam_profile_pic" src={userPic} />
                                 </span>
                             </aside>;
-        }
-        else{
-            asideContent =  <aside>
-                                Please <Link to="/register">register</Link> or <Link to="/login">log in</Link>.
-                            </aside>
-        }
 
-        return(
-            <section id="beam">
-                <div id="sidePanelTrigger" onClick={this.extendSidebar}><p>Boards</p></div>
-                <div id="addMenuTrigger" onClick={this.extendAddMenu}><span></span></div>
-                <div id="addMenu">
+            sidePanelTrigger = <div id="sidePanelTrigger" onClick={this.extendSidebar}><p>Boards</p></div>;
+
+            addMenuTrigger = <div id="addMenuTrigger" onClick={this.extendAddMenu}><span></span></div>;
+
+            addMenu = <div id="addMenu">
                     <h3>Add a...</h3>
                     <ul>
                         <li>
@@ -100,16 +100,37 @@ class Beam extends Component{
                             </a>
                         </li>
                     </ul>
-                </div>
-                <Link id="beamHomeLink" to="/">Home</Link>
-                {asideContent}
-                <section id="userMenu">
+                </div>;
+
+            userMenu = <section id="userMenu">
                     <ul>
                         <li><Link to={`/user/${this.props.user.name}`}>Profile</Link></li>
                         <li>Settings</li>
-                        <li>Log out</li>
+                        <li><a id="Logout" onClick={() => {
+                            this.props.dispatch(Actions.logout())
+                            this.props.router.push('/');
+                        }}>
+                            Log out</a>
+                        </li>
                     </ul>
-                </section>
+                </section>;
+
+        }
+        else{
+            asideContent =  <aside>
+                                <p id="loggedOutParagraph">Please <Link to="/register">register</Link> or <Link to="/login">log in</Link>.</p>
+                            </aside>
+        }
+
+        return(
+            <section id="beam">
+
+                {sidePanelTrigger}
+                {addMenuTrigger}
+                {addMenu}
+                <Link id="beamHomeLink" to="/">Home</Link>
+                {asideContent}
+                {userMenu}
             </section>
         )
     }

@@ -96,8 +96,12 @@ $beamHeight: 50px;
 
         p{
             position: relative;
-            top: -10px;
+            top: -8px;
             left: -10px;
+        }
+
+        #loggedOutParagraph{
+            top: -2px;
         }
 
         span{

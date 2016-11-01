@@ -1,0 +1,18 @@
+@import "Common";
+
+#LoginForm{
+    
+    input{
+        display: block;
+        margin: 40px auto 40px auto;
+        width: 20%;
+        min-width: 240px;
+        font-size: 22pt;
+        border-radius: 5px;
+    }
+
+    h1, h2, input, p{
+        text-align: center;
+    }
+
+}
