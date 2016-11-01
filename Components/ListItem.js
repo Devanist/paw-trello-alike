@@ -18,6 +18,7 @@ class ListItem extends Component{
                 <span className="editListItemTitle" ></span>
                 <span className="saveListItemTitle hidden"></span>
                 <span className="cancelListItemTitle hidden"></span>
+                <span className="removeListItem"></span>
             </section>
         )
     }
