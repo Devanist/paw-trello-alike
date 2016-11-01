@@ -17,7 +17,7 @@ class App extends Component {
         }
 
         if(this.props.user !== null){
-            sidePanel = <BoardsSidePanel boards={this.props.user.boardsList} />;
+            sidePanel = <BoardsSidePanel boards={this.props.user.boardsList} searchResults={this.props.searchBoardsResults} dispatch={this.props.dispatch}/>;
         }
 
         return (

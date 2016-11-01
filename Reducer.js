@@ -14,20 +14,28 @@ const initialState = {
         token: "as@$AX325d",
         profile_pic: "",
         boardsList: [
-            {id: 0, title: "Example Board"}
+            {id: 0, title: "Example Board", isFav: "fav"}
         ]
     },
     messagePanel: {
         message: "",
         result: "hidden"
     },
+    searchBoardsResults: [],
     currentBoard : {
+        title: "",
+        id: null,
+        lists: [],
+        isFav: false
+    },
+    emptyBoard : {
         title: "Example Board",
         id: 0,
         lists: [
             {
                 id: 0,
                 title: "TO DO",
+                order: 0,
                 listItems: [
                     {
                         id: 0,
@@ -41,6 +49,7 @@ const initialState = {
             },
             {
                 id: 1,
+                order: 1,
                 title: "IN WORK",
                 listItems: [
                     {
@@ -52,6 +61,7 @@ const initialState = {
             {
                 id: 2,
                 title: "DONE",
+                order: 2,
                 listItems: [
                     {
                         id: 0,
@@ -98,8 +108,7 @@ const Reducer = (state, action) => {
             break;
         case AT.SAVE_BOARD_TITLE:
             var newBoardTitle = action.title;
-            const index = state.user.boardsList.findIndex( (item) => {return item.id === state.currentBoard.id;});
-            console.log(index);
+            var index = state.user.boardsList.findIndex( (item) => {return item.id === state.currentBoard.id;});
             newState = {
                 ...state,
                 user: {
@@ -116,15 +125,91 @@ const Reducer = (state, action) => {
                 }
             };
             break;
-
         case AT.ADD_LIST:
+            newState = {
+                    ...state,
+                    currentBoard: {
+                        ...state.currentBoard,
+                        lists : [
+                        ...state.currentBoard.lists.concat(action.list)
+                    ]
+                }
+            };
+            break;
+        case AT.SORT_LISTS:
+            let newLists = [];
+
+            if(action.orders !== null){
+                for(let i = 0; i < action.orders.length; i++){
+                    for(let j = 0; j < state.currentBoard.lists.length; j++){
+                        if( action.orders[i] === state.currentBoard.lists[j].id){
+                            newLists.push(state.currentBoard.lists[j]);
+                            newLists[i].order = i;
+                        }
+                    }
+                }
+            }
+            else{
+                newLists = state.currentBoard.lists;
+            }
+
             newState = {
                 ...state,
                 currentBoard: {
                     ...state.currentBoard,
-                    lists : [
-                        ...state.currentBoard.lists.concat(action.list)
+                    lists : newLists
+                }
+            };
+
+            break;
+        case AT.REMOVE_BOARD:
+            var index = state.user.boardsList.findIndex( (item) => {return item.id === action.id});
+            newState = {
+                ...state,
+                user: {
+                    ...state.user,
+                    boardsList : [
+                        ...state.user.boardsList.slice(0, index),
+                        ...state.user.boardsList.slice(index + 1)
                     ]
+                }
+            };
+            break;
+        case AT.SEARCH_BOARD:
+
+            let searchedBoards = [];
+            if(action.title !== ""){
+                searchedBoards = state.user.boardsList.
+                filter( (board) => {
+                    return board.title.
+                    toLowerCase().
+                    match(new RegExp(action.title.toLowerCase()), 'i') !== null;
+                });
+            }
+
+            newState = {
+                ...state,
+                searchBoardsResults : searchedBoards 
+            };
+            break;
+        case AT.ADD_BOARD:
+            newState = {
+                ...state,
+                user : {
+                    ...state.user,
+                    boardsList : [
+                        ...state.user.boardsList.push(action.board)
+                    ]
+                }
+            }
+            break;
+
+        case AT.SET_FAVOURITE_BOARD:
+            newState = {
+                ...state,
+                currentBoard : {
+                    ...state.currentBoard,
+                    isFav: action.fav
                 }
             };
             break;

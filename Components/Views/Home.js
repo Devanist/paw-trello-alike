@@ -8,7 +8,7 @@ class Home extends Component{
 
     render(){
 
-        let body = <Board board={this.props.currentBoard} />;
+        let body = <section>Home</section>;
         if(this.props.user === null){
             body = <Intro />
         }  

@@ -8,7 +8,8 @@ class Beam extends Component{
 
     constructor(){
         super();
-        this.addNewBoard = this.addNewBoard.bind(this);
+        this.addNew = this.addNew.bind(this);
+        this.showInput = this.showInput.bind(this);
     }
 
     extendSidebar(){
@@ -31,32 +32,41 @@ class Beam extends Component{
 
     extendAddMenu(){
         $("#addMenu").
-        toggle().
+        find("h3, ul").
+        removeClass("hidden");
+
+        $("#addMenu").
+        find("input, span").
+        addClass("hidden");
+
+        $("#addMenu").
+        toggleClass("hidden").
         find('a:first').
-        focus().
-        on("click", function hideAddMenuOnClick(){
-            $("#addMenu").hide();
-        }).
-        on("focusout", function hideAddMenu(e){
-            setTimeout( ( ) => {
-                $("#addMenu").hide();
-            }, 100);
-        });
+        focus();
     }
 
-    addNewBoard(){
-        $.get(`${appConfig.host}/newBoard`).
-        done((data) => {
-            if(data.error){
+    showInput(e){
+        $("#addMenuInputBox").toggleClass("hidden");
+        $("#add_title").focus();
+    }
 
-            }
-            else{
-                this.props.router.push(`/board/${data}`);
-            }
-        }).
-        fail( (err) => {
-            this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
-        });
+    addNew(){
+
+        if(this.addWhat === "addBoardLink"){
+            $.post(`${appConfig.host}/boards`, {title: $("#add_title").val()}).
+            done( (data) => {
+                console.log(data);
+                if(data.error){
+                    this.props.dispatch(Actions.setMessage("fail", data.error));
+                }
+                this.props.dispatch(Actions.addBoard(data));
+                this.props.router.push(`/board/${data.id}`);
+            }).
+            fail((error) => {
+                this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+            });
+        }
+
     }
 
     render(){
@@ -65,6 +75,7 @@ class Beam extends Component{
         let sidePanelTrigger = "";
         let addMenuTrigger = "";
         let addMenu = "";
+        let addMenuInputBox = "";
         let userPic;
         let userMenu = "";
 
@@ -84,37 +95,44 @@ class Beam extends Component{
                                 </span>
                             </aside>;
 
+
             sidePanelTrigger = <div id="sidePanelTrigger" onClick={this.extendSidebar}><p>Boards</p></div>;
 
             addMenuTrigger = <div id="addMenuTrigger" onClick={this.extendAddMenu}><span></span></div>;
 
-            addMenu = <div id="addMenu">
-                    <h3>Add a...</h3>
-                    <ul>
-                        <li>
-                            <a href="#" onClick={this.addNewBoard}>
-                                <section>
-                                <h4>new board</h4>
-                                <img src="../../Assets/boards.png"/>
-                                </section>
-                            </a>
-                        </li>
-                    </ul>
-                </div>;
+            addMenu =   <div id="addMenu" className="hidden">
+                            <h3>Add a...</h3>
+                            <ul>
+                                <li>
+                                    <a id="addBoardLink" className="addNewLink" href="#">
+                                        <section>
+                                        <h4>new board</h4>
+                                        <img src="../../Assets/boards.png"/>
+                                        </section>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>;
 
-            userMenu = <section id="userMenu">
-                    <ul>
-                        <li><Link to={`/user/${this.props.user.name}`}>Profile</Link></li>
-                        <li>Settings</li>
-                        <li><a id="Logout" onClick={() => {
-                            this.props.dispatch(Actions.logout())
-                            this.props.router.push('/');
-                        }}>
-                            Log out</a>
-                        </li>
-                    </ul>
-                </section>;
+            addMenuInputBox =   <div id="addMenuInputBox" className="hidden">
+                                    <span className="return"></span>
+                                    <input type="text" id="add_title" placeholder="Add a title..."/>
+                                    <input type="submit" id="add_element" value="Add" onClick={this.addNew} />
+                                    <input type="submit" id="cancel_add_element" value="Cancel" />
+                                </div>
 
+            userMenu =  <section id="userMenu">
+                            <ul>
+                                <li><Link to={`/user/${this.props.user.name}`}>Profile</Link></li>
+                                <li>Settings</li>
+                                <li><a id="Logout" onClick={() => {
+                                    this.props.dispatch(Actions.logout())
+                                    this.props.router.push('/');
+                                }}>
+                                    Log out</a>
+                                </li>
+                            </ul>
+                        </section>;
         }
         else{
             asideContent =  <aside>
@@ -128,11 +146,39 @@ class Beam extends Component{
                 {sidePanelTrigger}
                 {addMenuTrigger}
                 {addMenu}
+                {addMenuInputBox}
                 <Link id="beamHomeLink" to="/">Home</Link>
                 {asideContent}
                 {userMenu}
             </section>
         )
+    }
+
+    componentDidMount(){
+
+        var that = this;
+
+        $(".addNewLink").on("click", function(){
+            that.addWhat = $(this).attr("id");
+            $("#add_title").val("");
+            that.showInput();
+        });
+
+        $("#addBoardLink").on("focusout", function hideAddMenu(e){
+            setTimeout( () => {
+                $("#addMenu").toggleClass("hidden");
+            }, 150);
+        });
+
+        $(".return").on("click", function (){
+            $("#addMenu").toggleClass("hidden");
+            $("#addMenuInputBox").toggleClass("hidden");
+            $("#addBoardLink").focus();
+        });
+
+        $("#cancel_add_element").on("click", function(){
+            $("#addMenuInputBox").toggleClass("hidden");
+        });
     }
 
 }

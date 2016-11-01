@@ -77,6 +77,9 @@ $iconSize : 20px;
     .cancelListItemTitle{
         background-image: url('../Assets/cancelIcon.png');
     }
+    #removeBoard{
+        background-image: url('../Assets/deleteIcon.png');
+    }
 
     .removeListItem{
         background-image: url('../Assets/cancelIcon.png');
@@ -85,6 +88,20 @@ $iconSize : 20px;
     .hidden{
         display: none;
     }
+
+    #favBoard{
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background-image: url('../Assets/star.png');
+        background-size: 20px 20px;
+
+        &:hover{
+            background-image: url('../Assets/star_active.png');
+        }
+    }
+
+
 }
 
 section.list {
