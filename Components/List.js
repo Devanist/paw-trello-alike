@@ -48,7 +48,6 @@ class List extends Component{
     }
 
   render(){
-        const listItems = this.renderListItems();
 
         return (
             <section className="list" id={`list_${this.props.list.id}`}>
@@ -56,7 +55,7 @@ class List extends Component{
                 <span className="editListTitle" ></span>
                 <span className="saveListTitle hidden"></span>
                 <span className="cancelListTitle hidden"></span>
-                <section>{listItems}</section>
+                <section>{this.renderListItems()}</section>
                 <div>
                     <section id="addListItemTrigger" onClick={this.toggleListItemNameInput}>
                     </section>
