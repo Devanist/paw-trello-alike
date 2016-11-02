@@ -70,12 +70,9 @@ class Beam extends Component{
 
         if(this.props.user !== null){
 
-            let userPic = "";
+            let userPic = "https://cdn4.iconfinder.com/data/icons/mayssam/512/user-128.png";
 
-            if(this.props.user.profile_pic === ""){
-                userPic = "https://cdn4.iconfinder.com/data/icons/mayssam/512/user-128.png";
-            }
-            else{
+            if(this.props.user.profile_pic !== ""){
                 userPic = this.props.user.profile_pic;
             }
 
