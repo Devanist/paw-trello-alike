@@ -11,7 +11,17 @@ class BoardsSidePanel extends Component{
 
     render(){
         const userBoards = this.mapBoardsList();
-        this.searchedBoards = this.props.searchResults.map(boardToListElement);
+
+        this.searchedBoards = "";
+
+        if(this.props.searchResults.length > 0){
+            this.searchedBoards = [
+                <h2 key="searchResultsHeader">Search results</h2>,
+                <ul key="searchResultsList">
+                    {this.props.searchResults.map(boardToListElement)}
+                </ul>
+            ];
+        }
 
         let favedBoards = this.props.boards.filter( (board) => {
             return board.isFav === "fav";
@@ -21,26 +31,26 @@ class BoardsSidePanel extends Component{
         if(favedBoards.length > 0){
             this.favedBoards = favedBoards.map(boardToListElement);
         }
-        console.log(this.favedBoards);
 
-        return (<aside id="BoardsSidePanel">
-            <input id="searchBoards" type="text" placeholder="Search for a board..." />
-            <span id="clearSearchBoards" title="Clear search box"></span>
-            <h2 id="starredBoards">Starred boards</h2>
-            <ul id="starredBoardsList">
-                {this.favedBoards}
-            </ul>
-            <ul>
+        return (
+            <aside id="BoardsSidePanel">
+                <input id="searchBoards" type="text" placeholder="Search for a board..." />
+                <span id="clearSearchBoards" title="Clear search box"></span>
+                <h2 id="starredBoards">Starred boards</h2>
+                <ul id="starredBoardsList">
+                    {this.favedBoards}
+                </ul>
                 {this.searchedBoards}
-            </ul>
-            <h2 id="allBoards">All boards</h2>
-            <ul id="allBoardsList">
-                {this.mapBoardsList()}
-            </ul>
-        </aside>)
+                <h2 id="allBoards">All boards</h2>
+                <ul id="allBoardsList">
+                    {this.mapBoardsList()}
+                </ul>
+            </aside>
+        )
     }
 
     componentDidMount(){
+
         $("#searchBoards").on("input", () => {
             this.props.dispatch( Actions.searchBoard( $("#searchBoards").val() ) );
         });
@@ -51,8 +61,6 @@ class BoardsSidePanel extends Component{
         });
 
     }
-
-
 
 }
 
