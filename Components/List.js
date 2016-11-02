@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Board from './Board';
 import $ from 'jquery';
 import ListItem from './ListItem';
 import appConfig from '../config';
@@ -51,7 +50,7 @@ class List extends Component{
 
         return (
             <section className="list" id={`list_${this.props.list.id}`}>
-                <h3 id="listTitle" contentEditable="false">{this.props.list.title}</h3>
+                <h3 className="listTitle" contentEditable="false">{this.props.list.title}</h3>
                 <span className="editListTitle" ></span>
                 <span className="saveListTitle hidden"></span>
                 <span className="cancelListTitle hidden"></span>
@@ -72,10 +71,12 @@ class List extends Component{
     componentDidMount(){
         let that = this;
 
-        $(".editListTitle").on("click", function() {
+        $(".editListTitle").on("click", function(e) {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
             $(this).parent().find(".saveListTitle, .cancelListTitle, .editListTitle").toggleClass("hidden");
-            let title = $(this).parent().find("#listTitle");
-            //console.log(title);
+            let title = $(this).parent().find(".listTitle");
+            console.log(this);
             that.oldTitle = title.text().substr();
             title.attr('contenteditable', 'true');
             title.get(0).focus();
@@ -91,15 +92,15 @@ class List extends Component{
 
         $(".saveListTitle").on("click", function() {
             $(this).parent().find(".cancelListTitle, .saveListTitle, .editListTitle").toggleClass("hidden");
-            $(this).parent().find("#listTitle").attr('contenteditable', 'false');
-            $.post(`${appConfig.host}/saveListTitle`, {id: that.props.list.id, title: $("#listTitle").text()}).
+            $(this).parent().find(".listTitle").attr('contenteditable', 'false');
+            $.post(`${appConfig.host}/saveListTitle`, {id: that.props.list.id, title: $(".listTitle").text()}).
             done( (data) => { 
                 if(data.error){
                     that.props.dispatch(Actions.setMessage("fail", "ERROR"));
-                    $(this).parent().find("#listTitle").text(that.oldTitle);
+                    $(this).parent().find(".listTitle").text(that.oldTitle);
                 }
                 else{
-                    that.props.dispatch(Actions.saveListTitle( $("#listTitle").text()));
+                    that.props.dispatch(Actions.saveListTitle( $(this).parent().find("#listTitle").text()));
                 }
             }).
             fail( (error) => {
