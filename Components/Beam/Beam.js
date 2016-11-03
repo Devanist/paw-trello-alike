@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router';
 import $ from 'jquery';
 import appConfig from '../../config';
-import {Actions} from '../../Actions/Actions';
+import {Actions, setMessage} from '../../Actions/Actions';
 
 import BeamAside from './BeamAside';
 import AddNewMenu from './AddNewMenu';
@@ -50,15 +50,14 @@ class Beam extends Component{
         if(this.addWhat === "addBoardLink"){
             $.post(`${appConfig.host}/boards`, {title: $("#add_title").val()}).
             done( (data) => {
-                console.log(data);
                 if(data.error){
-                    this.props.dispatch(Actions.setMessage("fail", data.error));
+                    setMessage.call(this, "fail", data.error);
                 }
                 this.props.dispatch(Actions.addBoard(data));
                 this.props.router.push(`/board/${data.id}`);
             }).
             fail((error) => {
-                this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+                setMessage.call(this, "fail", "SERVER ERROR");
             });
         }
 

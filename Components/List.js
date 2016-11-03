@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 import ListItem from './ListItem';
 import appConfig from '../config';
-import {Actions} from '../Actions/Actions';
+import {Actions, setMessage} from '../Actions/Actions';
 
 class List extends Component{
 
@@ -96,7 +96,7 @@ class List extends Component{
             $.post(`${appConfig.host}/saveListTitle`, {id: that.props.list.id, title: $(".listTitle").text()}).
             done( (data) => { 
                 if(data.error){
-                    that.props.dispatch(Actions.setMessage("fail", "ERROR"));
+                    setMessage.call(this, "fail", data.error);                    
                     $(this).parent().find(".listTitle").text(that.oldTitle);
                 }
                 else{
@@ -104,7 +104,7 @@ class List extends Component{
                 }
             }).
             fail( (error) => {
-                that.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+                setMessage.call(this, "fail", "SERVER ERROR");
                 $(this).parent().find("#listTitle").text(that.oldTitle);
             });
         });

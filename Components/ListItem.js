@@ -55,7 +55,7 @@ function handleSaveListItemTitle(e) {
     $.post(`${appConfig.host}/saveListItemTitle`, {id: this.props.listItem.id, title: parent.find("#listItemTitle").text()}).
     done( (data) => { 
         if(data.error){
-            this.props.dispatch(Actions.setMessage("fail", "ERROR"));
+            setMessage.call(this, "fail", data.error);
             parent.find("#listItemTitle").text(this.oldTitle);
         }
         else{
@@ -63,7 +63,7 @@ function handleSaveListItemTitle(e) {
         }
     }).
     fail( (error) => {
-        this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+        setMessage.call(this, "fail", "SERVER ERROR");
         parent.find("#listItemTitle").text(this.oldTitle);
     });
 }

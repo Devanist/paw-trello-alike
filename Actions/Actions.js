@@ -12,6 +12,13 @@ export const AT = {
     SET_FAVOURITE_BOARD: 'SET_FAVOURITE_BOARD'
 };
 
+export function setMessage(result, message){
+    this.props.dispatch(Actions.setMessage(result, message));
+    setTimeout(() => {
+        this.props.dispatch(Actions.setMessage("hide"));
+    }, 5000);
+}
+
 export let Actions = {
     setMessage : (result, message = "message") => {
 
