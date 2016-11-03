@@ -123,3 +123,46 @@ section.listItem {
     border-radius: 6px;
     background-color: #7F5F33;
 }
+
+#confirmRemove{
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    margin-left: -200px;
+    width: 400px;
+    height: 130px;
+    border: 1px #4C3617 solid;
+    background-color: #FFF4CC;
+    color: black;
+    
+    p{
+        font-weight: bold;
+        text-align: center;
+    }
+
+    div{
+        border-radius: 7%;
+        width: 60px;
+        display:inline-block;
+        margin-left: 93px;
+        text-align: center;
+        height: 44px;
+        color: white;
+
+        p{
+            margin-top: 11px;
+        }
+    }
+
+    .confirmation{
+        background-color: green;
+    }
+
+    .abort{
+        background-color: firebrick;
+    }
+
+    .abort{
+
+    }
+}

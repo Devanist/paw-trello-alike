@@ -145,8 +145,8 @@ class Board extends Component {
                     <section id="listsContainer">{this.renderLists()}</section>
                     <section id="confirmRemove" className="hidden">
                         <p>Are you sure you want to remove this board?</p>
-                        <div className="confirmation">OK</div>
-                        <div className="abort">Cancel</div> 
+                        <div className="confirmation"><p>OK</p></div>
+                        <div className="abort"><p>Cancel</p></div> 
                     </section>
                     <div>
                     <section id="addListTrigger" onClick={this.toggleListNameInput}>
