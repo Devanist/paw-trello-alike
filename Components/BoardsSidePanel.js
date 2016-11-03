@@ -60,6 +60,11 @@ class BoardsSidePanel extends Component{
             $(id).toggleClass("hidden");
         });
 
+        $("#clearSearchBoards").on("click", () => {
+            $("#searchBoards").val("");
+            this.props.dispatch( Actions.searchBoard( $("#searchBoards").val() ) );
+        });
+
     }
 
 }
