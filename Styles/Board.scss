@@ -14,6 +14,7 @@ $iconSize : 20px;
         height: $iconSize;
         background-size: $iconSize $iconSize;
         margin-left: 10px;
+        cursor: pointer;
     }
 
     #addListTrigger{
@@ -77,12 +78,13 @@ $iconSize : 20px;
     .cancelListItemTitle{
         background-image: url('../Assets/cancelIcon.png');
     }
+
     #removeBoard{
         background-image: url('../Assets/deleteIcon.png');
     }
 
     .removeListItem{
-        background-image: url('../Assets/cancelIcon.png');
+        background-image: url('../Assets/deleteIcon.png');
     }
 
     .hidden{
@@ -108,6 +110,7 @@ section.list {
     float:left;
     width: 270px;
     margin-right: 2%;
+    margin-top: 15px;
     border-radius: 6px;
     background-color: #4C3617;
     color: #FFF4CC;
@@ -148,6 +151,7 @@ section.listItem {
         text-align: center;
         height: 44px;
         color: white;
+        cursor: pointer;
 
         p{
             margin-top: 11px;
@@ -160,9 +164,5 @@ section.listItem {
 
     .abort{
         background-color: firebrick;
-    }
-
-    .abort{
-
     }
 }

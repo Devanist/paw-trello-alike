@@ -213,6 +213,35 @@ const Reducer = (state, action) => {
                 }
             };
             break;
+        case AT.REMOVE_LISTITEM:
+            
+            let modifiedListIndex = state.currentBoard.lists.findIndex( (element) => {
+                return element.id === parseInt(action.listId);
+            });
+
+            console.log(modifiedListIndex);
+
+            let removedItemIndex = state.currentBoard.lists[modifiedListIndex].listItems.findIndex( (element) => {
+                return element.id === action.id
+            });
+
+            let newListItems = [
+                ...state.currentBoard.lists[modifiedListIndex].listItems.slice(0, removedItemIndex),
+                ...state.currentBoard.lists[modifiedListIndex].listItems.slice(removedItemIndex + 1)
+            ];
+
+            newState = {
+                ...state,
+                currentBoard : {
+                    ...state.currentBoard,
+                    lists: [
+                        ...state.currentBoard.lists.slice(0, modifiedListIndex),
+                        Object.assign({}, state.currentBoard.lists[modifiedListIndex], {listItems: newListItems}),
+                        ...state.currentBoard.lists.slice(modifiedListIndex + 1)
+                    ]
+                }
+            };
+            break;
         default:
             console.error(`There is no defined action like ${action.type}`);
             break;

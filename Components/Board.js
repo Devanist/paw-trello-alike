@@ -21,7 +21,7 @@ class Board extends Component {
 
     renderLists(){
         return this.props.currentBoard.lists.map( (list) => {
-            return <List key={list.id} list={list} />
+            return <List key={list.id} list={list} dispatch={this.props.dispatch} />
         });
     }
 
@@ -271,26 +271,22 @@ function listOrderChangeHandler(){
 
 function handleUserInput(anwser){
     
-    if(!anwser){
-        $("#confirmRemove").toggleClass("hidden");
-    }
-    else{
+    $("#confirmRemove").addClass("hidden");
+
+    if(anwser){
         $.get(`${appConfig.host}/removeBoard/${this.props.currentBoard.id}`).
         done( (data) => {
             if(data.error){
                 setMessage.call(this, "fail", data.error);
-                $("#confirmRemove").toggleClass("hidden");
             }
             else{
                 setMessage.call(this, "success", `Board ${this.props.currentBoard.title} was removed.`);
                 this.props.dispatch(Actions.removeBoard(this.props.currentBoard.id));
                 this.props.router.push('/');
-                $("#confirmRemove").toggleClass("hidden");
             }
         }).
         fail( (error) => {
             setMessage.call(this, "fail", "SERVER ERROR");
-            $("#confirmRemove").toggleClass("hidden");
             this.props.dispatch(Actions.removeBoard(this.props.currentBoard.id));
             this.props.router.push('/');
         });
