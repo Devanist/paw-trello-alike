@@ -14,6 +14,7 @@ $iconSize : 20px;
         height: $iconSize;
         background-size: $iconSize $iconSize;
         margin-left: 10px;
+        cursor: pointer;
     }
 
     #addListTrigger{
@@ -77,12 +78,13 @@ $iconSize : 20px;
     .cancelListItemTitle{
         background-image: url('../Assets/cancelIcon.png');
     }
+
     #removeBoard{
         background-image: url('../Assets/deleteIcon.png');
     }
 
     .removeListItem{
-        background-image: url('../Assets/cancelIcon.png');
+        background-image: url('../Assets/deleteIcon.png');
     }
 
     .hidden{
@@ -101,14 +103,18 @@ $iconSize : 20px;
         }
     }
 
+    .fav{
+        background-image: url('../Assets/star_active.png') !important;
+    }
+
 
 }
 
 section.list {
     float:left;
-    overflow: hidden;
     width: 270px;
     margin-right: 2%;
+    margin-top: 15px;
     border-radius: 6px;
     background-color: #4C3617;
     color: #FFF4CC;
@@ -123,4 +129,44 @@ section.listItem {
     margin: 5px 5px 5px 5px;
     border-radius: 6px;
     background-color: #7F5F33;
+}
+
+#confirmRemove{
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    margin-left: -200px;
+    width: 400px;
+    height: 130px;
+    border: 1px #4C3617 solid;
+    background-color: #FFF4CC;
+    color: black;
+    
+    p{
+        font-weight: bold;
+        text-align: center;
+    }
+
+    div{
+        border-radius: 7%;
+        width: 60px;
+        display:inline-block;
+        margin-left: 93px;
+        text-align: center;
+        height: 44px;
+        color: white;
+        cursor: pointer;
+
+        p{
+            margin-top: 11px;
+        }
+    }
+
+    .confirmation{
+        background-color: green;
+    }
+
+    .abort{
+        background-color: firebrick;
+    }
 }

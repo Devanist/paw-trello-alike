@@ -9,8 +9,16 @@ export const AT = {
     REMOVE_BOARD: 'REMOVE_BOARD',
     SEARCH_BOARD: 'SEARCH_BOARD',
     ADD_BOARD: 'ADD_BOARD',
+    REMOVE_LISTITEM: 'REMOVE_LISTITEM',
     SET_FAVOURITE_BOARD: 'SET_FAVOURITE_BOARD'
 };
+
+export function setMessage(result, message){
+    this.props.dispatch(Actions.setMessage(result, message));
+    setTimeout(() => {
+        this.props.dispatch(Actions.setMessage("hide"));
+    }, 5000);
+}
 
 export let Actions = {
     setMessage : (result, message = "message") => {
@@ -82,6 +90,13 @@ export let Actions = {
         return {
             type: AT.SET_FAVOURITE_BOARD,
             fav: fav
+        };
+    },
+    removeListItem : ( listId, id) => {
+        return {
+            type: AT.REMOVE_LISTITEM,
+            id: id,
+            listId: listId
         };
     }
 };

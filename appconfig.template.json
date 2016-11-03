@@ -2,10 +2,10 @@
     "inUse": "dev",
     "configs": {
         "dev": {
-            "host": "host_serwera_dev"
+            "host": "http://localhost:3000"
         },
         "production": {
-            "host": "host_serwera_produkcyjnego"
+            "host": "http://217.113.235.83:8080/ServerTrello-1.0-SNAPSHOT"
         }
     }
 }

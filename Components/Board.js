@@ -7,7 +7,7 @@ import $ from 'jquery';
 import 'jquery-ui/ui/core';
 import 'jquery-ui/ui/widgets/sortable';
 import appConfig from '../config';
-import {Actions} from '../Actions/Actions';
+import {Actions, setMessage} from '../Actions/Actions';
 
 class Board extends Component {
 
@@ -21,7 +21,7 @@ class Board extends Component {
 
     renderLists(){
         return this.props.currentBoard.lists.map( (list) => {
-            return <List key={list.id} list={list} />
+            return <List key={list.id} list={list} dispatch={this.props.dispatch} />
         });
     }
 
@@ -42,7 +42,7 @@ class Board extends Component {
             $.get(`${appConfig.host}/boards/${this.props.params.id}.json`).
             done( (data) => {
                 if(data.error){
-                    this.props.dispatch(Actions.setMessage("fail", "ERROR"));
+                    setMessage.call(this, "fail", data.error);
                     this.props.push('/');
                 }
                 else{
@@ -50,7 +50,7 @@ class Board extends Component {
                 }
             }).
             fail( () => {
-                this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+                setMessage.call(this, "fail", "SERVER ERROR");
                 this.props.dispatch(Actions.setCurrentBoard({
                     title: "Example Board",
                     id: 0,
@@ -114,18 +114,17 @@ class Board extends Component {
     }
 
     addNewList(){
-        $.post(`${appConfig.host}/cardlist`, {title: $("#add_list_title").val(), boardId: this.props.board.id}).
+        $.post(`${appConfig.host}/cardlist`, {title: $("#add_list_title").val(), boardId: this.props.currentBoard.id}).
         done((data) => {
-            console.log(data);
             if(data.error){
-                this.props.dispatch(Actions.setMessage("fail", data.error));
+                setMessage.call(this, "fail", data.error);
             }
             this.props.dispatch(Actions.addList(data));
             //Dokonczyc \/
             //this.props.router.push(`//`);
         }).
         fail( (err) => {
-            this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+            setMessage.call(this, "fail", "SERVER ERROR");
         });
     }
 
@@ -146,16 +145,16 @@ class Board extends Component {
                     <section id="listsContainer">{this.renderLists()}</section>
                     <section id="confirmRemove" className="hidden">
                         <p>Are you sure you want to remove this board?</p>
-                        <div className="confirmation">OK</div>
-                        <div className="abort">Cancel</div> 
+                        <div className="confirmation"><p>OK</p></div>
+                        <div className="abort"><p>Cancel</p></div> 
                     </section>
                     <div>
                     <section id="addListTrigger" onClick={this.toggleListNameInput}>
                     </section>
                     <section id="addListMenu" className="hidden">
                         <input type="text" id="add_list_title" placeholder="Add a title..."/>
-                        <input type="submit" id="add_element" value="Add" onClick={this.addNewList}/>
-                        <input type="submit" id="cancel_add_element" value="Cancel"/>
+                        <input type="submit" id="addNewList" value="Add" onClick={this.addNewList}/>
+                        <input type="submit" id="cancel_addNewList" value="Cancel"/>
                     </section>
                 </div>
                 </section>
@@ -169,7 +168,7 @@ class Board extends Component {
             $.post(`${appConfig.host}/saveBoardTitle`, {id: this.props.currentBoard.id, title: $("#boardTitle").text()}).
             done( (data) => {
                 if(data.error){
-                    this.props.dispatch(Actions.setMessage("fail", "ERROR"));
+                    setMessage.call(this, "fail", data.error);
                     $("#boardTitle").text(this.oldTitle);
                 }
                 else{
@@ -177,8 +176,7 @@ class Board extends Component {
                 }
             }).
             fail( (error) => {
-                this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
-                console.log('backup');
+                setMessage.call(this, "fail", "SERVER ERROR");
                 $("#boardTitle").text(this.oldTitle);
             });
         });
@@ -189,11 +187,11 @@ class Board extends Component {
             $("#cancelBoardTitle, #saveBoardTitle, #editBoardTitle").toggleClass("hidden");
         });
 
-        $("#add_element").on("click", function(){
+        $("#addNewList").on("click", function(){
             $("#addListMenu").toggleClass("hidden");
         });
 
-        $("#cancel_add_element").on("click", function(){
+        $("#cancel_addNewList").on("click", function(){
             $("#addListMenu").toggleClass("hidden");
         });
 
@@ -212,7 +210,7 @@ class Board extends Component {
         });
 
         $("#listsContainer").
-        sortable().
+        sortable({cancel: '.list h3, #add_list_item_title'}).
         on("sortstop", listOrderChangeHandler.bind(this));
 
         $("#favBoard").on("click", () => {
@@ -224,13 +222,13 @@ class Board extends Component {
             $.post(`${appConfig.host}/boards/${this.props.currentBoard.id}`, {fav: fav }).
             done( (data) => {
                 if(data.error){
-                    this.props.dispatch(Actions.setMessage("fail", data.error));
+                    setMessage.call(this, "fail", data.error);
                     return;
                 }
                 this.props.dispatch(Actions.setFav(fav));
             }).
             fail( (error) => {
-                this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+                setMessage.call(this, "fail", "SERVER ERROR");
             });
 
         });
@@ -256,7 +254,7 @@ function listOrderChangeHandler(){
     $.post(`${appConfig.host}`, orders).
     done( (data) => {
         if(data.error){
-            this.props.dispatch(Actions.setMessage("fail", data.error));
+            setMessage.call(this, "fail", data.error);
             //this.props.dispatch(Actions.sortLists());
             this.props.router.push(`/board/${this.props.board.id}`);
             return;
@@ -264,7 +262,7 @@ function listOrderChangeHandler(){
         this.props.dispatch(Actions.sortLists(orders));
     }).
     fail( (error) => {
-        this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+        setMessage.call(this, "fail", "SERVER ERROR");
         //this.props.dispatch(Actions.sortLists());
         this.props.router.push(`/board/${this.props.board.id}`);
     });
@@ -273,26 +271,22 @@ function listOrderChangeHandler(){
 
 function handleUserInput(anwser){
     
-    if(!anwser){
-        $("#confirmRemove").toggleClass("hidden");
-    }
-    else{
+    $("#confirmRemove").addClass("hidden");
+
+    if(anwser){
         $.get(`${appConfig.host}/removeBoard/${this.props.currentBoard.id}`).
         done( (data) => {
             if(data.error){
-                this.props.dispatch(Actions.setMessage("fail", "ERROR"));
-                $("#confirmRemove").toggleClass("hidden");
+                setMessage.call(this, "fail", data.error);
             }
             else{
-                this.props.dispatch(Actions.setMessage("success", `Board ${this.props.currentBoard.title} was removed.`));
+                setMessage.call(this, "success", `Board ${this.props.currentBoard.title} was removed.`);
                 this.props.dispatch(Actions.removeBoard(this.props.currentBoard.id));
                 this.props.router.push('/');
-                $("#confirmRemove").toggleClass("hidden");
             }
         }).
         fail( (error) => {
-            this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
-            $("#confirmRemove").toggleClass("hidden");
+            setMessage.call(this, "fail", "SERVER ERROR");
             this.props.dispatch(Actions.removeBoard(this.props.currentBoard.id));
             this.props.router.push('/');
         });

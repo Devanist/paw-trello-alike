@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
 import appConfig from '../config';
-import {Actions} from '../Actions/Actions';
+import {Actions, setMessage} from '../Actions/Actions';
 
 class ListItem extends Component{
 
@@ -18,7 +18,7 @@ class ListItem extends Component{
                 <span className="editListItemTitle" ></span>
                 <span className="saveListItemTitle hidden"></span>
                 <span className="cancelListItemTitle hidden"></span>
-                <span className="removeListItem"></span>
+                <span className="removeListItem" title="Remove this card"></span>
             </section>
         )
     }
@@ -30,6 +30,8 @@ class ListItem extends Component{
         $(".saveListItemTitle").on("click", handleSaveListItemTitle.bind(this));
 
         $(".cancelListItemTitle").on("click", handleCancelListItemTitle.bind(this));
+
+        $(".removeListItem").on("click", handleRemoveListItem.bind(this));
     }
 
 }
@@ -55,7 +57,7 @@ function handleSaveListItemTitle(e) {
     $.post(`${appConfig.host}/saveListItemTitle`, {id: this.props.listItem.id, title: parent.find("#listItemTitle").text()}).
     done( (data) => { 
         if(data.error){
-            this.props.dispatch(Actions.setMessage("fail", "ERROR"));
+            setMessage.call(this, "fail", data.error);
             parent.find("#listItemTitle").text(this.oldTitle);
         }
         else{
@@ -63,7 +65,7 @@ function handleSaveListItemTitle(e) {
         }
     }).
     fail( (error) => {
-        this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
+        setMessage.call(this, "fail", "SERVER ERROR");
         parent.find("#listItemTitle").text(this.oldTitle);
     });
 }
@@ -75,6 +77,35 @@ function handleCancelListItemTitle(e) {
     parent.find("#listItemTitle").text(this.oldTitle);
     parent.find("#listItemTitle").attr('contenteditable', 'false');
     parent.find(".cancelListItemTitle, .saveListItemTitle, .editListItemTitle").toggleClass("hidden");
+}
+
+function handleRemoveListItem(e){
+    e.stopImmediatePropagation();
+    e.stopPropagation();
+
+    let id = $(e.target).
+                parent().
+                attr("id");
+
+    let listID = id.substr(id.indexOf("_") + 1);
+    id = id.substr(id.lastIndexOf("_") + 1);
+
+    $.ajax({
+        url: `${appConfig.host}/listItem/${id}`,
+        type: 'DELETE'
+    }).
+    done( (data) => {
+        if(data.error){
+            setMessage.call(this, "fail", data.error);
+        }
+        else{
+            this.props.dispatch(Actions.removeListItem(listID, id));
+        }
+    }).
+    fail( (error) => {
+        setMessage.call(this, "fail", "SERVER ERROR");
+        //this.props.dispatch(Actions.removeListItem(listID, id));
+    });
 }
 
 export default ListItem;
