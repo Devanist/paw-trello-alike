@@ -210,7 +210,7 @@ class Board extends Component {
         });
 
         $("#listsContainer").
-        sortable({cancel: '.list h3'}).
+        sortable({cancel: '.list h3, #add_list_item_title'}).
         on("sortstop", listOrderChangeHandler.bind(this));
 
         $("#favBoard").on("click", () => {
