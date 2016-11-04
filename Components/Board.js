@@ -74,7 +74,21 @@ class Board extends Component {
                                 },
                                 {
                                     id: 1,
-                                    title: "Do something"
+                                    title: "Do something",
+                                    comments: [
+                                        {
+                                            id: 0,
+                                            author: "Example User",
+                                            addDate: "04-11-2016 15:01:23",
+                                            text: "Something productive"
+                                        },
+                                        {
+                                            id: 1,
+                                            author: "Anonymous",
+                                            addDate: "04-11-2016 15:40:14",
+                                            text: "Like commenting tasks"
+                                        }
+                                    ]
                                 }
                             ]
                         },

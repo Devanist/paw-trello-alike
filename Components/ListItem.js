@@ -69,7 +69,7 @@ function handleCancelListItemTitle(e) {
 }
 
 function handleRemoveListItem(e){
-    e.stopImmediatePropagation();
+    e.nativeEvent.stopImmediatePropagation();
     e.stopPropagation();
 
     let id = $(e.target).

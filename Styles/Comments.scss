@@ -1,0 +1,23 @@
+#CommentsList{ 
+    
+    padding: 10px;
+
+    li{
+        margin: 0;
+        padding: 0 0 0 50px;
+        list-style: none;
+        background-image: url('../Assets/message.png');
+        background-repeat: no-repeat;
+        background-position: left top;
+        background-size: 40px;
+        background-color: bisque;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    h4{
+        font-weight: normal;
+        font-style: italic;
+        font-size: 0.6em;
+    }
+}

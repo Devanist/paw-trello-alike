@@ -3,6 +3,9 @@ import {Actions, setMessage} from '../Actions/Actions';
 import $ from 'jquery';
 import appConfig from '../config';
 
+import CommentsList from './CommentsList';
+import CommentsStyles from '../Styles/Comments.scss';
+
 class DetailsBox extends Component{
 
     render(){
@@ -15,32 +18,12 @@ class DetailsBox extends Component{
                 <h2>Add a comment</h2>
                 <textarea placeholder="Write a comment..." id="commentContent"></textarea>
                 <input type="submit" value="Send" id="addCommentSubmit" onClick={submitNewComment.bind(this)}/>
+                <CommentsList item={this.props.item} dispatch={this.props.dispatch} />
             </section>
         );
 
     }
 
-    componentDidMount(){
-
-        if(this.props.item.comments === undefined || this.props.item.comments === null){
-            fetchComments.call(this);
-        }
-
-    }
-
-}
-
-function fetchComments(){
-    $.get(`${appConfig.host}/comments/${this.props.item.id}`).
-    done( (data) => {
-        if(data.error){
-            setMessage.call(this, "fail", data.error);
-        }
-        this.props.dispatch(Actions.loadComments(this.props.list.id, this.props.item.id, data));
-    }).
-    fail( (error) => {
-        setMessage.call(this, "fail", "SERVER ERROR");
-    });
 }
 
 function submitNewComment(){
