@@ -13,25 +13,14 @@ class ListItem extends Component{
     render(){
 
         return (
-            <section className="listItem" id={`list_${this.props.listID}_listItem_${this.props.listItem.id}`}>
+            <section className="listItem" id={`list_${this.props.list.id}_listItem_${this.props.listItem.id}`} onClick={(e) => {this.props.openDetails(e, this.props.list, this.props.listItem)}}>
                 <h3 id="listItemTitle" contentEditable="false">{this.props.listItem.title}</h3>
-                <span className="editListItemTitle" ></span>
-                <span className="saveListItemTitle hidden"></span>
-                <span className="cancelListItemTitle hidden"></span>
-                <span className="removeListItem" title="Remove this card"></span>
+                <span className="editListItemTitle" onClick={handleEditListItem.bind(this)}></span>
+                <span className="saveListItemTitle hidden" onClick={handleSaveListItemTitle.bind(this)}></span>
+                <span className="cancelListItemTitle hidden" onClick={handleCancelListItemTitle.bind(this)}></span>
+                <span className="removeListItem" title="Remove this card" onClick={handleRemoveListItem.bind(this)}></span>
             </section>
         )
-    }
-
-    componentDidMount(){
-
-        $(".editListItemTitle").on("click", handleEditListItem.bind(this));
-
-        $(".saveListItemTitle").on("click", handleSaveListItemTitle.bind(this));
-
-        $(".cancelListItemTitle").on("click", handleCancelListItemTitle.bind(this));
-
-        $(".removeListItem").on("click", handleRemoveListItem.bind(this));
     }
 
 }

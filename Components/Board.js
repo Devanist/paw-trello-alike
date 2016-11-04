@@ -9,6 +9,10 @@ import 'jquery-ui/ui/widgets/sortable';
 import appConfig from '../config';
 import {Actions, setMessage} from '../Actions/Actions';
 
+import DetailsBox from './DetailsBox';
+
+import DetailsBoxStyle from '../Styles/DetailsBox.scss';
+
 class Board extends Component {
 
     constructor(){
@@ -17,11 +21,15 @@ class Board extends Component {
         this.getBoard = this.getBoard.bind(this);
         this.addNewList = this.addNewList.bind(this);
         this.oldTitle = "";
+
+        this.state = {
+            children: []
+        };
     }
 
     renderLists(){
         return this.props.currentBoard.lists.map( (list) => {
-            return <List key={list.id} list={list} dispatch={this.props.dispatch} />
+            return <List key={list.id} list={list} openDetails={displayDetailsBox.bind(this)} dispatch={this.props.dispatch} />
         });
     }
 
@@ -157,6 +165,7 @@ class Board extends Component {
                         <input type="submit" id="cancel_addNewList" value="Cancel"/>
                     </section>
                 </div>
+                {this.state.children}
                 </section>
             )
     }
@@ -210,7 +219,7 @@ class Board extends Component {
         });
 
         $("#listsContainer").
-        sortable({cancel: '.list h3, #add_list_item_title'}).
+        sortable({cancel: '.list h3, #add_list_item_title, #DetailsBox'}).
         on("sortstop", listOrderChangeHandler.bind(this));
 
         $("#favBoard").on("click", () => {
@@ -297,6 +306,25 @@ Board = withRouter(Board, {withRef: true});
 
 function mapStateToProps(state){
     return state;
+}
+
+function displayDetailsBox(e, list, item){
+    this.setState({
+        children : this.state.children.
+            filter( (element) => {
+                return element.key !== "DetailsBox";
+            }).
+            concat(<DetailsBox key="DetailsBox" item={item} list={list} onClose={closeDetailsBox.bind(this)} dispatch={this.props.dispatch} />)
+    });
+}
+
+function closeDetailsBox(e){
+    e.stopPropagation();
+    this.setState({
+        children : this.state.children.filter( (element) => {
+            return element.key !== "DetailsBox";
+        })
+    });
 }
 
 export default connect(mapStateToProps)(Board);

@@ -1,0 +1,53 @@
+$iconSize: 20px;
+
+#DetailsBox{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: #FFF4CC;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 0px 45px 10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 45px 10px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 45px 10px rgba(0,0,0,0.75);
+    color: #4C3617;
+    width: 70%;
+
+    h2{
+        display: block;
+        margin: 0;
+        padding: 5px;
+    }
+
+    #closeDetailsBox{
+        float: right;
+        width: $iconSize;
+        height: $iconSize;
+        background-image: url('../Assets/cancelIcon.png');
+        background-size: $iconSize $iconSize;
+        margin: 5px 5px 0 0;
+    }
+
+    #itemLocation{
+        display: inline-block;
+        font-size: 0.8em;
+        font-style: italic;
+        position: relative;
+        top: -10px;
+        left: 35px;
+    }
+
+    textarea{
+        display: inline-block;
+        width:70%;
+        margin-left: 10px;
+        border-radius: 10px;
+        padding: 5px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #addCommentSubmit{
+        margin: 10px;
+    }
+
+}
