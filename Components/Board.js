@@ -70,7 +70,11 @@ class Board extends Component {
                             listItems: [
                                 {
                                     id: 0,
-                                    title: "Wash dishes"
+                                    title: "Wash dishes",
+                                    labels: [
+                                        "red",
+                                        "green"
+                                    ]
                                 },
                                 {
                                     id: 1,

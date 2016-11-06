@@ -1,5 +1,10 @@
 $iconSize: 20px;
 
+@mixin colorbox($color){
+    background-color: $color;
+    border-color: $color;    
+}
+
 #DetailsBox{
     position: absolute;
     top: 50%;
@@ -97,37 +102,38 @@ $iconSize: 20px;
         text-shadow: 0 0 4px black, 0 0 0.2em black;
         color: white;
         margin-right: 5px;
-        width: 100%;
+        width: 98%;
         height: 100%;
+        border-radius: 3px !important;
 
         &:hover{
-            border-width: 1px;
-            border-left-width: 5px;
-            border-style: solid;
+            -webkit-box-shadow: 5px 0px 5px 5px rgba(0,0,0,0.75);
+            -moz-box-shadow: 5px 0px 5px 5px rgba(0,0,0,0.75);
+            box-shadow: 5px 0px 5px 5px rgba(0,0,0,0.75);
         }
     }
 }
 
 .red{
-    background-color: red;
+    @include colorbox(red);
 }
 
 .green{
-    background-color: green;
+    @include colorbox(green);
 }
 
 .yellow{
-    background-color: yellow;
+    @include colorbox(yellow);
 }
 
 .orange{
-    background-color: orange;
+    @include colorbox(orange);
 }
 
 .purple{
-    background-color: purple;
+    @include colorbox(purple);
 }
 
 .blue{
-    background-color: blue;
+    @include colorbox(blue);
 }

@@ -134,6 +134,10 @@ section.listItem {
         background-color: #73562E;
         cursor: pointer;
     }
+
+    h3{
+        margin-top: 0;
+    }
 }
 
 #confirmRemove{
@@ -174,4 +178,10 @@ section.listItem {
     .abort{
         background-color: firebrick;
     }
+}
+
+.listItemLabel{
+    width: 30px !important;
+    height: 10px !important;
+    border-radius: 3px;
 }

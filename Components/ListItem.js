@@ -8,12 +8,24 @@ class ListItem extends Component{
     constructor(){
         super();
         this.oldTitle = "";
+        this.state = {
+            labels : []
+        };
+    }
+
+    componentDidMount(){
+        this.setState({
+            labels: this.props.listItem.labels.map(stateToLabels) 
+        });
     }
 
     render(){
 
         return (
             <section className="listItem" id={`list_${this.props.list.id}_listItem_${this.props.listItem.id}`} onClick={(e) => {this.props.openDetails(e, this.props.list, this.props.listItem)}}>
+                <header>
+                    {this.state.labels}
+                </header>
                 <h3 id="listItemTitle" contentEditable="false">{this.props.listItem.title}</h3>
                 <span className="editListItemTitle" onClick={handleEditListItem.bind(this)}></span>
                 <span className="saveListItemTitle hidden" onClick={handleSaveListItemTitle.bind(this)}></span>
@@ -95,6 +107,10 @@ function handleRemoveListItem(e){
         setMessage.call(this, "fail", "SERVER ERROR");
         //this.props.dispatch(Actions.removeListItem(listID, id));
     });
+}
+
+function stateToLabels(label){
+    return <span className={`listItemLabel ${label}`}></span>
 }
 
 export default ListItem;

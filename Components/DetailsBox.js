@@ -59,7 +59,7 @@ function submitNewComment(){
 
 function displayAddLabel(){
     this.setState({
-        children: [<AddLabelBox key="AddLabelBox" dispatch={this.props.dispatch} onClose={closeAddLabel.bind(this)} />]
+        children: [<AddLabelBox key="AddLabelBox" activeLabels={this.props.item.labels} dispatch={this.props.dispatch} onClose={closeAddLabel.bind(this)} />]
     });
 }
 
