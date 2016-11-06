@@ -19,7 +19,26 @@ $iconSize: 20px;
         padding: 5px;
     }
 
-    #closeDetailsBox{
+    section{
+        display: inline-block;
+        width: 75%       
+    }
+
+    aside{
+        float:right;
+        width: 20%px;
+        margin-right: 5px;
+
+        h3{
+            background-color: #4C3617;
+            color: #FFF4CC;
+            border-radius: 3px;
+            text-align: center;
+            cursor: pointer;
+        }
+    }
+
+    .closePanel{
         float: right;
         width: $iconSize;
         height: $iconSize;
@@ -29,7 +48,7 @@ $iconSize: 20px;
     }
 
     #itemLocation{
-        display: inline-block;
+        display: block;
         font-size: 0.8em;
         font-style: italic;
         position: relative;
@@ -50,4 +69,25 @@ $iconSize: 20px;
         margin: 10px;
     }
 
+}
+
+#AddLabelBox {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 40%;
+    height: 400px;
+    background-color: #FFF4CC;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 0px 45px 10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 45px 10px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 45px 10px rgba(0,0,0,0.75);
+}
+
+.colorBox{
+    width: 80% !important;
+    height: 30px !important;
+    border-radius: 3px !important;
+    display: block !important;
 }

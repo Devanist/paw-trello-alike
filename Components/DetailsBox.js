@@ -5,20 +5,37 @@ import appConfig from '../config';
 
 import CommentsList from './CommentsList';
 import CommentsStyles from '../Styles/Comments.scss';
+import AddLabelBox from './AddLabelBox';
 
 class DetailsBox extends Component{
+
+    constructor(){
+        super();
+
+        this.state = {
+            children : []
+        };
+
+    }
 
     render(){
 
         return (
             <section id="DetailsBox">
-                <span id="closeDetailsBox" onClick={this.props.onClose} title="Close window"></span>
+                <span id="closeDetailsBox" className="closePanel" onClick={this.props.onClose} title="Close window"></span>
                 <h2>{this.props.item.title}</h2>
                 <p id="itemLocation">in list {this.props.list.title}</p>
-                <h2>Add a comment</h2>
-                <textarea placeholder="Write a comment..." id="commentContent"></textarea>
-                <input type="submit" value="Send" id="addCommentSubmit" onClick={submitNewComment.bind(this)}/>
-                <CommentsList item={this.props.item} dispatch={this.props.dispatch} />
+                <section>   
+                    <h2>Add a comment</h2>
+                    <textarea placeholder="Write a comment..." id="commentContent"></textarea>
+                    <input type="submit" value="Send" id="addCommentSubmit" onClick={submitNewComment.bind(this)}/>
+                    <CommentsList item={this.props.item} dispatch={this.props.dispatch} />
+                </section>
+                <aside>
+                    <h2>Add</h2>
+                    <h3 onClick={displayAddLabel.bind(this)}>Label</h3>
+                </aside>
+                {this.state.children}
             </section>
         );
 
@@ -37,6 +54,18 @@ function submitNewComment(){
     }).
     fail( (error) => {
         setMessage.call(this, "fail", "SERVER ERROR");
+    });
+}
+
+function displayAddLabel(){
+    this.setState({
+        children: [<AddLabelBox key="AddLabelBox" dispatch={this.props.dispatch} onClose={closeAddLabel.bind(this)} />]
+    });
+}
+
+function closeAddLabel(){
+    this.setState({
+        children: []
     });
 }
 
