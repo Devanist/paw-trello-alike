@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Actions, setMessage} from '../Actions/Actions';
 
 class AddLabelBox extends Component{
 
@@ -49,7 +50,12 @@ function labelsToComponents(color){
     if(this.props.activeLabels && this.props.activeLabels.findIndex(ofColor) > -1){
         active = "✓"
     }
-    return <span className={`colorBox ${color}`}><p>{active}</p></span>
+    return <span key={`box_${color}`} className={`colorBox ${color}`} onClick={labelClickHandler.bind(this)}><p>{active}</p></span>
+}
+
+function labelClickHandler(e){
+    const color = e.currentTarget.className.substr(9);
+    this.props.dispatch(Actions.changeLabel(color, this.props.listId, this.props.itemId));
 }
 
 export default AddLabelBox;

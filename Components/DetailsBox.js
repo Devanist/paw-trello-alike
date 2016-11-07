@@ -13,9 +13,20 @@ class DetailsBox extends Component{
         super();
 
         this.state = {
-            children : []
+            children : [],
+            labels : ""
         };
 
+    }
+
+    componentDidMount(){
+        if(this.props.item.labels){
+
+            this.setState({
+                labels: <section><h3>Labels:</h3>{this.props.item.labels.map(stateToLabels.bind(this))}</section>
+            });
+
+        }
     }
 
     render(){
@@ -25,7 +36,10 @@ class DetailsBox extends Component{
                 <span id="closeDetailsBox" className="closePanel" onClick={this.props.onClose} title="Close window"></span>
                 <h2>{this.props.item.title}</h2>
                 <p id="itemLocation">in list {this.props.list.title}</p>
-                <section>   
+                <section>
+                    <section>
+                        {this.state.labels}
+                    </section>
                     <h2>Add a comment</h2>
                     <textarea placeholder="Write a comment..." id="commentContent"></textarea>
                     <input type="submit" value="Send" id="addCommentSubmit" onClick={submitNewComment.bind(this)}/>
@@ -59,7 +73,7 @@ function submitNewComment(){
 
 function displayAddLabel(){
     this.setState({
-        children: [<AddLabelBox key="AddLabelBox" activeLabels={this.props.item.labels} dispatch={this.props.dispatch} onClose={closeAddLabel.bind(this)} />]
+        children: [<AddLabelBox key="AddLabelBox" listId={this.props.list.id} itemId={this.props.item.id} activeLabels={this.props.item.labels} dispatch={this.props.dispatch} onClose={closeAddLabel.bind(this)} />]
     });
 }
 
@@ -67,6 +81,10 @@ function closeAddLabel(){
     this.setState({
         children: []
     });
+}
+
+function stateToLabels(element){
+    return <span key={`${this.props.item.id}_${element}`} className={`listItemLabel ${element}`}></span>
 }
 
 export default DetailsBox;

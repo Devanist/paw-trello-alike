@@ -88,6 +88,7 @@ const Reducer = (state, action) => {
     }
 
     var newState = state;
+    let modifiedListIndex;
 
     switch(action.type){
         case AT.SET_MESSAGE:
@@ -215,19 +216,17 @@ const Reducer = (state, action) => {
             break;
         case AT.REMOVE_LISTITEM:
             
-            let modifiedListIndex = state.currentBoard.lists.findIndex( (element) => {
+            modifiedListIndex = state.currentBoard.lists.findIndex( (element) => {
                 return element.id === parseInt(action.listId);
             });
-
-            console.log(modifiedListIndex);
 
             let removedItemIndex = state.currentBoard.lists[modifiedListIndex].listItems.findIndex( (element) => {
                 return element.id === action.id
             });
 
             let newListItems = [
-                ...state.currentBoard.lists[modifiedListIndex].listItems.slice(0, removedItemIndex),
-                ...state.currentBoard.lists[modifiedListIndex].listItems.slice(removedItemIndex + 1)
+                state.currentBoard.lists[modifiedListIndex].listItems.slice(0, removedItemIndex),
+                state.currentBoard.lists[modifiedListIndex].listItems.slice(removedItemIndex + 1)
             ];
 
             newState = {
@@ -237,6 +236,54 @@ const Reducer = (state, action) => {
                     lists: [
                         ...state.currentBoard.lists.slice(0, modifiedListIndex),
                         Object.assign({}, state.currentBoard.lists[modifiedListIndex], {listItems: newListItems}),
+                        ...state.currentBoard.lists.slice(modifiedListIndex + 1)
+                    ]
+                }
+            };
+            break;
+        case AT.CHANGE_LABEL:
+
+            modifiedListIndex = state.currentBoard.lists.findIndex( (element) => {
+                return element.id === parseInt(action.listId);
+            });
+
+            let modifiedItemIndex = state.currentBoard.lists[modifiedListIndex].listItems.findIndex( (element) => {
+                return element.id === parseInt(action.itemId);
+            });
+
+            let newLabels = [];
+
+            if( state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex].labels &&
+                state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex].labels.findIndex( (element) => {
+                    return element === action.color
+                }) > -1){
+                
+                newLabels = state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex].labels.filter( (element) => {
+                    return element !== action.color
+                })
+
+            }
+            else{
+                newLabels = state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex].labels.concat(action.color);
+            }
+
+            newState = {
+                ...state,
+                currentBoard : {
+                    ...state.currentBoard,
+                    lists : [
+                        ...state.currentBoard.lists.slice(0, modifiedListIndex),
+                        {
+                            ...state.currentBoard.lists[modifiedListIndex],
+                            listItems : [
+                                ...state.currentBoard.lists[modifiedListIndex].listItems.slice(0, modifiedItemIndex),
+                                {
+                                    ...state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex],
+                                    labels : newLabels
+                                },
+                                ...state.currentBoard.lists[modifiedListIndex].listItems.slice(modifiedItemIndex + 1)
+                            ]
+                        },
                         ...state.currentBoard.lists.slice(modifiedListIndex + 1)
                     ]
                 }

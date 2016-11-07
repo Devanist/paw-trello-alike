@@ -10,7 +10,8 @@ export const AT = {
     SEARCH_BOARD: 'SEARCH_BOARD',
     ADD_BOARD: 'ADD_BOARD',
     REMOVE_LISTITEM: 'REMOVE_LISTITEM',
-    SET_FAVOURITE_BOARD: 'SET_FAVOURITE_BOARD'
+    SET_FAVOURITE_BOARD: 'SET_FAVOURITE_BOARD',
+    CHANGE_LABEL: 'CHANGE_LABEL'
 };
 
 export function setMessage(result, message){
@@ -97,6 +98,13 @@ export let Actions = {
             type: AT.REMOVE_LISTITEM,
             id: id,
             listId: listId
+        };
+    },
+    changeLabel : (color, listId, itemId) => {
+        return {
+            type: AT.CHANGE_LABEL,
+            listId: listId,
+            itemId: itemId
         };
     }
 };

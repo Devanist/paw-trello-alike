@@ -14,9 +14,11 @@ class ListItem extends Component{
     }
 
     componentDidMount(){
-        this.setState({
-            labels: this.props.listItem.labels.map(stateToLabels) 
-        });
+        if(this.props.listItem.labels){
+            this.setState({
+                labels: this.props.listItem.labels.map(stateToLabels.bind(this)) 
+            });
+        }
     }
 
     render(){
@@ -110,7 +112,7 @@ function handleRemoveListItem(e){
 }
 
 function stateToLabels(label){
-    return <span className={`listItemLabel ${label}`}></span>
+    return <span key={`item_${this.props.listItem.id}_${label}`} className={`listItemLabel ${label}`}></span>
 }
 
 export default ListItem;
