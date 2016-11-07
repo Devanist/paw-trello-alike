@@ -20,19 +20,15 @@ class AddLabelBox extends Component{
         };
     }
 
-    componentDidMount(){
-        this.setState({
-            children: this.state.colors.map(labelsToComponents.bind(this))
-        });
-    }
-
     render(){
+
+        let labels = this.state.colors.map(labelsToComponents.bind(this)); 
 
         return(
             <section id="AddLabelBox">
                 <span id="closeAddLabel" className="closePanel" onClick={this.props.onClose}></span>
                 <h2>Labels</h2>
-               {this.state.children}
+               {labels}
             </section>
         );
 

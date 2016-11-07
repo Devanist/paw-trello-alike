@@ -104,6 +104,7 @@ export let Actions = {
         return {
             type: AT.CHANGE_LABEL,
             listId: listId,
+            color: color,
             itemId: itemId
         };
     }

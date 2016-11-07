@@ -242,7 +242,7 @@ const Reducer = (state, action) => {
             };
             break;
         case AT.CHANGE_LABEL:
-
+            console.log(action.color);
             modifiedListIndex = state.currentBoard.lists.findIndex( (element) => {
                 return element.id === parseInt(action.listId);
             });

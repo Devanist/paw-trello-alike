@@ -23,6 +23,9 @@ class Board extends Component {
         this.oldTitle = "";
 
         this.state = {
+            displayDetails: false,
+            displayList: null,
+            displayItem: null,
             children: []
         };
     }
@@ -160,6 +163,13 @@ class Board extends Component {
     
     render(){
 
+        let details = "";
+        if(this.state.displayDetails){
+            let list = this.props.currentBoard.lists.find( (element) => {return element.id === parseInt(this.state.detailsList)});
+            let item = list.listItems.find( (element) => { return element.id === parseInt(this.state.detailsItem)});
+            details = <DetailsBox key="DetailsBox" item={item} list={list} onClose={closeDetailsBox.bind(this)} dispatch={this.props.dispatch} />; 
+        }
+
         return (
                 <section id={`board`} className="board">
                     <h2 id="boardTitle" contentEditable="false">{this.props.currentBoard.title}</h2>
@@ -184,6 +194,7 @@ class Board extends Component {
                     </section>
                 </div>
                 {this.state.children}
+                {details}
                 </section>
             )
     }
@@ -326,22 +337,20 @@ function mapStateToProps(state){
     return state;
 }
 
-function displayDetailsBox(e, list, item){
+function displayDetailsBox(e, listId, itemId){
     this.setState({
-        children : this.state.children.
-            filter( (element) => {
-                return element.key !== "DetailsBox";
-            }).
-            concat(<DetailsBox key="DetailsBox" item={item} list={list} onClose={closeDetailsBox.bind(this)} dispatch={this.props.dispatch} />)
+        displayDetails : true,
+        detailsList: listId,
+        detailsItem : itemId
     });
 }
 
 function closeDetailsBox(e){
     e.stopPropagation();
     this.setState({
-        children : this.state.children.filter( (element) => {
-            return element.key !== "DetailsBox";
-        })
+        displayDetails : false,
+        detailsList: null,
+        detailsItem: null
     });
 }
 

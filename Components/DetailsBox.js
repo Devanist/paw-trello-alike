@@ -13,23 +13,21 @@ class DetailsBox extends Component{
         super();
 
         this.state = {
-            children : [],
-            labels : ""
+            displayAddLabel: false
         };
 
     }
 
-    componentDidMount(){
-        if(this.props.item.labels){
-
-            this.setState({
-                labels: <section><h3>Labels:</h3>{this.props.item.labels.map(stateToLabels.bind(this))}</section>
-            });
-
-        }
-    }
-
     render(){
+        let labels = "";
+        if(this.props.item.labels){
+            labels = <section><h3>Labels:</h3>{this.props.item.labels.map(stateToLabels.bind(this))}</section>
+        }
+
+        let addLabels = "";
+        if(this.state.displayAddLabel){
+            addLabels = <AddLabelBox key="AddLabelBox" listId={this.props.list.id} itemId={this.props.item.id} activeLabels={this.props.item.labels} dispatch={this.props.dispatch} onClose={closeAddLabel.bind(this)} />;
+        }
 
         return (
             <section id="DetailsBox">
@@ -37,9 +35,7 @@ class DetailsBox extends Component{
                 <h2>{this.props.item.title}</h2>
                 <p id="itemLocation">in list {this.props.list.title}</p>
                 <section>
-                    <section>
-                        {this.state.labels}
-                    </section>
+                    {labels}
                     <h2>Add a comment</h2>
                     <textarea placeholder="Write a comment..." id="commentContent"></textarea>
                     <input type="submit" value="Send" id="addCommentSubmit" onClick={submitNewComment.bind(this)}/>
@@ -49,7 +45,7 @@ class DetailsBox extends Component{
                     <h2>Add</h2>
                     <h3 onClick={displayAddLabel.bind(this)}>Label</h3>
                 </aside>
-                {this.state.children}
+                {addLabels}
             </section>
         );
 
@@ -73,13 +69,13 @@ function submitNewComment(){
 
 function displayAddLabel(){
     this.setState({
-        children: [<AddLabelBox key="AddLabelBox" listId={this.props.list.id} itemId={this.props.item.id} activeLabels={this.props.item.labels} dispatch={this.props.dispatch} onClose={closeAddLabel.bind(this)} />]
+        displayAddLabel: true
     });
 }
 
 function closeAddLabel(){
     this.setState({
-        children: []
+        displayAddLabel: false
     });
 }
 

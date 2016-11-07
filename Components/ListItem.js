@@ -13,20 +13,17 @@ class ListItem extends Component{
         };
     }
 
-    componentDidMount(){
-        if(this.props.listItem.labels){
-            this.setState({
-                labels: this.props.listItem.labels.map(stateToLabels.bind(this)) 
-            });
-        }
-    }
-
     render(){
 
+        let labels = "";
+        if(this.props.listItem.labels){
+            labels = this.props.listItem.labels.map(stateToLabels.bind(this));
+        }
+
         return (
-            <section className="listItem" id={`list_${this.props.list.id}_listItem_${this.props.listItem.id}`} onClick={(e) => {this.props.openDetails(e, this.props.list, this.props.listItem)}}>
+            <section className="listItem" id={`list_${this.props.list.id}_listItem_${this.props.listItem.id}`} onClick={(e) => {this.props.openDetails(e, this.props.list.id, this.props.listItem.id)}}>
                 <header>
-                    {this.state.labels}
+                    {labels}
                 </header>
                 <h3 id="listItemTitle" contentEditable="false">{this.props.listItem.title}</h3>
                 <span className="editListItemTitle" onClick={handleEditListItem.bind(this)}></span>
