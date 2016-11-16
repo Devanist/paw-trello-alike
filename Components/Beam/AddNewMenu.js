@@ -14,6 +14,12 @@ class AddNewMenu extends Component{
                             <img src="../../Assets/boards.png"/>
                             </section>
                         </a>
+                        <a id="createTeamLink" className="createNewTeamLink" href="#">
+                            <section>
+                            <h4>new team</h4>
+                            <img src="../../Assets/team.png"/>
+                            </section>
+                        </a>
                     </li>
                 </ul>
             </div>

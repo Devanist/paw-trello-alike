@@ -60,6 +60,9 @@ class Beam extends Component{
                 setMessage.call(this, "fail", "SERVER ERROR");
             });
         }
+        else if(this.addWhat === "createTeamLink") {
+            //logika
+        }
 
     }
 
@@ -113,6 +116,14 @@ class Beam extends Component{
         });
 
         $(".addNewLink").on("click", function(){
+            that.addWhat = $(this).attr("id");
+            $("#add_title").val("");
+            $("#addMenuInputBox").toggleClass("hidden");
+            $("#add_title").focus();
+        });
+
+        //do poprawy
+        $(".createNewTeamLink").on("click", function(){
             that.addWhat = $(this).attr("id");
             $("#add_title").val("");
             $("#addMenuInputBox").toggleClass("hidden");
