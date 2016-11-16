@@ -264,7 +264,14 @@ const Reducer = (state, action) => {
 
             }
             else{
-                newLabels = state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex].labels.concat(action.color);
+
+                if(state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex].labels) {
+                    newLabels = state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex].labels.concat(action.color);
+                }
+                else {
+                    state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex].labels = [];
+                    newLabels = state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex].labels.concat(action.color);
+                }
             }
 
             newState = {
