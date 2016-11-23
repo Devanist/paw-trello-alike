@@ -11,7 +11,8 @@ export const AT = {
     ADD_BOARD: 'ADD_BOARD',
     REMOVE_LISTITEM: 'REMOVE_LISTITEM',
     SET_FAVOURITE_BOARD: 'SET_FAVOURITE_BOARD',
-    CHANGE_LABEL: 'CHANGE_LABEL'
+    CHANGE_LABEL: 'CHANGE_LABEL',
+    SAVE_SCHEDULE: 'SAVE_SCHEDULE'
 };
 
 export function setMessage(result, message){
@@ -105,6 +106,14 @@ export let Actions = {
             type: AT.CHANGE_LABEL,
             listId: listId,
             color: color,
+            itemId: itemId
+        };
+    },
+    saveSchedule : (datetime, listId, itemId) => {
+        return {
+            type: AT.SAVE_SCHEDULE,
+            schedule: datetime,
+            listId: listId,
             itemId: itemId
         };
     }

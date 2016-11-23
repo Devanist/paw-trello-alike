@@ -89,6 +89,7 @@ const Reducer = (state, action) => {
 
     var newState = state;
     let modifiedListIndex;
+    let modifiedItemIndex;
 
     switch(action.type){
         case AT.SET_MESSAGE:
@@ -242,12 +243,12 @@ const Reducer = (state, action) => {
             };
             break;
         case AT.CHANGE_LABEL:
-            console.log(action.color);
+
             modifiedListIndex = state.currentBoard.lists.findIndex( (element) => {
                 return element.id === parseInt(action.listId);
             });
 
-            let modifiedItemIndex = state.currentBoard.lists[modifiedListIndex].listItems.findIndex( (element) => {
+            modifiedItemIndex = state.currentBoard.lists[modifiedListIndex].listItems.findIndex( (element) => {
                 return element.id === parseInt(action.itemId);
             });
 
@@ -295,6 +296,41 @@ const Reducer = (state, action) => {
                     ]
                 }
             };
+            break;
+        case AT.SAVE_SCHEDULE:
+            
+            modifiedListIndex = state.currentBoard.lists.findIndex( (element) => {
+                return element.id === parseInt(action.listId);
+            });
+
+            let modifiedItemIndex = state.currentBoard.lists[modifiedListIndex].listItems.findIndex( (element) => {
+                return element.id === parseInt(action.itemId);
+            });
+
+            let newSchedule = action.schedule;
+
+            newState = {
+                ...state,
+                currentBoard : {
+                    ...state.currentBoard,
+                    lists : [
+                        ...state.currentBoard.lists.slice(0, modifiedListIndex),
+                        {
+                            ...state.currentBoard.lists[modifiedListIndex],
+                            listItems : [
+                                ...state.currentBoard.lists[modifiedListIndex].listItems.slice(0, modifiedItemIndex),
+                                {
+                                    ...state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex],
+                                    schedule : newSchedule
+                                },
+                                ...state.currentBoard.lists[modifiedListIndex].listItems.slice(modifiedItemIndex + 1)
+                            ]
+                        },
+                        ...state.currentBoard.lists.slice(modifiedItemIndex + 1)
+                    ]
+                }
+            }
+
             break;
         default:
             console.error(`There is no defined action like ${action.type}`);

@@ -16,14 +16,19 @@ class ListItem extends Component{
     render(){
 
         let labels = "";
+        let schedule = "";
         if(this.props.listItem.labels){
             labels = this.props.listItem.labels.map(stateToLabels.bind(this));
+        }
+        if(this.props.listItem.schedule !== null && this.props.listItem.schedule !== undefined){
+            schedule = <p>{this.props.listItem.schedule.date} at {this.props.listItem.schedule.time}</p>
         }
 
         return (
             <section className="listItem" id={`list_${this.props.list.id}_listItem_${this.props.listItem.id}`} onClick={(e) => {this.props.openDetails(e, this.props.list.id, this.props.listItem.id)}}>
                 <header>
                     {labels}
+                    {schedule}
                 </header>
                 <h3 id="listItemTitle" contentEditable="false">{this.props.listItem.title}</h3>
                 <span className="editListItemTitle" onClick={handleEditListItem.bind(this)}></span>

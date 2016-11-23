@@ -77,11 +77,13 @@ class Board extends Component {
                                     labels: [
                                         "red",
                                         "green"
-                                    ]
+                                    ],
+                                    schedule : null
                                 },
                                 {
                                     id: 1,
                                     title: "Do something",
+                                    schedule : null,
                                     comments: [
                                         {
                                             id: 0,
@@ -105,7 +107,8 @@ class Board extends Component {
                             listItems: [
                                 {
                                     id: 0,
-                                    title: "Walk a dog"
+                                    title: "Walk a dog",
+                                    schedule : null
                                 }
                             ]
                         },
@@ -115,15 +118,18 @@ class Board extends Component {
                             listItems: [
                                 {
                                     id: 0,
-                                    title: "Get some sleep"
+                                    title: "Get some sleep",
+                                    schedule : null
                                 },
                                 {
                                     id: 1,
-                                    title: "Do nothing"
+                                    title: "Do nothing",
+                                    schedule : null
                                 },
                                 {
                                     id: 2,
-                                    title: "Wake up"
+                                    title: "Wake up",
+                                    schedule : null
                                 }
                             ]
                         }

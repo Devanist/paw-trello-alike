@@ -21,8 +21,12 @@ class DetailsBox extends Component{
 
     render(){
         let labels = "";
+        let schedule = "";
         if(this.props.item.labels){
             labels = <section><h3>Labels:</h3>{this.props.item.labels.map(stateToLabels.bind(this))}</section>
+        }
+        if(this.props.item.schedule !== null && this.props.item.schedule !== undefined){
+            schedule = <h3>Schedule on {this.props.item.schedule.date} at {this.props.item.schedule.time}</h3>
         }
 
         let addBox = "";
@@ -32,7 +36,7 @@ class DetailsBox extends Component{
                 addBox = <AddLabelBox key="AddLabelBox" listId={this.props.list.id} itemId={this.props.item.id} activeLabels={this.props.item.labels} dispatch={this.props.dispatch} onClose={closeAddBox.bind(this)} />;
                 break;
             case "Schedule":
-                addBox = <AddScheduleBox key="AddScheduleBox" dispatch={this.props.dispatch} onClose={closeAddBox.bind(this)} />;
+                addBox = <AddScheduleBox key="AddScheduleBox" dispatch={this.props.dispatch} onClose={closeAddBox.bind(this)} listId={this.props.list.id} itemId={this.props.item.id} currentSchedule={this.props.item.schedule} />;
                 break;
             default: 
                 addBox = "";
@@ -45,6 +49,7 @@ class DetailsBox extends Component{
                 <p id="itemLocation">in list {this.props.list.title}</p>
                 <section>
                     {labels}
+                    {schedule}
                     <h2>Add a comment</h2>
                     <textarea placeholder="Write a comment..." id="commentContent"></textarea>
                     <input type="submit" value="Send" id="addCommentSubmit" onClick={submitNewComment.bind(this)}/>
