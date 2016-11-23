@@ -7,6 +7,7 @@ export const AT = {
     LOGIN: 'LOGIN',
     SORT_LISTS: 'SORT_LISTS',
     REMOVE_BOARD: 'REMOVE_BOARD',
+    REMOVE_LIST: 'REMOVE_LIST',
     SEARCH_BOARD: 'SEARCH_BOARD',
     ADD_BOARD: 'ADD_BOARD',
     REMOVE_LISTITEM: 'REMOVE_LISTITEM',
@@ -74,6 +75,12 @@ export let Actions = {
         return {
             type: AT.REMOVE_BOARD,
             id: id
+        };
+    },
+    removeList : (listId) => {
+        return {
+            type: AT.REMOVE_LIST,
+            listId: listId
         };
     },
     searchBoard : (title) => {
