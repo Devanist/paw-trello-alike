@@ -8,6 +8,8 @@ import CommentsStyles from '../Styles/Comments.scss';
 import AddLabelBox from './AddLabelBox';
 import AddScheduleBox from './AddScheduleBox';
 
+import Language from '../Languages/Language';
+
 class DetailsBox extends Component{
 
     constructor(){
@@ -33,10 +35,10 @@ class DetailsBox extends Component{
 
         switch(this.state.displayAddBox){
             case "Label":
-                addBox = <AddLabelBox key="AddLabelBox" listId={this.props.list.id} itemId={this.props.item.id} activeLabels={this.props.item.labels} dispatch={this.props.dispatch} onClose={closeAddBox.bind(this)} />;
+                addBox = <AddLabelBox lang={this.props.lang} key="AddLabelBox" listId={this.props.list.id} itemId={this.props.item.id} activeLabels={this.props.item.labels} dispatch={this.props.dispatch} onClose={closeAddBox.bind(this)} />;
                 break;
             case "Schedule":
-                addBox = <AddScheduleBox key="AddScheduleBox" dispatch={this.props.dispatch} onClose={closeAddBox.bind(this)} listId={this.props.list.id} itemId={this.props.item.id} currentSchedule={this.props.item.schedule} />;
+                addBox = <AddScheduleBox lang={this.props.lang} key="AddScheduleBox" dispatch={this.props.dispatch} onClose={closeAddBox.bind(this)} listId={this.props.list.id} itemId={this.props.item.id} currentSchedule={this.props.item.schedule} />;
                 break;
             default: 
                 addBox = "";
@@ -50,15 +52,15 @@ class DetailsBox extends Component{
                 <section>
                     {labels}
                     {schedule}
-                    <h2>Add a comment</h2>
-                    <textarea placeholder="Write a comment..." id="commentContent"></textarea>
-                    <input type="submit" value="Send" id="addCommentSubmit" onClick={submitNewComment.bind(this)}/>
-                    <CommentsList item={this.props.item} dispatch={this.props.dispatch} />
+                    <h2>{Language[this.props.lang].DetailsBox.h2}</h2>
+                    <textarea placeholder={Language[this.props.lang].DetailsBox.textarea} id="commentContent"></textarea>
+                    <input type="submit" value={Language[this.props.lang].DetailsBox.submit} id="addCommentSubmit" onClick={submitNewComment.bind(this)}/>
+                    <CommentsList lang={this.props.lang} item={this.props.item} dispatch={this.props.dispatch} />
                 </section>
                 <aside>
-                    <h2>Add</h2>
-                    <h3 onClick={displayAddBox.bind(this)}>Label</h3>
-                    <h3 onClick={displayAddBox.bind(this)}>Schedule</h3>
+                    <h2>{Language[this.props.lang].DetailsBox.asideh2}</h2>
+                    <h3 onClick={displayAddBox.bind(this)}>{Language[this.props.lang].DetailsBox.addLabel}</h3>
+                    <h3 onClick={displayAddBox.bind(this)}>{Language[this.props.lang].DetailsBox.addSchedule}</h3>
                 </aside>
                 {addBox}
             </section>

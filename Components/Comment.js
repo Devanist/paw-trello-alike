@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import Language from '../Languages/Language';
 
 class Comment extends Component{
 
@@ -7,7 +7,7 @@ class Comment extends Component{
 
         let editDate = "";
         if(this.props.content.editDate){
-            editDate = <h4>Last edited on {this.props.content.editDate}</h4>;
+            editDate = <h4>{Language[this.props.lang].Comment.h4}{this.props.content.editDate}</h4>;
         }
 
         return (

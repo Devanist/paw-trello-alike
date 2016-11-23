@@ -3,6 +3,7 @@ import $ from 'jquery';
 import ListItem from './ListItem';
 import appConfig from '../config';
 import {Actions, setMessage} from '../Actions/Actions';
+import Language from '../Languages/Language';
 
 class List extends Component{
 
@@ -14,7 +15,7 @@ class List extends Component{
 
     renderListItems(){
         return this.props.list.listItems.map( (listItem) => {
-            return <ListItem key={listItem.id} openDetails={this.props.openDetails} list={this.props.list} listItem={listItem} dispatch={this.props.dispatch}/>
+            return <ListItem lang={this.props.lang} key={listItem.id} openDetails={this.props.openDetails} list={this.props.list} listItem={listItem} dispatch={this.props.dispatch}/>
         });
     }
 
@@ -59,9 +60,9 @@ class List extends Component{
                     <section id="addListItemTrigger" onClick={this.toggleListItemNameInput}>
                     </section>
                     <section id="addListItemMenu" className="hidden">
-                        <input type="text" id="add_list_item_title" placeholder="Add a title..."/>
-                        <input type="submit" id="add_element_listItem" value="Add" onClick={(event)=>{this.toggleListItemNameInputAddCancel(event); this.addNewListItem(event);}}/>
-                        <input type="submit" id="cancel_add_element_listItem" value="Cancel" onClick={this.toggleListItemNameInputAddCancel}/>
+                        <input type="text" id="add_list_item_title" placeholder={Language[this.props.lang].List.add_list_item_title}/>
+                        <input type="submit" id="add_element_listItem" value={Language[this.props.lang].List.add_element_listItem} onClick={(event)=>{this.toggleListItemNameInputAddCancel(event); this.addNewListItem(event);}}/>
+                        <input type="submit" id="cancel_add_element_listItem" value={Language[this.props.lang].List.cancel_add_element_listItem} onClick={this.toggleListItemNameInputAddCancel}/>
                     </section>
                 </div>
             </section>

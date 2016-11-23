@@ -1,0 +1,75 @@
+{
+    "Beam": {
+        "sidePanelTrigger": "Boards",
+        "beamHomeLink": "Home",
+        "loggedOutParagraph" : [
+            "Please ",
+            "register",
+            "or",
+            "log in"
+        ]
+    },
+    "UserMenu" : {
+        "link": "Profile",
+        "settings" : "Settings",
+        "logout" : "Log out"
+    },
+    "AddMenuInput" : {
+        "placeholder" : "Add a name",
+        "add_element": "Add",
+        "cancel_add_element" : "Cancel"
+    },
+    "AddNewMenu": {
+        "h3": "Add a...",
+        "newboard": "new board",
+        "newteam": "new team"
+    },
+    "AddLabelBox": {
+        "h2": "Labels"
+    },
+    "AddScheduleBox": {
+        "p": [
+            "Current schedule is on ",
+            " at "
+        ],
+        "h2": "Add schedule",
+        "date": "Date",
+        "time": "Time",
+        "save": "Save",
+        "delete": "Delete"
+    },
+    "Board": {
+        "confirmRemove": "Are you sure you want to remove this board?",
+        "ok": "OK",
+        "abort": "Cancel",
+        "add_list_title": "Add a title...",
+        "addNewList": "Add",
+        "cancel_addNewList": "Cancel"
+    },
+    "BoardsSidePanel" : {
+        "searchResultsHeader" : "Search results",
+        "searchBoards": "Search for a board...",
+        "clearSearchBoards" : "Clear search box",
+        "starredBoards": "Starred boards",
+        "allBoards": "All boards"
+    },
+    "Comment": {
+        "h4": "Last edited on "
+    },
+    "DetailsBox": {
+        "h2": "Add a comment",
+        "textarea": "Write a comment",
+        "submit": "Send",
+        "asideh2": "Add",
+        "addLabel": "Label",
+        "addSchedule": "Schedule"
+    },
+    "List": {
+        "add_list_item_title": "Add a title",
+        "add_element_listItem": "Add",
+        "cancel_add_element_listItem": "Cancel"
+    },
+    "ListItem": {
+        "remove": "Remove this card"
+    }
+}

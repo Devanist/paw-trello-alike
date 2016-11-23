@@ -5,6 +5,7 @@ let user = localStorage.getItem('user') || null;
 */
 
 const initialState = {
+    language: "en",
     user: {
         id: 0,
         fullname: "Example User",
@@ -331,6 +332,14 @@ const Reducer = (state, action) => {
                 }
             }
 
+            break;
+        case AT.CHANGE_LANGUAGE:
+
+            let newLang = action.lang;
+            newState = {
+                ...state,
+                language : newLang
+            };
             break;
         default:
             console.error(`There is no defined action like ${action.type}`);

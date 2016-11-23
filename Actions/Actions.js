@@ -12,7 +12,8 @@ export const AT = {
     REMOVE_LISTITEM: 'REMOVE_LISTITEM',
     SET_FAVOURITE_BOARD: 'SET_FAVOURITE_BOARD',
     CHANGE_LABEL: 'CHANGE_LABEL',
-    SAVE_SCHEDULE: 'SAVE_SCHEDULE'
+    SAVE_SCHEDULE: 'SAVE_SCHEDULE',
+    CHANGE_LANGUAGE: 'CHANGE_LANGUAGE'
 };
 
 export function setMessage(result, message){
@@ -116,5 +117,11 @@ export let Actions = {
             listId: listId,
             itemId: itemId
         };
-    }
+    },
+    changeLanguage : (lang) => {
+        return {
+            type : AT.CHANGE_LANGUAGE,
+            lang : lang
+        };
+    } 
 };

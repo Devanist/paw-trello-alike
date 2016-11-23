@@ -46,7 +46,7 @@ function fetchComments(){
 }
 
 function propsToChildren(element){
-    return <Comment key={element.id} content={element} />
+    return <Comment lang={this.props.lang} key={element.id} content={element} />
 }
 
 export default CommentsList;

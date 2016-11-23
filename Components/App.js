@@ -17,12 +17,12 @@ class App extends Component {
         }
 
         if(this.props.user !== null){
-            sidePanel = <BoardsSidePanel boards={this.props.user.boardsList} searchResults={this.props.searchBoardsResults} dispatch={this.props.dispatch}/>;
+            sidePanel = <BoardsSidePanel lang={this.props.language} boards={this.props.user.boardsList} searchResults={this.props.searchBoardsResults} dispatch={this.props.dispatch}/>;
         }
 
         return (
             <section>
-                <Beam dispatch={this.props.dispatch} user={this.props.user} />
+                <Beam dispatch={this.props.dispatch} user={this.props.user} lang={this.props.language} />
                 <MessagePanel data={this.props.messagePanel} />
                 <section id="contentHolder">
                     {sidePanel}

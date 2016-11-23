@@ -8,6 +8,7 @@ import 'jquery-ui/ui/core';
 import 'jquery-ui/ui/widgets/sortable';
 import appConfig from '../config';
 import {Actions, setMessage} from '../Actions/Actions';
+import Language from '../Languages/Language';
 
 import DetailsBox from './DetailsBox';
 
@@ -32,7 +33,7 @@ class Board extends Component {
 
     renderLists(){
         return this.props.currentBoard.lists.map( (list) => {
-            return <List key={list.id} list={list} openDetails={displayDetailsBox.bind(this)} dispatch={this.props.dispatch} />
+            return <List lang={this.props.language} key={list.id} list={list} openDetails={displayDetailsBox.bind(this)} dispatch={this.props.dispatch} />
         });
     }
 
@@ -173,7 +174,7 @@ class Board extends Component {
         if(this.state.displayDetails){
             let list = this.props.currentBoard.lists.find( (element) => {return element.id === parseInt(this.state.detailsList)});
             let item = list.listItems.find( (element) => { return element.id === parseInt(this.state.detailsItem)});
-            details = <DetailsBox key="DetailsBox" item={item} list={list} onClose={closeDetailsBox.bind(this)} dispatch={this.props.dispatch} />; 
+            details = <DetailsBox lang={this.props.language} key="DetailsBox" item={item} list={list} onClose={closeDetailsBox.bind(this)} dispatch={this.props.dispatch} lang={this.props.language}/>; 
         }
 
         return (
@@ -186,17 +187,19 @@ class Board extends Component {
                     <span id="favBoard" className={this.props.currentBoard.isFav}></span>
                     <section id="listsContainer">{this.renderLists()}</section>
                     <section id="confirmRemove" className="hidden">
-                        <p>Are you sure you want to remove this board?</p>
-                        <div className="confirmation"><p>OK</p></div>
-                        <div className="abort"><p>Cancel</p></div> 
+                        <p>{Language[this.props.language].Board.confirmRemove}</p>
+                        <div className="confirmation"><p>
+                            {Language[this.props.language].Board.ok}
+                        </p></div>
+                        <div className="abort"><p>{Language[this.props.language].Board.abort}</p></div> 
                     </section>
                     <div>
                     <section id="addListTrigger" onClick={this.toggleListNameInput}>
                     </section>
                     <section id="addListMenu" className="hidden">
-                        <input type="text" id="add_list_title" placeholder="Add a title..."/>
-                        <input type="submit" id="addNewList" value="Add" onClick={this.addNewList}/>
-                        <input type="submit" id="cancel_addNewList" value="Cancel"/>
+                        <input type="text" id="add_list_title" placeholder={Language[this.props.language].Board.add_list_title} />
+                        <input type="submit" id="addNewList" value={Language[this.props.language].Board.addNewList} onClick={this.addNewList}/>
+                        <input type="submit" id="cancel_addNewList" value={Language[this.props.language].Board.cancel_addNewList}/>
                     </section>
                 </div>
                 {this.state.children}

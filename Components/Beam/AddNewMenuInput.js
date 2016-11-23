@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Language from '../../Languages/Language';
 
 class AddNewMenuInput extends Component{
 
@@ -6,9 +7,9 @@ class AddNewMenuInput extends Component{
         return (
             <div id="addMenuInputBox" className="hidden">
                 <span className="return"></span>
-                <input type="text" id="add_title" placeholder="Add a name..."/>
-                <input type="submit" id="add_element" value="Add" onClick={this.props.trigger} />
-                <input type="submit" id="cancel_add_element" value="Cancel" />
+                <input type="text" id="add_title" placeholder={Language[this.props.lang].AddMenuInput.placeholder}/>
+                <input type="submit" id="add_element" value={Language[this.props.lang].AddMenuInput.add_element} onClick={this.props.trigger} />
+                <input type="submit" id="cancel_add_element" value={Language[this.props.lang].AddMenuInput.cancel_add_element} />
             </div>
         )
     }

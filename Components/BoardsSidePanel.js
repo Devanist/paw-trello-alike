@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router';
 import $ from 'jquery';
 import {Actions} from '../Actions/Actions';
+import Language from '../Languages/Language';
 
 class BoardsSidePanel extends Component{
 
@@ -16,7 +17,7 @@ class BoardsSidePanel extends Component{
 
         if(this.props.searchResults.length > 0){
             this.searchedBoards = [
-                <h2 key="searchResultsHeader">Search results</h2>,
+                <h2 key="searchResultsHeader">{Language[this.props.lang].BoardsSidePanel.searchResultsHeader}</h2>,
                 <ul key="searchResultsList">
                     {this.props.searchResults.map(boardToListElement)}
                 </ul>
@@ -34,14 +35,14 @@ class BoardsSidePanel extends Component{
 
         return (
             <aside id="BoardsSidePanel">
-                <input id="searchBoards" type="text" placeholder="Search for a board..." />
-                <span id="clearSearchBoards" title="Clear search box"></span>
-                <h2 id="starredBoards">Starred boards</h2>
+                <input id="searchBoards" type="text" placeholder={Language[this.props.lang].BoardsSidePanel.searchBoards} />
+                <span id="clearSearchBoards" title={Language[this.props.lang].BoardsSidePanel.clearSearchBoards}></span>
+                <h2 id="starredBoards">{Language[this.props.lang].BoardsSidePanel.starredBoards}</h2>
                 <ul id="starredBoardsList">
                     {this.favedBoards}
                 </ul>
                 {this.searchedBoards}
-                <h2 id="allBoards">All boards</h2>
+                <h2 id="allBoards">{Language[this.props.lang].BoardsSidePanel.allBoards}</h2>
                 <ul id="allBoardsList">
                     {this.mapBoardsList()}
                 </ul>

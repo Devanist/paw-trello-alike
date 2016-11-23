@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 import appConfig from '../config';
 import {Actions, setMessage} from '../Actions/Actions';
+import Language from '../Languages/Language';
 
 class ListItem extends Component{
 
@@ -21,7 +22,7 @@ class ListItem extends Component{
             labels = this.props.listItem.labels.map(stateToLabels.bind(this));
         }
         if(this.props.listItem.schedule !== null && this.props.listItem.schedule !== undefined){
-            schedule = <p>{this.props.listItem.schedule.date} at {this.props.listItem.schedule.time}</p>
+            schedule = <p>{this.props.listItem.schedule.date}, {this.props.listItem.schedule.time}</p>
         }
 
         return (
@@ -34,7 +35,7 @@ class ListItem extends Component{
                 <span className="editListItemTitle" onClick={handleEditListItem.bind(this)}></span>
                 <span className="saveListItemTitle hidden" onClick={handleSaveListItemTitle.bind(this)}></span>
                 <span className="cancelListItemTitle hidden" onClick={handleCancelListItemTitle.bind(this)}></span>
-                <span className="removeListItem" title="Remove this card" onClick={handleRemoveListItem.bind(this)}></span>
+                <span className="removeListItem" title={Language[this.props.lang].ListItem.remove} onClick={handleRemoveListItem.bind(this)}></span>
             </section>
         )
     }

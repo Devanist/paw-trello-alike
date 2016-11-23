@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
+import Language from '../../Languages/Language';
 
 class UserMenu extends Component{
 
@@ -8,11 +9,13 @@ class UserMenu extends Component{
         return (
             <section id="userMenu">
                 <ul>
-                    <li><Link to={`/user/${this.props.username}`}>Profile</Link></li>
-                    <li>Settings</li>
+                    <li><Link to={`/user/${this.props.username}`}>
+                        {Language[this.props.lang].UserMenu.link}
+                    </Link></li>
+                    <li>{Language[this.props.lang].UserMenu.settings}</li>
                     <li>
                         <a id="Logout" onClick={this.props.trigger}>
-                            Log out
+                            {Language[this.props.lang].UserMenu.logout}
                         </a>
                     </li>
                 </ul>
