@@ -14,6 +14,7 @@ class List extends Component{
     }
 
     renderListItems(){
+        console.log(this.props.list);
         return this.props.list.listItems.map( (listItem) => {
             return <ListItem lang={this.props.lang} key={listItem.id} openDetails={this.props.openDetails} list={this.props.list} listItem={listItem} dispatch={this.props.dispatch}/>
         });
@@ -51,6 +52,7 @@ class List extends Component{
 
         return (
             <section className="list" id={`list_${this.props.list.id}`}>
+                <span className="removeList"> </span>
                 <h3 className="listTitle" contentEditable="false">{this.props.list.title}</h3>
                 <span className="editListTitle" ></span>
                 <span className="saveListTitle hidden"></span>
@@ -71,6 +73,14 @@ class List extends Component{
 
     componentDidMount(){
         let that = this;
+
+        $(".removeList").on("click", function(e) {
+            //let listID = $(this).parent().id.substr(id.indexOf("_") + 1);
+            console.log("id listy: " + $(this).parent()[0].id);
+            let listID = $(this).parent()[0].id.substr($(this).parent()[0].id.indexOf("_") + 1);
+            that.props.dispatch(Actions.removeList(listID));
+            that.props.router.push('/');
+        });
 
         $(".editListTitle").on("click", function(e) {
             e.stopImmediatePropagation();
