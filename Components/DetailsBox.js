@@ -6,6 +6,7 @@ import appConfig from '../config';
 import CommentsList from './CommentsList';
 import CommentsStyles from '../Styles/Comments.scss';
 import AddLabelBox from './AddLabelBox';
+import AddScheduleBox from './AddScheduleBox';
 
 class DetailsBox extends Component{
 
@@ -13,7 +14,7 @@ class DetailsBox extends Component{
         super();
 
         this.state = {
-            displayAddLabel: false
+            displayAddBox: ""
         };
 
     }
@@ -24,9 +25,17 @@ class DetailsBox extends Component{
             labels = <section><h3>Labels:</h3>{this.props.item.labels.map(stateToLabels.bind(this))}</section>
         }
 
-        let addLabels = "";
-        if(this.state.displayAddLabel){
-            addLabels = <AddLabelBox key="AddLabelBox" listId={this.props.list.id} itemId={this.props.item.id} activeLabels={this.props.item.labels} dispatch={this.props.dispatch} onClose={closeAddLabel.bind(this)} />;
+        let addBox = "";
+
+        switch(this.state.displayAddBox){
+            case "Label":
+                addBox = <AddLabelBox key="AddLabelBox" listId={this.props.list.id} itemId={this.props.item.id} activeLabels={this.props.item.labels} dispatch={this.props.dispatch} onClose={closeAddBox.bind(this)} />;
+                break;
+            case "Schedule":
+                addBox = <AddScheduleBox key="AddScheduleBox" dispatch={this.props.dispatch} onClose={closeAddBox.bind(this)} />;
+                break;
+            default: 
+                addBox = "";
         }
 
         return (
@@ -43,9 +52,10 @@ class DetailsBox extends Component{
                 </section>
                 <aside>
                     <h2>Add</h2>
-                    <h3 onClick={displayAddLabel.bind(this)}>Label</h3>
+                    <h3 onClick={displayAddBox.bind(this)}>Label</h3>
+                    <h3 onClick={displayAddBox.bind(this)}>Schedule</h3>
                 </aside>
-                {addLabels}
+                {addBox}
             </section>
         );
 
@@ -67,15 +77,18 @@ function submitNewComment(){
     });
 }
 
-function displayAddLabel(){
+function displayAddBox(e){
+
+    let what = $(e.target).text();
+
     this.setState({
-        displayAddLabel: true
+        displayAddBox : what
     });
 }
 
-function closeAddLabel(){
+function closeAddBox(){
     this.setState({
-        displayAddLabel: false
+        displayAddBox: ""
     });
 }
 

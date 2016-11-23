@@ -25,7 +25,7 @@ class AddLabelBox extends Component{
         let labels = this.state.colors.map(labelsToComponents.bind(this)); 
 
         return(
-            <section id="AddLabelBox">
+            <section id="AddLabelBox" className="AddDetailBox">
                 <span id="closeAddLabel" className="closePanel" onClick={this.props.onClose}></span>
                 <h2>Labels</h2>
                {labels}
