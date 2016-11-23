@@ -11,12 +11,12 @@ class List extends Component{
         super();
         this.oldTitle = "";
         this.addNewListItem = this.addNewListItem.bind(this);
+        this.renderListItems = this.renderListItems.bind(this);
     }
 
     renderListItems(){
-        console.log(this.props.list);
         return this.props.list.listItems.map( (listItem) => {
-            return <ListItem lang={this.props.lang} key={listItem.id} openDetails={this.props.openDetails} list={this.props.list} listItem={listItem} dispatch={this.props.dispatch}/>
+            return <ListItem lang={this.props.lang} key={`listItem_${listItem.id}`} openDetails={this.props.openDetails} list={this.props.list} listItem={listItem} dispatch={this.props.dispatch}/>
         });
     }
 
@@ -79,7 +79,6 @@ class List extends Component{
             console.log("id listy: " + $(this).parent()[0].id);
             let listID = $(this).parent()[0].id.substr($(this).parent()[0].id.indexOf("_") + 1);
             that.props.dispatch(Actions.removeList(listID));
-            that.props.router.push('/');
         });
 
         $(".editListTitle").on("click", function(e) {

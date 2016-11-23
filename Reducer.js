@@ -180,38 +180,19 @@ const Reducer = (state, action) => {
             };
             break;
         case AT.REMOVE_LIST:
-            console.log("action.listId:" + action.listId);
 
             removedListIndex = state.currentBoard.lists.findIndex( (element) => {
                 return element.id === parseInt(action.listId);
             });
 
-            console.log("Listy przed: ");
-            console.log(state.currentBoard.lists);
-
-            console.log("Usuwana lista:");
-            console.log(state.currentBoard.lists[removedListIndex]);
-
-            console.log("Test splice:");
-            console.log(state.currentBoard.lists.splice(removedListIndex, 1));
-
-
-            /*let listsAfterRemove = [
-                state.currentBoard.lists.splice(0, removedListIndex),
-                state.currentBoard.lists.slice(removedListIndex + 1)
-            ];  */
-
-            let listsAfterRemove = state.currentBoard.lists.splice(removedListIndex, 1);
-
-
-            console.log("Listy po usunieciu pozycji " + removedListIndex + ":");
-            console.log(listsAfterRemove);
-
             newState = {
                 ...state,
                 currentBoard: {
                     ...state.currentBoard,
-                    lists : listsAfterRemove
+                    lists : [
+                        ...state.currentBoard.lists.slice(0, removedListIndex),
+                        ...state.currentBoard.lists.slice(removedListIndex + 1)
+                    ]
                 }
             };
 

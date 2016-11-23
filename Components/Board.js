@@ -33,7 +33,7 @@ class Board extends Component {
 
     renderLists(){
         return this.props.currentBoard.lists.map( (list) => {
-            return <List lang={this.props.language} key={list.id} list={list} openDetails={displayDetailsBox.bind(this)} dispatch={this.props.dispatch} />
+            return <List lang={this.props.language} key={`list_${list.id}`} list={list} openDetails={displayDetailsBox.bind(this)} dispatch={this.props.dispatch} />
         });
     }
 
