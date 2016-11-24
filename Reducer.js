@@ -247,7 +247,7 @@ const Reducer = (state, action) => {
             });
 
             let newListItems = [
-                state.currentBoard.lists[modifiedListIndex].listItems.splice(removedItemIndex),
+                state.currentBoard.lists[modifiedListIndex].listItems.slice(removedItemIndex),
                 state.currentBoard.lists[modifiedListIndex].listItems.slice(removedItemIndex + 1)
             ];
 

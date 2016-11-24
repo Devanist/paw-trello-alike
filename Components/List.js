@@ -56,7 +56,7 @@ class List extends Component{
                 <h3 className="listTitle" contentEditable="false">{this.props.list.title}</h3>
                 <span className="editListTitle" ></span>
                 <span className="saveListTitle hidden"></span>
-                <span className="cancelListTitle hidden"></span>
+                <span className="cancelListTitle hidden" onClick={cancelEditListTitle.bind(this)}></span>
                 <section>{this.renderListItems()}</section>
                 <div>
                     <section id="addListItemTrigger" onClick={this.toggleListItemNameInput}>
@@ -114,15 +114,9 @@ class List extends Component{
                 }
             }).
             fail( (error) => {
-                setMessage.call(this, "fail", "SERVER ERROR");
+                setMessage.call(that, "fail", "SERVER ERROR");
                 $(this).parent().find("#listTitle").text(that.oldTitle);
             });
-        });
-
-        $(".cancelListTitle").on("click", function() {
-            $(this).parent().find("#listTitle").text(that.oldTitle);
-            $(this).parent().find("#listTitle").attr('contenteditable', 'false');
-            $(this).parent().find(".cancelListTitle, .saveListTitle, .editListTitle").toggleClass("hidden");
         });
 /*
         $("#add_element_listItem").on("click", function(){
@@ -133,10 +127,18 @@ class List extends Component{
             $("#addListItemMenu").toggleClass("hidden");
         });
 */
-
-
     }
 
+}
+
+function cancelEditListTitle(e){
+    e.target.parentElement.querySelector(".listTitle").innerText = this.oldTitle;
+    e.target.parentElement.querySelector(".listTitle").setAttribute('contenteditable', 'false');
+    e.target.parentElement.querySelectorAll(".cancelListTitle, .saveListTitle").
+        forEach( (element) => {
+            element.className += " hidden";
+        });
+    e.target.parentElement.querySelector(".editListTitle").className = e.target.parentElement.querySelector(".editListTitle").className.replace("hidden", "");
 }
 
 export default List;
