@@ -2,3 +2,4 @@ node_modules/**
 appconfig.json
 webpack.config.js
 OUTPUT/**
+npm-debug.log
