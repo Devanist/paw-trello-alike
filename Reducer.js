@@ -92,11 +92,24 @@ const Reducer = (state, action) => {
 
     switch(action.type){
         case AT.SET_MESSAGE:
-            newState = Object.assign({}, state, {messagePanel: {message: action.message, result: action.result}});
+
+            let newResult = action.result;
+            let newMessage = action.message;
+
+            newState = {
+                ...state,
+                messagePanel: {
+                    result : newResult,
+                    message : newMessage
+                }
+            };
             break;
         case AT.LOGOUT:
             var newUser = null;
-            newState = Object.assign({}, state, {user: newUser});
+            newState = {
+                ...state,
+                user: newUser
+            };
             localStorage.removeItem('user');
             break;
         case AT.LOGIN:
