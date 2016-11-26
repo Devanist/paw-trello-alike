@@ -5,6 +5,7 @@ let user = localStorage.getItem('user') || null;
 */
 
 const initialState = {
+    language: "en",
     user: {
         id: 0,
         fullname: "Example User",
@@ -89,6 +90,8 @@ const Reducer = (state, action) => {
 
     var newState = state;
     let modifiedListIndex;
+    let removedListIndex;
+    let modifiedItemIndex;
 
     switch(action.type){
         case AT.SET_MESSAGE:
@@ -189,6 +192,25 @@ const Reducer = (state, action) => {
                 }
             };
             break;
+        case AT.REMOVE_LIST:
+
+            removedListIndex = state.currentBoard.lists.findIndex( (element) => {
+                return element.id === parseInt(action.listId);
+            });
+
+            newState = {
+                ...state,
+                currentBoard: {
+                    ...state.currentBoard,
+                    lists : [
+                        ...state.currentBoard.lists.slice(0, removedListIndex),
+                        ...state.currentBoard.lists.slice(removedListIndex + 1)
+                    ]
+                }
+            };
+
+            break;
+
         case AT.SEARCH_BOARD:
 
             let searchedBoards = [];
@@ -238,7 +260,7 @@ const Reducer = (state, action) => {
             });
 
             let newListItems = [
-                state.currentBoard.lists[modifiedListIndex].listItems.slice(0, removedItemIndex),
+                state.currentBoard.lists[modifiedListIndex].listItems.slice(removedItemIndex),
                 state.currentBoard.lists[modifiedListIndex].listItems.slice(removedItemIndex + 1)
             ];
 
@@ -260,7 +282,7 @@ const Reducer = (state, action) => {
                 return element.id === parseInt(action.listId);
             });
 
-            let modifiedItemIndex = state.currentBoard.lists[modifiedListIndex].listItems.findIndex( (element) => {
+            modifiedItemIndex = state.currentBoard.lists[modifiedListIndex].listItems.findIndex( (element) => {
                 return element.id === parseInt(action.itemId);
             });
 
@@ -277,7 +299,14 @@ const Reducer = (state, action) => {
 
             }
             else{
-                newLabels = state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex].labels.concat(action.color);
+
+                if(state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex].labels) {
+                    newLabels = state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex].labels.concat(action.color);
+                }
+                else {
+                    state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex].labels = [];
+                    newLabels = state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex].labels.concat(action.color);
+                }
             }
 
             newState = {
@@ -300,6 +329,49 @@ const Reducer = (state, action) => {
                         ...state.currentBoard.lists.slice(modifiedListIndex + 1)
                     ]
                 }
+            };
+            break;
+        case AT.SAVE_SCHEDULE:
+            
+            modifiedListIndex = state.currentBoard.lists.findIndex( (element) => {
+                return element.id === parseInt(action.listId);
+            });
+
+            let modifiedItemIndex = state.currentBoard.lists[modifiedListIndex].listItems.findIndex( (element) => {
+                return element.id === parseInt(action.itemId);
+            });
+
+            let newSchedule = action.schedule;
+
+            newState = {
+                ...state,
+                currentBoard : {
+                    ...state.currentBoard,
+                    lists : [
+                        ...state.currentBoard.lists.slice(0, modifiedListIndex),
+                        {
+                            ...state.currentBoard.lists[modifiedListIndex],
+                            listItems : [
+                                ...state.currentBoard.lists[modifiedListIndex].listItems.slice(0, modifiedItemIndex),
+                                {
+                                    ...state.currentBoard.lists[modifiedListIndex].listItems[modifiedItemIndex],
+                                    schedule : newSchedule
+                                },
+                                ...state.currentBoard.lists[modifiedListIndex].listItems.slice(modifiedItemIndex + 1)
+                            ]
+                        },
+                        ...state.currentBoard.lists.slice(modifiedItemIndex + 1)
+                    ]
+                }
+            }
+
+            break;
+        case AT.CHANGE_LANGUAGE:
+
+            let newLang = action.lang;
+            newState = {
+                ...state,
+                language : newLang
             };
             break;
         default:

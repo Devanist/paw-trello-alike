@@ -6,6 +6,9 @@ import appConfig from '../config';
 import CommentsList from './CommentsList';
 import CommentsStyles from '../Styles/Comments.scss';
 import AddLabelBox from './AddLabelBox';
+import AddScheduleBox from './AddScheduleBox';
+
+import Language from '../Languages/Language';
 
 class DetailsBox extends Component{
 
@@ -13,23 +16,33 @@ class DetailsBox extends Component{
         super();
 
         this.state = {
-            children : [],
-            labels : ""
+            displayAddBox: ""
         };
 
     }
 
-    componentDidMount(){
-        if(this.props.item.labels){
-
-            this.setState({
-                labels: <section><h3>Labels:</h3>{this.props.item.labels.map(stateToLabels.bind(this))}</section>
-            });
-
-        }
-    }
-
     render(){
+        let labels = "";
+        let schedule = "";
+        if(this.props.item.labels){
+            labels = <section><h3>Labels:</h3>{this.props.item.labels.map(stateToLabels.bind(this))}</section>
+        }
+        if(this.props.item.schedule !== null && this.props.item.schedule !== undefined){
+            schedule = <h3>Schedule on {this.props.item.schedule.date} at {this.props.item.schedule.time}</h3>
+        }
+
+        let addBox = "";
+
+        switch(this.state.displayAddBox){
+            case "Label":
+                addBox = <AddLabelBox lang={this.props.lang} key="AddLabelBox" listId={this.props.list.id} itemId={this.props.item.id} activeLabels={this.props.item.labels} dispatch={this.props.dispatch} onClose={closeAddBox.bind(this)} />;
+                break;
+            case "Schedule":
+                addBox = <AddScheduleBox lang={this.props.lang} key="AddScheduleBox" dispatch={this.props.dispatch} onClose={closeAddBox.bind(this)} listId={this.props.list.id} itemId={this.props.item.id} currentSchedule={this.props.item.schedule} />;
+                break;
+            default: 
+                addBox = "";
+        }
 
         return (
             <section id="DetailsBox">
@@ -37,19 +50,19 @@ class DetailsBox extends Component{
                 <h2>{this.props.item.title}</h2>
                 <p id="itemLocation">in list {this.props.list.title}</p>
                 <section>
-                    <section>
-                        {this.state.labels}
-                    </section>
-                    <h2>Add a comment</h2>
-                    <textarea placeholder="Write a comment..." id="commentContent"></textarea>
-                    <input type="submit" value="Send" id="addCommentSubmit" onClick={submitNewComment.bind(this)}/>
-                    <CommentsList item={this.props.item} dispatch={this.props.dispatch} />
+                    {labels}
+                    {schedule}
+                    <h2>{Language[this.props.lang].DetailsBox.h2}</h2>
+                    <textarea placeholder={Language[this.props.lang].DetailsBox.textarea} id="commentContent"></textarea>
+                    <input type="submit" value={Language[this.props.lang].DetailsBox.submit} id="addCommentSubmit" onClick={submitNewComment.bind(this)}/>
+                    <CommentsList lang={this.props.lang} item={this.props.item} dispatch={this.props.dispatch} />
                 </section>
                 <aside>
-                    <h2>Add</h2>
-                    <h3 onClick={displayAddLabel.bind(this)}>Label</h3>
+                    <h2>{Language[this.props.lang].DetailsBox.asideh2}</h2>
+                    <h3 onClick={displayAddBox.bind(this)}>{Language[this.props.lang].DetailsBox.addLabel}</h3>
+                    <h3 onClick={displayAddBox.bind(this)}>{Language[this.props.lang].DetailsBox.addSchedule}</h3>
                 </aside>
-                {this.state.children}
+                {addBox}
             </section>
         );
 
@@ -71,15 +84,18 @@ function submitNewComment(){
     });
 }
 
-function displayAddLabel(){
+function displayAddBox(e){
+
+    let what = $(e.target).text();
+
     this.setState({
-        children: [<AddLabelBox key="AddLabelBox" listId={this.props.list.id} itemId={this.props.item.id} activeLabels={this.props.item.labels} dispatch={this.props.dispatch} onClose={closeAddLabel.bind(this)} />]
+        displayAddBox : what
     });
 }
 
-function closeAddLabel(){
+function closeAddBox(){
     this.setState({
-        children: []
+        displayAddBox: ""
     });
 }
 

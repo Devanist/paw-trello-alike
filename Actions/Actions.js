@@ -7,11 +7,14 @@ export const AT = {
     LOGIN: 'LOGIN',
     SORT_LISTS: 'SORT_LISTS',
     REMOVE_BOARD: 'REMOVE_BOARD',
+    REMOVE_LIST: 'REMOVE_LIST',
     SEARCH_BOARD: 'SEARCH_BOARD',
     ADD_BOARD: 'ADD_BOARD',
     REMOVE_LISTITEM: 'REMOVE_LISTITEM',
     SET_FAVOURITE_BOARD: 'SET_FAVOURITE_BOARD',
-    CHANGE_LABEL: 'CHANGE_LABEL'
+    CHANGE_LABEL: 'CHANGE_LABEL',
+    SAVE_SCHEDULE: 'SAVE_SCHEDULE',
+    CHANGE_LANGUAGE: 'CHANGE_LANGUAGE'
 };
 
 export function setMessage(result, message){
@@ -75,6 +78,12 @@ export let Actions = {
             id: id
         };
     },
+    removeList : (listId) => {
+        return {
+            type: AT.REMOVE_LIST,
+            listId: listId
+        };
+    },
     searchBoard : (title) => {
         return {
             type : AT.SEARCH_BOARD,
@@ -104,7 +113,22 @@ export let Actions = {
         return {
             type: AT.CHANGE_LABEL,
             listId: listId,
+            color: color,
             itemId: itemId
         };
-    }
+    },
+    saveSchedule : (datetime, listId, itemId) => {
+        return {
+            type: AT.SAVE_SCHEDULE,
+            schedule: datetime,
+            listId: listId,
+            itemId: itemId
+        };
+    },
+    changeLanguage : (lang) => {
+        return {
+            type : AT.CHANGE_LANGUAGE,
+            lang : lang
+        };
+    } 
 };

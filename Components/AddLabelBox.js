@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Actions, setMessage} from '../Actions/Actions';
+import Language from '../Languages/Language';
 
 class AddLabelBox extends Component{
 
@@ -20,19 +21,15 @@ class AddLabelBox extends Component{
         };
     }
 
-    componentDidMount(){
-        this.setState({
-            children: this.state.colors.map(labelsToComponents.bind(this))
-        });
-    }
-
     render(){
 
+        let labels = this.state.colors.map(labelsToComponents.bind(this)); 
+
         return(
-            <section id="AddLabelBox">
+            <section id="AddLabelBox" className="AddDetailBox">
                 <span id="closeAddLabel" className="closePanel" onClick={this.props.onClose}></span>
-                <h2>Labels</h2>
-               {this.state.children}
+                <h2>{Language[this.props.lang].AddLabelBox.h2}</h2>
+               {labels}
             </section>
         );
 

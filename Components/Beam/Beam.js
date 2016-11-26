@@ -3,11 +3,13 @@ import {Link, withRouter} from 'react-router';
 import $ from 'jquery';
 import appConfig from '../../config';
 import {Actions, setMessage} from '../../Actions/Actions';
+import Language from '../../Languages/Language';
 
 import BeamAside from './BeamAside';
 import AddNewMenu from './AddNewMenu';
 import AddNewMenuInput from './AddNewMenuInput';
 import UserMenu from './UserMenu';
+import LanguageSelector from './LanguageSelector';
 
 class Beam extends Component{
 
@@ -60,6 +62,9 @@ class Beam extends Component{
                 setMessage.call(this, "fail", "SERVER ERROR");
             });
         }
+        else if(this.addWhat === "createTeamLink") {
+            //logika
+        }
 
     }
 
@@ -77,18 +82,19 @@ class Beam extends Component{
 
             beamContent = (
                 <section id="beam">
-                    <div id="sidePanelTrigger"><p>Boards</p></div>
+                    <div id="sidePanelTrigger"><p>{Language[this.props.lang].Beam.sidePanelTrigger}</p></div>
                     <div id="addMenuTrigger" onClick={this.extendAddMenu}><span></span></div>
-                    <AddNewMenu />
-                    <AddNewMenuInput trigger={this.addNew} />
-                    <Link id="beamHomeLink" to="/">Home</Link>
+                    <AddNewMenu lang={this.props.lang} />
+                    <AddNewMenuInput trigger={this.addNew} lang={this.props.lang} />
+                    <Link id="beamHomeLink" to="/">{Language[this.props.lang].Beam.beamHomeLink}</Link>
                     <BeamAside username={this.props.user.fullname} userPic={userPic} trigger={this.extendMenu} />
-                    <UserMenu username={this.props.user.name} dispatch={this.props.dispatch} 
+                    <UserMenu lang={this.props.lang} username={this.props.user.name} dispatch={this.props.dispatch} 
                         trigger={() => {
                             this.props.dispatch(Actions.logout())
                             this.props.router.push('/');
                         }} 
                     />
+                    <LanguageSelector dispatch={this.props.dispatch} lang={this.props.lang} />
                 </section>
             )
         }
@@ -96,7 +102,16 @@ class Beam extends Component{
             beamContent = (
                 <section id="beam">
                     <aside>
-                        <p id="loggedOutParagraph">Please <Link to="/register">register</Link> or <Link to="/login">log in</Link>.</p>
+                        <p id="loggedOutParagraph">
+                            {Language[this.props.lang].Beam.loggedOutParagraph[0]} 
+                            <Link to="/register">
+                                {Language[this.props.lang].Beam.loggedOutParagraph[1]}
+                            </Link>
+                                {Language[this.props.lang].Beam.loggedOutParagraph[2]} 
+                            <Link to="/login">
+                                {Language[this.props.lang].Beam.loggedOutParagraph[3]}
+                            </Link>
+                        </p>
                     </aside>
                 </section>
             );
@@ -113,6 +128,14 @@ class Beam extends Component{
         });
 
         $(".addNewLink").on("click", function(){
+            that.addWhat = $(this).attr("id");
+            $("#add_title").val("");
+            $("#addMenuInputBox").toggleClass("hidden");
+            $("#add_title").focus();
+        });
+
+        //do poprawy
+        $(".createNewTeamLink").on("click", function(){
             that.addWhat = $(this).attr("id");
             $("#add_title").val("");
             $("#addMenuInputBox").toggleClass("hidden");

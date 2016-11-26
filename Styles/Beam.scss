@@ -16,6 +16,29 @@ $beamHeight: 50px;
     position: relative;
     display: flex;
 
+    #LanguageSelector{
+        float: right;
+        margin-top: 16px;
+        margin-left: auto;
+
+        #langSelectBox{
+            position: absolute;
+            height: auto;
+            right: 0;
+            z-index: 999;
+            background-color: $beamBoardsColor;
+
+            ul {
+                padding: 0;
+
+                li{
+                    list-style-type: none;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
     #sidePanelTrigger{
         width: 23%;
         max-width: 250px;

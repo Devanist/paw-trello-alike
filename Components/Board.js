@@ -8,6 +8,7 @@ import 'jquery-ui/ui/core';
 import 'jquery-ui/ui/widgets/sortable';
 import appConfig from '../config';
 import {Actions, setMessage} from '../Actions/Actions';
+import Language from '../Languages/Language';
 
 import DetailsBox from './DetailsBox';
 
@@ -23,13 +24,16 @@ class Board extends Component {
         this.oldTitle = "";
 
         this.state = {
+            displayDetails: false,
+            displayList: null,
+            displayItem: null,
             children: []
         };
     }
 
     renderLists(){
         return this.props.currentBoard.lists.map( (list) => {
-            return <List key={list.id} list={list} openDetails={displayDetailsBox.bind(this)} dispatch={this.props.dispatch} />
+            return <List lang={this.props.language} key={`list_${list.id}`} list={list} openDetails={displayDetailsBox.bind(this)} dispatch={this.props.dispatch} />
         });
     }
 
@@ -74,11 +78,13 @@ class Board extends Component {
                                     labels: [
                                         "red",
                                         "green"
-                                    ]
+                                    ],
+                                    schedule : null
                                 },
                                 {
                                     id: 1,
                                     title: "Do something",
+                                    schedule : null,
                                     comments: [
                                         {
                                             id: 0,
@@ -102,7 +108,8 @@ class Board extends Component {
                             listItems: [
                                 {
                                     id: 0,
-                                    title: "Walk a dog"
+                                    title: "Walk a dog",
+                                    schedule : null
                                 }
                             ]
                         },
@@ -112,15 +119,18 @@ class Board extends Component {
                             listItems: [
                                 {
                                     id: 0,
-                                    title: "Get some sleep"
+                                    title: "Get some sleep",
+                                    schedule : null
                                 },
                                 {
                                     id: 1,
-                                    title: "Do nothing"
+                                    title: "Do nothing",
+                                    schedule : null
                                 },
                                 {
                                     id: 2,
-                                    title: "Wake up"
+                                    title: "Wake up",
+                                    schedule : null
                                 }
                             ]
                         }
@@ -160,6 +170,13 @@ class Board extends Component {
     
     render(){
 
+        let details = "";
+        if(this.state.displayDetails){
+            let list = this.props.currentBoard.lists.find( (element) => {return element.id === parseInt(this.state.detailsList)});
+            let item = list.listItems.find( (element) => { return element.id === parseInt(this.state.detailsItem)});
+            details = <DetailsBox lang={this.props.language} key="DetailsBox" item={item} list={list} onClose={closeDetailsBox.bind(this)} dispatch={this.props.dispatch} lang={this.props.language}/>; 
+        }
+
         return (
                 <section id={`board`} className="board">
                     <h2 id="boardTitle" contentEditable="false">{this.props.currentBoard.title}</h2>
@@ -170,20 +187,23 @@ class Board extends Component {
                     <span id="favBoard" className={this.props.currentBoard.isFav}></span>
                     <section id="listsContainer">{this.renderLists()}</section>
                     <section id="confirmRemove" className="hidden">
-                        <p>Are you sure you want to remove this board?</p>
-                        <div className="confirmation"><p>OK</p></div>
-                        <div className="abort"><p>Cancel</p></div> 
+                        <p>{Language[this.props.language].Board.confirmRemove}</p>
+                        <div className="confirmation"><p>
+                            {Language[this.props.language].Board.ok}
+                        </p></div>
+                        <div className="abort"><p>{Language[this.props.language].Board.abort}</p></div> 
                     </section>
                     <div>
                     <section id="addListTrigger" onClick={this.toggleListNameInput}>
                     </section>
                     <section id="addListMenu" className="hidden">
-                        <input type="text" id="add_list_title" placeholder="Add a title..."/>
-                        <input type="submit" id="addNewList" value="Add" onClick={this.addNewList}/>
-                        <input type="submit" id="cancel_addNewList" value="Cancel"/>
+                        <input type="text" id="add_list_title" placeholder={Language[this.props.language].Board.add_list_title} />
+                        <input type="submit" id="addNewList" value={Language[this.props.language].Board.addNewList} onClick={this.addNewList}/>
+                        <input type="submit" id="cancel_addNewList" value={Language[this.props.language].Board.cancel_addNewList}/>
                     </section>
                 </div>
                 {this.state.children}
+                {details}
                 </section>
             )
     }
@@ -326,22 +346,20 @@ function mapStateToProps(state){
     return state;
 }
 
-function displayDetailsBox(e, list, item){
+function displayDetailsBox(e, listId, itemId){
     this.setState({
-        children : this.state.children.
-            filter( (element) => {
-                return element.key !== "DetailsBox";
-            }).
-            concat(<DetailsBox key="DetailsBox" item={item} list={list} onClose={closeDetailsBox.bind(this)} dispatch={this.props.dispatch} />)
+        displayDetails : true,
+        detailsList: listId,
+        detailsItem : itemId
     });
 }
 
 function closeDetailsBox(e){
     e.stopPropagation();
     this.setState({
-        children : this.state.children.filter( (element) => {
-            return element.key !== "DetailsBox";
-        })
+        displayDetails : false,
+        detailsList: null,
+        detailsItem: null
     });
 }
 

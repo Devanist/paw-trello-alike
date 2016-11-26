@@ -77,12 +77,15 @@ $iconSize: 20px;
 }
 
 #AddLabelBox {
+    width: 40%;
+    height: 400px;
+}
+
+.AddDetailBox{
     position: absolute;
     top: 20%;
     left: 50%;
     transform: translate(-50%, 0);
-    width: 40%;
-    height: 400px;
     background-color: #FFF4CC;
     border-radius: 15px;
     -webkit-box-shadow: 0px 0px 45px 10px rgba(0,0,0,0.75);

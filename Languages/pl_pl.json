@@ -1,0 +1,75 @@
+{
+    "Beam": {
+        "sidePanelTrigger": "Tablice",
+        "beamHomeLink": "Strona domowa",
+        "loggedOutParagraph" : [
+            "Prosimy ",
+            "zarejestruj się",
+            "lub",
+            "zaloguj."
+        ]
+    },
+    "UserMenu" : {
+        "link": "Profil",
+        "settings" : "Ustawienia",
+        "logout" : "Wyloguj"
+    },
+    "AddMenuInput" : {
+        "placeholder" : "Dodaj nazwę",
+        "add_element": "Dodaj",
+        "cancel_add_element" : "Anuluj"
+    },
+    "AddNewMenu": {
+        "h3": "Dodaj...",
+        "newboard": "nową tablicę",
+        "newteam": "nowy zespół"
+    },
+    "AddLabelBox": {
+        "h2": "Etykiety"
+    },
+    "AddScheduleBox": {
+        "p": [
+            "Obecny termin to ",
+            " o "
+        ],
+        "h2": "Dodaj termin",
+        "date": "Data",
+        "time": "Czas",
+        "save": "Zapisz",
+        "delete": "Usuń"
+    },
+    "Board": {
+        "confirmRemove": "Czy jesteś pewny/a, że chcesz usunąć tę tablicę?",
+        "ok": "Potwierdź",
+        "abort": "Anuluj",
+        "add_list_title": "Dodaj tytuł...",
+        "addNewList": "Dodaj",
+        "cancel_addNewList": "Anuluj"
+    },
+    "BoardsSidePanel" : {
+        "searchResultsHeader" : "Wyniki wyszukiwania",
+        "searchBoards": "Szukaj tablicy...",
+        "clearSearchBoards" : "Wyczyść",
+        "starredBoards": "Ulubione tablice",
+        "allBoards": "Wszystkie tablice"
+    },
+    "Comment": {
+        "h4": "Ostatnio edytowany "
+    },
+    "DetailsBox": {
+        "h2": "Dodaj komentarz",
+        "textarea": "Napisz komentarz",
+        "submit": "Wyślij",
+        "asideh2": "Dodaj",
+        "addLabel": "Etykieta",
+        "addSchedule": "Termin"
+    },
+    "List": {
+        "add_list_item_title": "Dodaj tytuł",
+        "add_element_listItem": "Dodaj",
+        "cancel_add_element_listItem": "Anuluj"
+    },
+    "ListItem": {
+        "remove": "Usuń tę kartę"
+    }
+}
