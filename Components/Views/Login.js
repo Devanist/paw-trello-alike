@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {withRouter, Link} from 'react-router';
 import {connect} from 'react-redux';
 import Style from '../../Styles/Login.scss';
-import {Actions} from '../../Actions/Actions';
+import {Actions, setMessage} from '../../Actions/Actions';
 import bcrypt from 'bcryptjs';
 import $ from 'jquery';
 import appConfig from '../../config';
@@ -41,10 +41,7 @@ class Login extends Component{
                 });
         }).
         fail((err) => {
-            this.props.dispatch(Actions.setMessage("fail", "SERVER_ERROR"));
-            setTimeout( () => {
-                this.props.dispatch(Actions.setMessage("hide"));
-            }, 5000);
+            setMessage.call(this, "fail", "SERVER ERROR");
         });
 
     }
@@ -68,7 +65,7 @@ class Login extends Component{
 
     componentWillMount(){
         if(this.props.user !== null){
-            this.props.dispatch(Actions.setMessage("fail", "You are already logged in."));
+            setMessage.call(this, "fail", "You are already logged in.");
             this.props.router.push('/');
         }
     }

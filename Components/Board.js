@@ -51,13 +51,23 @@ class Board extends Component {
             this.props.currentBoard = this.props.board;
         }
         else{
-            $.get(`${appConfig.host}/boards/${this.props.params.id}.json`).
+            $.get(`${appConfig.host}/board/${this.props.params.id}.json`).
             done( (data) => {
                 if(data.error){
                     setMessage.call(this, "fail", data.error);
                     this.props.push('/');
                 }
                 else{
+                    data.lists.forEach( (list) => {
+                        list.listItems.forEach( (item) => {
+                            item.labels = item.labels.split(",");
+                            let datetime = item.schedule.split(",");
+                            item.schedule = {
+                                date: datetime[0],
+                                time: datetime[1]
+                            }
+                        });
+                    });
                     this.props.dispatch(Actions.setCurrentBoard(data));
                 }
             }).
@@ -174,6 +184,7 @@ class Board extends Component {
         if(this.state.displayDetails){
             let list = this.props.currentBoard.lists.find( (element) => {return element.id === parseInt(this.state.detailsList)});
             let item = list.listItems.find( (element) => { return element.id === parseInt(this.state.detailsItem)});
+            console.log(item);
             details = <DetailsBox lang={this.props.language} key="DetailsBox" item={item} list={list} onClose={closeDetailsBox.bind(this)} dispatch={this.props.dispatch} lang={this.props.language}/>; 
         }
 

@@ -18,7 +18,7 @@ class ListItem extends Component{
 
         let labels = "";
         let schedule = "";
-        if(this.props.listItem.labels){
+        if(Array.isArray(this.props.listItem.labels)){
             labels = this.props.listItem.labels.map(stateToLabels.bind(this));
         }
         if(this.props.listItem.schedule !== null && this.props.listItem.schedule !== undefined){
