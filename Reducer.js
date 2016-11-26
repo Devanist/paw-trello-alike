@@ -116,7 +116,10 @@ const Reducer = (state, action) => {
             localStorage.removeItem('user');
             break;
         case AT.LOGIN:
-            newState = Object.assign({}, state, {user: action.user});
+            newState = {
+                ...state,
+                user : action.user
+            };
             localStorage.setItem('user', action.user);
             break;
         case AT.SET_CURRENT_BOARD:

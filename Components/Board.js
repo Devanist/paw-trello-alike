@@ -262,9 +262,9 @@ class Board extends Component {
 
         $("#favBoard").on("click", () => {
 
-            let fav = true;
+            let fav = "fav";
             if(this.props.currentBoard.isFav === "fav"){
-                fav = false;
+                fav = "";
             }
             $.post(`${appConfig.host}/boards/${this.props.currentBoard.id}`, {fav: fav }).
             done( (data) => {

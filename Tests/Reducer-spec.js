@@ -152,4 +152,49 @@ describe('Reducer', () => {
         expect(resultState.user).toBe(null);
     });
 
+    it("should add new list to current board", () => {
+        let newList = {
+            id: 3,
+            title: "TEST",
+            order: 3,
+            listItems: [
+                {
+                    id: 5,
+                    title: "Get some sleep"
+                },
+                {
+                    id: 6,
+                    title: "Do nothing"
+                },
+                {
+                    id: 7,
+                    title: "Wake up"
+                }
+            ]
+        };
+        let resultState = Reducer(initialState, Actions.addList(newList));
+        expect(resultState.currentBoard.lists).toContain(newList);
+    });
+
+    it("should set the board as favourite", () => {
+        let resultState = Reducer(initialState, Actions.setFav(""));
+        expect(resultState.currentBoard.isFav).toEqual("");
+
+        resultState = Reducer(initialState, Actions.setFav("fav"));
+        expect(resultState.currentBoard.isFav).toEqual("fav");
+    });
+
+    it("should remove the list item", () => {
+        let removedListItem = {
+            id: 0,
+            title: "Wash dishes",
+            labels: [
+                "red",
+                "green"
+            ]
+        };
+        let resultState = Reducer(initialState, Actions.removeListItem(0, 0));
+        expect(resultState.currentBoard.lists[0].listItems).not.toContain(removedListItem);
+    });
+
 });
