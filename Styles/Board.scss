@@ -3,6 +3,7 @@ $iconSize : 20px;
 .board{
     position: relative;
     left: 20px;
+    height: 100%;
 
     h2{
         display: inline-block;
@@ -24,9 +25,66 @@ $iconSize : 20px;
         height: 40px;
         background-image: url('../Assets/addList.png');
         background-color: #99723D;
-        //margin-top: 6px;
         &:hover{
-            background-color: #E5B572;
+            background-color: #99723D;
+        }
+    }
+
+    #SettingBox{
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 23%;
+        background-color: #4C3617;
+        height: 100%;
+        overflow: hidden;
+
+        #settings_container{
+            width: 200%;
+            position: relative;
+
+            section{
+                width:50%;
+                display: inline-block;
+                vertical-align: top;
+            }
+
+            #settings_main{
+                ul{
+                    padding: 0;
+
+                    li{
+                        list-style-type: none;
+                        text-align: center;
+                        height: 3em;
+                        border-radius: 2px;
+                        cursor: pointer;
+                        border-top: 1px solid #7F5F33;
+                        border-bottom: 1px solid #7F5F33;
+
+                        &:hover{
+                            background-color: #7F5F33;
+                        }
+
+                        p{
+                            top: 24%;
+                            position: relative;
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+
+            #archivized_elements{
+
+                *{
+                    margin-left: 5px;
+                }
+                p{
+                    cursor: pointer;
+                }
+            }
         }
     }
 

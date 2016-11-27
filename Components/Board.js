@@ -11,6 +11,7 @@ import {Actions, setMessage} from '../Actions/Actions';
 import Language from '../Languages/Language';
 
 import DetailsBox from './DetailsBox';
+import SettingBox from './SettingBox';
 
 import DetailsBoxStyle from '../Styles/DetailsBox.scss';
 
@@ -27,6 +28,7 @@ class Board extends Component {
             displayDetails: false,
             displayList: null,
             displayItem: null,
+            displaySettings: false,
             children: []
         };
     }
@@ -187,33 +189,41 @@ class Board extends Component {
             details = <DetailsBox lang={this.props.language} key="DetailsBox" item={item} list={list} onClose={closeDetailsBox.bind(this)} dispatch={this.props.dispatch} lang={this.props.language}/>; 
         }
 
+        let settings = "";
+        if(this.state.displaySettings){
+            settings = <SettingBox />
+        }
+
         return (
                 <section id={`board`} className="board">
-                    <h2 id="boardTitle" contentEditable="false">{this.props.currentBoard.title}</h2>
-                    <span id="editBoardTitle" onClick={this.editTitle}></span>
-                    <span id="saveBoardTitle" className="hidden"></span>
-                    <span id="cancelBoardTitle" className="hidden"></span>
-                    <span id="removeBoard"></span>
-                    <span id="favBoard" className={this.props.currentBoard.isFav}></span>
-                    <span id="boardSettings" className="settings"> </span>
-                    <section id="listsContainer">{this.renderLists()}</section>
-                    <section id="confirmRemove" className="hidden">
-                        <p>{Language[this.props.language].Board.confirmRemove}</p>
-                        <div className="confirmation"><p>
-                            {Language[this.props.language].Board.ok}
-                        </p></div>
-                        <div className="abort"><p>{Language[this.props.language].Board.abort}</p></div> 
-                    </section>
-                    <div>
-                    <section id="addListTrigger" onClick={this.toggleListNameInput}>
-                    </section>
-                    <section id="addListMenu" className="hidden">
-                        <input type="text" id="add_list_title" placeholder={Language[this.props.language].Board.add_list_title} />
-                        <input type="submit" id="addNewList" value={Language[this.props.language].Board.addNewList} onClick={this.addNewList}/>
-                        <input type="submit" id="cancel_addNewList" value={Language[this.props.language].Board.cancel_addNewList}/>
-                    </section>
-                </div>
-                {this.state.children}
+                    <section>
+                        <h2 id="boardTitle" contentEditable="false">{this.props.currentBoard.title}</h2>
+                        <span id="editBoardTitle" onClick={this.editTitle}></span>
+                        <span id="saveBoardTitle" className="hidden"></span>
+                        <span id="cancelBoardTitle" className="hidden"></span>
+                        <span id="removeBoard"></span>
+                        <span id="favBoard" className={this.props.currentBoard.isFav}></span>
+                        <span id="boardSettings" className="settings" onClick={showBoardSettings.bind(this)}> </span>
+                        <section id="listsContainer">{this.renderLists()}</section>
+                        <section id="confirmRemove" className="hidden">
+                            <p>{Language[this.props.language].Board.confirmRemove}</p>
+                            <div className="confirmation"><p>
+                                {Language[this.props.language].Board.ok}
+                            </p></div>
+                            <div className="abort"><p>{Language[this.props.language].Board.abort}</p></div> 
+                        </section>
+                        <div>
+                        <section id="addListTrigger" onClick={this.toggleListNameInput}>
+                        </section>
+                        <section id="addListMenu" className="hidden">
+                            <input type="text" id="add_list_title" placeholder={Language[this.props.language].Board.add_list_title} />
+                            <input type="submit" id="addNewList" value={Language[this.props.language].Board.addNewList} onClick={this.addNewList}/>
+                            <input type="submit" id="cancel_addNewList" value={Language[this.props.language].Board.cancel_addNewList}/>
+                        </section>
+                    </div>
+                    {this.state.children}
+                </section>
+                {settings}
                 {details}
                 </section>
             )
@@ -371,6 +381,12 @@ function closeDetailsBox(e){
         displayDetails : false,
         detailsList: null,
         detailsItem: null
+    });
+}
+
+function showBoardSettings(e){
+    this.setState({
+        displaySettings: !this.state.displaySettings
     });
 }
 
