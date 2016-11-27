@@ -19,7 +19,7 @@ class CommentsList extends Component{
 
         let comments = "";
         if(this.props.item.comments){
-            comments = this.props.item.comments.map(propsToChildren);
+            comments = this.props.item.comments.map(propsToChildren.bind(this));
         }
 
         return (
@@ -33,12 +33,16 @@ class CommentsList extends Component{
 }
 
 function fetchComments(){
-    $.get(`${appConfig.host}/comments/${this.props.item.id}`).
+
+    const listId = this.props.listId;
+    const itemId = this.props.item.id;
+
+    $.get(`${appConfig.host}/listitem/${itemId}.json`).
     done( (data) => {
         if(data.error){
             setMessage.call(this, "fail", data.error);
         }
-        this.props.dispatch(Actions.loadComments(this.props.list.id, this.props.item.id, data));
+        this.props.dispatch(Actions.loadComments(listId, itemId, data));
     }).
     fail( (error) => {
         setMessage.call(this, "fail", "SERVER ERROR");

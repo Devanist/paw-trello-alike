@@ -52,7 +52,8 @@ class List extends Component{
 
         return (
             <section className="list" id={`list_${this.props.list.id}`}>
-                <span className="removeList"> </span>
+                <span className="removeList" title="Remove this list"> </span>
+                <span className="archivizeList" title="Archivize this list" onClick={archivizeList.bind(this)}> </span>
                 <h3 className="listTitle" contentEditable="false">{this.props.list.title}</h3>
                 <span className="editListTitle" ></span>
                 <span className="saveListTitle hidden"></span>
@@ -139,6 +140,19 @@ function cancelEditListTitle(e){
             element.className += " hidden";
         });
     e.target.parentElement.querySelector(".editListTitle").className = e.target.parentElement.querySelector(".editListTitle").className.replace("hidden", "");
+}
+
+function archivizeList(e){
+    $.post(`${appConfig.host}/archivize`, {id: this.props.list.id}).
+        done( (data) => {
+            if(data.error){
+                setMessage.call(this, "fail", data.error);
+            }
+            this.props.dispatch(Actions.archivizeList(this.props.list.id));
+        }).
+        fail( (error) => {
+            setMessage.call(this, "fail", "SERVER ERROR");
+        });
 }
 
 export default List;

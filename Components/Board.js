@@ -184,7 +184,6 @@ class Board extends Component {
         if(this.state.displayDetails){
             let list = this.props.currentBoard.lists.find( (element) => {return element.id === parseInt(this.state.detailsList)});
             let item = list.listItems.find( (element) => { return element.id === parseInt(this.state.detailsItem)});
-            console.log(item);
             details = <DetailsBox lang={this.props.language} key="DetailsBox" item={item} list={list} onClose={closeDetailsBox.bind(this)} dispatch={this.props.dispatch} lang={this.props.language}/>; 
         }
 
@@ -196,6 +195,7 @@ class Board extends Component {
                     <span id="cancelBoardTitle" className="hidden"></span>
                     <span id="removeBoard"></span>
                     <span id="favBoard" className={this.props.currentBoard.isFav}></span>
+                    <span id="boardSettings" className="settings"> </span>
                     <section id="listsContainer">{this.renderLists()}</section>
                     <section id="confirmRemove" className="hidden">
                         <p>{Language[this.props.language].Board.confirmRemove}</p>

@@ -6,12 +6,8 @@ import Language from '../Languages/Language';
 
 class BoardsSidePanel extends Component{
 
-    mapBoardsList(){
-        return this.props.boards.map(boardToListElement);
-    }
-
     render(){
-        const userBoards = this.mapBoardsList();
+        const userBoards = this.props.boards.map(boardToListElement);
 
         this.searchedBoards = "";
 
@@ -44,7 +40,7 @@ class BoardsSidePanel extends Component{
                 {this.searchedBoards}
                 <h2 id="allBoards">{Language[this.props.lang].BoardsSidePanel.allBoards}</h2>
                 <ul id="allBoardsList">
-                    {this.mapBoardsList()}
+                    {userBoards}
                 </ul>
             </aside>
         )

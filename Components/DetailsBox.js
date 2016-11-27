@@ -55,7 +55,7 @@ class DetailsBox extends Component{
                     <h2>{Language[this.props.lang].DetailsBox.h2}</h2>
                     <textarea placeholder={Language[this.props.lang].DetailsBox.textarea} id="commentContent"></textarea>
                     <input type="submit" value={Language[this.props.lang].DetailsBox.submit} id="addCommentSubmit" onClick={submitNewComment.bind(this)}/>
-                    <CommentsList lang={this.props.lang} item={this.props.item} dispatch={this.props.dispatch} />
+                    <CommentsList lang={this.props.lang} item={this.props.item} listId={this.props.list.id} dispatch={this.props.dispatch} />
                 </section>
                 <aside>
                     <h2>{Language[this.props.lang].DetailsBox.asideh2}</h2>

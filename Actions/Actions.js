@@ -1,4 +1,5 @@
 export const AT = {
+    ARCHIVIZE_LIST: 'ARCHIVIZE_LIST',
     SET_MESSAGE: 'SET_MESSAGE',
     SET_CURRENT_BOARD: 'SET_CURRENT_BOARD',
     SAVE_BOARD_TITLE: 'SAVE_BOARD_TITLE',
@@ -9,6 +10,7 @@ export const AT = {
     REMOVE_BOARD: 'REMOVE_BOARD',
     REMOVE_LIST: 'REMOVE_LIST',
     SEARCH_BOARD: 'SEARCH_BOARD',
+    LOAD_COMMENTS: 'LOAD_COMMENTS',
     ADD_BOARD: 'ADD_BOARD',
     REMOVE_LISTITEM: 'REMOVE_LISTITEM',
     SET_FAVOURITE_BOARD: 'SET_FAVOURITE_BOARD',
@@ -130,5 +132,19 @@ export let Actions = {
             type : AT.CHANGE_LANGUAGE,
             lang : lang
         };
-    } 
+    },
+    loadComments : (listId, itemId, data) => {
+        return {
+            type : AT.LOAD_COMMENTS,
+            listId : listId,
+            itemId : itemId,
+            data : data.commentsList
+        };
+    },
+    archivizeList : (listId) => {
+        return {
+            type : AT.ARCHIVIZE_LIST,
+            listId : listId
+        };
+    }
 };

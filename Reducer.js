@@ -120,7 +120,7 @@ const Reducer = (state, action) => {
                 ...state,
                 user : action.user
             };
-            localStorage.setItem('user', action.user);
+            localStorage.setItem('user', JSON.stringify(action.user));
             break;
         case AT.SET_CURRENT_BOARD:
             var newCurrentBoard = action.board;
@@ -376,6 +376,37 @@ const Reducer = (state, action) => {
                 ...state,
                 language : newLang
             };
+            break;
+        case AT.LOAD_COMMENTS:
+            let newItemComments = action.data.map( (comment) => {
+                return comment;
+            });
+
+            newState = {
+                ...state,
+                currentBoard : {
+                    ...state.currentBoard,
+                    lists : [
+                        ...state.currentBoard.lists.splice(0, action.listId),
+                        {
+                            ...state.currentBoard.lists[action.listId],
+                            listItems: [
+                                ...state.currentBoard.lists[action.listId].listItems.splice(0, action.itemId),
+                                {
+                                    ...state.currentBoard.lists[action.listId].listItems[action.itemId],
+                                    comments : newItemComments 
+                                },
+                                ...state.currentBoard.lists[action.listId].listItems.splice(action.itemId + 1)
+                            ]
+                        },
+                        ...state.currentBoard.lists.splice(action.listId + 1),
+                    ]
+                }
+            }
+
+            break;
+        case AT.ARCHIVIZE_LIST:
+            
             break;
         default:
             console.error(`There is no defined action like ${action.type}`);

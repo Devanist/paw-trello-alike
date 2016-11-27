@@ -22,21 +22,20 @@ class Login extends Component{
         };
 
         let hash;
-        $.get(`${appConfig.host}/hash/${credentials.login}`).
+        $.get(`${appConfig.host}/hash/0.json?login=${credentials.login}`).
         done((data) => {
-            hash = data;
+            hash = data.hash;
             credentials.password = bcrypt.hashSync(credentials.password, hash);
-            $.post(`${appConfig.host}/login`, credentials).
+            $.post(`${appConfig.host}/login/`, credentials).
                 done((data) => {
                     if(data.error){
-                        //TO DO: SWITCH ON MESSAGE
-                        this.props.dispatch(Actions.setMessage("fail", "ERROR_LOGIN"));
-                        setTimeout( () => {
-                            this.props.dispatch(Actions.setMessage("hide"));
-                        }, 5000);
+                        setMessage.call(this, "fail", "ERROR_LOGIN");
                     }
                     else{
-                        this.props.dispatch(Actions.login(user));
+                        this.props.dispatch(Actions.login(data));
+                        setTimeout( () => {
+                            this.props.router.push('/');
+                        }, 400);
                     }
                 });
         }).

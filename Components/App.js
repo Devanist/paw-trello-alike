@@ -12,10 +12,6 @@ class App extends Component {
 
         let sidePanel = "";
 
-        if(localStorage.getItem('user') !== null){
-            this.props.dispatch(Actions.login( localStorage.getItem('user') ));
-        }
-
         if(this.props.user !== null){
             sidePanel = <BoardsSidePanel lang={this.props.language} boards={this.props.user.boardsList} searchResults={this.props.searchBoardsResults} dispatch={this.props.dispatch}/>;
         }

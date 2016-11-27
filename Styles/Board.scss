@@ -111,7 +111,26 @@ $iconSize : 20px;
         background-image: url('../Assets/star_active.png') !important;
     }
 
+}
 
+.archivizeList{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('../Assets/archive.png');
+    background-size: 20px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.settings{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('../Assets/settings.png');
+    background-size: 20px 20px;
+    margin-left: 10px;
+    cursor: pointer;
 }
 
 section.list {
