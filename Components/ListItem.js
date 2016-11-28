@@ -31,7 +31,7 @@ class ListItem extends Component{
                     {labels}
                     {schedule}
                 </header>
-                <h3 id="listItemTitle" contentEditable="false">{this.props.listItem.title}</h3>
+                <h3 onClick={titleClick} id="listItemTitle" contentEditable="false">{this.props.listItem.title}</h3>
                 <span className="editListItemTitle" onClick={handleEditListItem.bind(this)}></span>
                 <span className="saveListItemTitle hidden" onClick={handleSaveListItemTitle.bind(this)}></span>
                 <span className="cancelListItemTitle hidden" onClick={handleCancelListItemTitle.bind(this)}></span>
@@ -63,7 +63,8 @@ function archivizeListItem(e){
 
 function handleEditListItem(e) {
     e.stopPropagation();
-    e.stopImmediatePropagation();
+    e.cancelBubble = true;
+    if(e.stopImmediatePropagation) e.stopImmediatePropagation();
     let parent = $(e.target).parent();
     parent.find(".saveListItemTitle, .cancelListItemTitle, .editListItemTitle").toggleClass("hidden");
     let title = parent.find("#listItemTitle");
@@ -74,7 +75,8 @@ function handleEditListItem(e) {
 
 function handleSaveListItemTitle(e) {
     e.stopPropagation();
-    e.stopImmediatePropagation();
+    e.cancelBubble = true;
+    if(e.stopImmediatePropagation) e.stopImmediatePropagation();
     let parent = $(e.target).parent();
 
     parent.find(".cancelListItemTitle, .saveListItemTitle, .editListItemTitle").toggleClass("hidden");
@@ -97,7 +99,8 @@ function handleSaveListItemTitle(e) {
 
 function handleCancelListItemTitle(e) {
     e.stopPropagation();
-    e.stopImmediatePropagation();
+    e.cancelBubble = true;
+    if(e.stopImmediatePropagation) e.stopImmediatePropagation();
     let parent = $(e.target).parent();
     parent.find("#listItemTitle").text(this.oldTitle);
     parent.find("#listItemTitle").attr('contenteditable', 'false');
@@ -107,6 +110,8 @@ function handleCancelListItemTitle(e) {
 function handleRemoveListItem(e){
     e.nativeEvent.stopImmediatePropagation();
     e.stopPropagation();
+    if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+    e.cancelBubble = true;
 
     let id = $(e.target).
                 parent().
@@ -131,6 +136,14 @@ function handleRemoveListItem(e){
         setMessage.call(this, "fail", "SERVER ERROR");
         //this.props.dispatch(Actions.removeListItem(listID, id));
     });
+}
+
+function titleClick(e){
+    if(e.target.getAttribute("contentEditable") === "true"){
+        e.stopPropagation();
+        if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+        e.cancelBubble = true;
+    }
 }
 
 function stateToLabels(label){

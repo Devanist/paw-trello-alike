@@ -286,7 +286,7 @@ class Board extends Component {
         });
 
         $("#listsContainer").
-        sortable({cancel: '.list h3, #add_list_item_title, #DetailsBox'}).
+        sortable({cancel: '.list h3, #add_list_item_title, #DetailsBox, .listItem'}).
         on("sortstop", listOrderChangeHandler.bind(this));
 
         $("#favBoard").on("click", () => {
@@ -376,6 +376,7 @@ function mapStateToProps(state){
 }
 
 function displayDetailsBox(e, listId, itemId){
+    console.log(e);
     this.setState({
         displayDetails : true,
         detailsList: listId,
