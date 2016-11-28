@@ -78,6 +78,19 @@ class Board extends Component {
                 this.props.dispatch(Actions.setCurrentBoard({
                     title: "Example Board",
                     id: 0,
+                    archive: {
+                        lists: [
+                            {
+                                title: "DONE YESTERDAY",
+                                id: 6
+                            }
+                        ],
+                        items: [{
+                            title: "PET A CAT",
+                            id: 18,
+                            listId: 0
+                        }]
+                    },
                     isFav: "fav",
                     lists: [
                         {
@@ -189,11 +202,6 @@ class Board extends Component {
             details = <DetailsBox lang={this.props.language} key="DetailsBox" item={item} list={list} onClose={closeDetailsBox.bind(this)} dispatch={this.props.dispatch} lang={this.props.language}/>; 
         }
 
-        let settings = "";
-        if(this.state.displaySettings){
-            settings = <SettingBox />
-        }
-
         return (
                 <section id={`board`} className="board">
                     <section>
@@ -223,7 +231,7 @@ class Board extends Component {
                     </div>
                     {this.state.children}
                 </section>
-                {settings}
+                <SettingBox display={this.state.displaySettings} boardArchive={this.props.currentBoard.archive} />
                 {details}
                 </section>
             )
@@ -385,9 +393,11 @@ function closeDetailsBox(e){
 }
 
 function showBoardSettings(e){
+    
     this.setState({
         displaySettings: !this.state.displaySettings
-    });
+    });    
+
 }
 
 export default connect(mapStateToProps)(Board);

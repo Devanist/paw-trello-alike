@@ -1,5 +1,4 @@
 export const AT = {
-    ARCHIVIZE_LIST: 'ARCHIVIZE_LIST',
     SET_MESSAGE: 'SET_MESSAGE',
     SET_CURRENT_BOARD: 'SET_CURRENT_BOARD',
     SAVE_BOARD_TITLE: 'SAVE_BOARD_TITLE',
@@ -16,7 +15,8 @@ export const AT = {
     SET_FAVOURITE_BOARD: 'SET_FAVOURITE_BOARD',
     CHANGE_LABEL: 'CHANGE_LABEL',
     SAVE_SCHEDULE: 'SAVE_SCHEDULE',
-    CHANGE_LANGUAGE: 'CHANGE_LANGUAGE'
+    CHANGE_LANGUAGE: 'CHANGE_LANGUAGE',
+    LOAD_ARCHIVE: 'LOAD_ARCHIVE'
 };
 
 export function setMessage(result, message){
@@ -141,10 +141,10 @@ export let Actions = {
             data : data.commentsList
         };
     },
-    archivizeList : (listId) => {
+    loadArchive : (data) => {
         return {
-            type : AT.ARCHIVIZE_LIST,
-            listId : listId
+            type: AT.LOAD_ARCHIVE,
+            data: data
         };
     }
 };

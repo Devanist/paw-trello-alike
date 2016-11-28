@@ -35,11 +35,30 @@ class ListItem extends Component{
                 <span className="editListItemTitle" onClick={handleEditListItem.bind(this)}></span>
                 <span className="saveListItemTitle hidden" onClick={handleSaveListItemTitle.bind(this)}></span>
                 <span className="cancelListItemTitle hidden" onClick={handleCancelListItemTitle.bind(this)}></span>
+                <span className="archivizeListItem" onClick={archivizeListItem.bind(this)}></span>
                 <span className="removeListItem" title={Language[this.props.lang].ListItem.remove} onClick={handleRemoveListItem.bind(this)}></span>
             </section>
         )
     }
 
+}
+
+function archivizeListItem(e){
+    const itemId = this.props.listItem.id;
+    const listId = this.props.list.id;
+
+    $.post(`${appConfig.host}/archivizeItem`, {listId : listId, itemId: itemId}).
+        done((data) => {
+            if(data.error){
+                setMessage.call(this, "fail", data.error);
+            }
+            else{
+                this.props.dispatch(Actions.removeListItem(listId, itemId));
+            }
+        }).
+        fail( (error) => {
+            setMessage.call(this, "fail", "SERVER ERROR");
+        });
 }
 
 function handleEditListItem(e) {

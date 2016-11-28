@@ -84,6 +84,21 @@ $iconSize : 20px;
                 p{
                     cursor: pointer;
                 }
+
+                ul li{
+                    margin-left: -44px;
+                    list-style-type: none;
+                    text-align: left;
+                    height: 3em;
+                    border-radius: 2px;
+                    cursor: pointer;
+                    border-top: 1px solid #7F5F33;
+                    border-bottom: 1px solid #7F5F33;
+
+                    &:hover{
+                        background-color: #7F5F33;
+                    }
+                }
             }
         }
     }
@@ -171,7 +186,7 @@ $iconSize : 20px;
 
 }
 
-.archivizeList{
+.archivizeList, .archivizeListItem{
     display: inline-block;
     width: 20px;
     height: 20px;

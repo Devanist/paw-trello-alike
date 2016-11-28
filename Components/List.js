@@ -148,7 +148,7 @@ function archivizeList(e){
             if(data.error){
                 setMessage.call(this, "fail", data.error);
             }
-            this.props.dispatch(Actions.archivizeList(this.props.list.id));
+            this.props.dispatch(Actions.removeList(this.props.list.id));
         }).
         fail( (error) => {
             setMessage.call(this, "fail", "SERVER ERROR");

@@ -25,6 +25,10 @@ const initialState = {
     searchBoardsResults: [],
     currentBoard : {
         title: "",
+        archive: {
+            lists: [],
+            items: []
+        },
         id: null,
         lists: [],
         isFav: false
@@ -405,8 +409,14 @@ const Reducer = (state, action) => {
             }
 
             break;
-        case AT.ARCHIVIZE_LIST:
-            
+        case AT.LOAD_ARCHIVE:
+            newState = {
+                ...state,
+                currentBoard : {
+                    ...state.currentBoard,
+                    archive : action.data
+                }
+            };
             break;
         default:
             console.error(`There is no defined action like ${action.type}`);
