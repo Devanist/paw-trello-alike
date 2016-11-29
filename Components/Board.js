@@ -104,12 +104,28 @@ class Board extends Component {
                                         "red",
                                         "green"
                                     ],
-                                    schedule : null
+                                    schedule : null,
+                                    eventLog: [
+                                        {
+                                            author: "Example User",
+                                            action: "creation",
+                                            details: "",
+                                            date: "21-11-2016,22:12"
+                                        }
+                                    ]
                                 },
                                 {
                                     id: 1,
                                     title: "Do something",
                                     schedule : null,
+                                    eventLog: [
+                                        {
+                                            author: "Example User",
+                                            action: "creation",
+                                            details: "",
+                                            date: "21-11-2016,22:12"
+                                        }
+                                    ],
                                     comments: [
                                         {
                                             id: 0,
@@ -134,7 +150,15 @@ class Board extends Component {
                                 {
                                     id: 0,
                                     title: "Walk a dog",
-                                    schedule : null
+                                    schedule : null,
+                                    eventLog: [
+                                        {
+                                            author: "Example User",
+                                            action: "creation",
+                                            details: "",
+                                            date: "21-11-2016,22:12"
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -145,17 +169,41 @@ class Board extends Component {
                                 {
                                     id: 0,
                                     title: "Get some sleep",
-                                    schedule : null
+                                    schedule : null,
+                                    eventLog: [
+                                        {
+                                            author: "Example User",
+                                            action: "creation",
+                                            details: "",
+                                            date: "21-11-2016,22:12"
+                                        }
+                                    ]
                                 },
                                 {
                                     id: 1,
                                     title: "Do nothing",
-                                    schedule : null
+                                    schedule : null,
+                                    eventLog: [
+                                        {
+                                            author: "Example User",
+                                            action: "creation",
+                                            details: "",
+                                            date: "21-11-2016,22:12"
+                                        }
+                                    ]
                                 },
                                 {
                                     id: 2,
                                     title: "Wake up",
-                                    schedule : null
+                                    schedule : null,
+                                    eventLog: [
+                                        {
+                                            author: "Example User",
+                                            action: "creation",
+                                            details: "",
+                                            date: "21-11-2016,22:12"
+                                        }
+                                    ]
                                 }
                             ]
                         }

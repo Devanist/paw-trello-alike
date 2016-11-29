@@ -40,11 +40,11 @@ class SettingBox extends Component{
 }
 
 function ArchivizedListToListElement(element){
-    return <li id={`list_${element.id}`}><p>{element.title}</p></li>
+    return <li key={`list_${element.id}`} id={`list_${element.id}`}><p>{element.title}</p></li>
 }
 
 function ArchivizedListItemToListElement(element){
-    return <li id={`list_${element.listId}_${element.id}`}><p>{element.title}</p></li>
+    return <li key={`list_${element.listId}_${element.id}`} id={`list_${element.listId}_${element.id}`}><p>{element.title}</p></li>
 }
 
 function goToSection(e){

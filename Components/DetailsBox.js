@@ -7,6 +7,7 @@ import CommentsList from './CommentsList';
 import CommentsStyles from '../Styles/Comments.scss';
 import AddLabelBox from './AddLabelBox';
 import AddScheduleBox from './AddScheduleBox';
+import EventLog from './EventLog';
 
 import Language from '../Languages/Language';
 
@@ -55,6 +56,7 @@ class DetailsBox extends Component{
                     <h2>{Language[this.props.lang].DetailsBox.h2}</h2>
                     <textarea placeholder={Language[this.props.lang].DetailsBox.textarea} id="commentContent"></textarea>
                     <input type="submit" value={Language[this.props.lang].DetailsBox.submit} id="addCommentSubmit" onClick={submitNewComment.bind(this)}/>
+                    <EventLog itemLog={this.props.item.eventLog} itemId={this.props.item.id} dispatch={this.props.dispatch}/>
                     <CommentsList lang={this.props.lang} item={this.props.item} listId={this.props.list.id} dispatch={this.props.dispatch} />
                 </section>
                 <aside>
