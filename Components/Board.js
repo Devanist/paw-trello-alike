@@ -260,6 +260,10 @@ class Board extends Component {
                         <span id="removeBoard"></span>
                         <span id="favBoard" className={this.props.currentBoard.isFav}></span>
                         <span id="boardSettings" className="settings" onClick={showBoardSettings.bind(this)}> </span>
+                        <span id="copyToClipboard"/>
+                        <span id="boardShare">
+                            <input type="text" id="board_share_textbox" readOnly="true" value={`localhost:8080/#/board/${this.props.currentBoard.id}`} />
+                        </span>
                         <section id="listsContainer">{this.renderLists()}</section>
                         <section id="confirmRemove" className="hidden">
                             <p>{Language[this.props.language].Board.confirmRemove}</p>
@@ -286,6 +290,16 @@ class Board extends Component {
     }
 
     componentDidMount(){
+
+        
+        $("#copyToClipboard").on("click", () => {
+            let target = $("#board_share_textbox")[0];
+            console.log(target.value);
+            target.focus();
+            target.setSelectionRange(0, target.value.length);
+            document.execCommand("copy");
+        });
+
         $("#saveBoardTitle").on("click", () => {
             $("#cancelBoardTitle, #saveBoardTitle, #editBoardTitle").toggleClass("hidden");
             $("#boardTitle").attr('contenteditable', 'false');
