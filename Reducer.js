@@ -263,12 +263,12 @@ const Reducer = (state, action) => {
             });
 
             let removedItemIndex = state.currentBoard.lists[modifiedListIndex].listItems.findIndex( (element) => {
-                return element.id === action.id
+                return element.id === parseInt(action.id);
             });
 
             let newListItems = [
-                state.currentBoard.lists[modifiedListIndex].listItems.slice(0, removedItemIndex),
-                state.currentBoard.lists[modifiedListIndex].listItems.slice(removedItemIndex + 1)
+                ...state.currentBoard.lists[modifiedListIndex].listItems.slice(0, removedItemIndex),
+                ...state.currentBoard.lists[modifiedListIndex].listItems.slice(removedItemIndex + 1)
             ];
 
             newState = {
