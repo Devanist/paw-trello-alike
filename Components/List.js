@@ -11,13 +11,6 @@ class List extends Component{
         super();
         this.oldTitle = "";
         this.addNewListItem = this.addNewListItem.bind(this);
-        this.renderListItems = this.renderListItems.bind(this);
-    }
-
-    renderListItems(){
-        return this.props.list.listItems.map( (listItem) => {
-            return <ListItem lang={this.props.lang} key={`listItem_${listItem.id}`} openDetails={this.props.openDetails} list={this.props.list} listItem={listItem} dispatch={this.props.dispatch}/>
-        });
     }
 
     toggleListItemNameInput(event) {
@@ -58,7 +51,13 @@ class List extends Component{
                 <span className="editListTitle" ></span>
                 <span className="saveListTitle hidden"></span>
                 <span className="cancelListTitle hidden" onClick={cancelEditListTitle.bind(this)}></span>
-                <section>{this.renderListItems()}</section>
+                <section className="listItemsContainer" id={`list_${this.props.list.id}_ItemsContainer`} onDrop={onDropHandler.bind(this)} onDragOver={onDragOverHandler}>
+                    {
+                        this.props.list.listItems.map( (listItem) => {
+                            return <ListItem lang={this.props.lang} key={`list_${this.props.list.id}_listItem_${listItem.id}`} openDetails={this.props.openDetails} list={this.props.list} listItem={listItem} dispatch={this.props.dispatch}/>
+                        })
+                    }
+                </section>
                 <div>
                     <section id="addListItemTrigger" onClick={this.toggleListItemNameInput}>
                     </section>
@@ -70,66 +69,27 @@ class List extends Component{
                 </div>
             </section>
         )
+  }
+
+    componentWillUpdate(){
+
     }
 
-    componentDidMount(){
-        let that = this;
+}
 
-        $(".removeList").on("click", function(e) {
-            //let listID = $(this).parent().id.substr(id.indexOf("_") + 1);
-            console.log("id listy: " + $(this).parent()[0].id);
-            let listID = $(this).parent()[0].id.substr($(this).parent()[0].id.indexOf("_") + 1);
-            that.props.dispatch(Actions.removeList(listID));
-        });
+function onDropHandler(e){
+    e.preventDefault();
+    const data = e.dataTransfer.getData("elementId");
+    //e.currentTarget.appendChild(document.getElementById(data));
+    let oldListId = e.dataTransfer.getData("oldListId");
+    let itemId = e.dataTransfer.getData("itemId");
+    let newListId = this.props.list.id;
 
-        $(".editListTitle").on("click", function(e) {
-            e.stopImmediatePropagation();
-            e.stopPropagation();
-            $(this).parent().find(".saveListTitle, .cancelListTitle, .editListTitle").toggleClass("hidden");
-            let title = $(this).parent().find(".listTitle");
-            console.log(this);
-            that.oldTitle = title.text().substr();
-            title.attr('contenteditable', 'true');
-            title.get(0).focus();
+    this.props.dispatch(Actions.dragListItem(itemId, oldListId, newListId));
+}
 
-            /*
-            title.on("focusout", function() {
-                title.text(that.oldTitle);
-                title.attr('contenteditable', 'true');
-                $(this).parent().find(".cancelListTitle, .saveListTitle, .editListTitle").toggleClass("hidden");
-            });
-            */
-        });
-
-        $(".saveListTitle").on("click", function() {
-            $(this).parent().find(".cancelListTitle, .saveListTitle, .editListTitle").toggleClass("hidden");
-            $(this).parent().find(".listTitle").attr('contenteditable', 'false');
-            $.post(`${appConfig.host}/saveListTitle`, {id: that.props.list.id, title: $(".listTitle").text()}).
-            done( (data) => { 
-                if(data.error){
-                    setMessage.call(this, "fail", data.error);                    
-                    $(this).parent().find(".listTitle").text(that.oldTitle);
-                }
-                else{
-                    that.props.dispatch(Actions.saveListTitle( $(this).parent().find("#listTitle").text()));
-                }
-            }).
-            fail( (error) => {
-                setMessage.call(that, "fail", "SERVER ERROR");
-                $(this).parent().find("#listTitle").text(that.oldTitle);
-            });
-        });
-/*
-        $("#add_element_listItem").on("click", function(){
-            $("#addListItemMenu").toggleClass("hidden");
-        });
-
-        $("#cancel_add_element_listItem").on("click", function(){
-            $("#addListItemMenu").toggleClass("hidden");
-        });
-*/
-    }
-
+function onDragOverHandler(e){
+    e.preventDefault();
 }
 
 function cancelEditListTitle(e){

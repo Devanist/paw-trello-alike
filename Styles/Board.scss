@@ -215,6 +215,10 @@ section.list {
     background-color: #4C3617;
     color: #FFF4CC;
 
+    .listItemsContainer{
+        min-height: 30px;
+    }
+
     h3{
         display: block;
         margin-left: 10px;

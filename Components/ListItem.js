@@ -26,7 +26,7 @@ class ListItem extends Component{
         }
 
         return (
-            <section className="listItem" id={`list_${this.props.list.id}_listItem_${this.props.listItem.id}`} onClick={(e) => {this.props.openDetails(e, this.props.list.id, this.props.listItem.id)}}>
+            <section className="listItem" id={`list_${this.props.list.id}_listItem_${this.props.listItem.id}`} draggable="true" onDragStart={onDragStartHandler.bind(this)} onClick={(e) => {this.props.openDetails(e, this.props.list.id, this.props.listItem.id)}}>
                 <header>
                     {labels}
                     {schedule}
@@ -148,6 +148,12 @@ function titleClick(e){
 
 function stateToLabels(label){
     return <span key={`item_${this.props.listItem.id}_${label}`} className={`listItemLabel ${label}`}></span>
+}
+
+function onDragStartHandler(e){
+    e.dataTransfer.setData("elementId", e.target.id);
+    e.dataTransfer.setData("oldListId", this.props.list.id);
+    e.dataTransfer.setData("itemId", this.props.listItem.id);
 }
 
 export default ListItem;

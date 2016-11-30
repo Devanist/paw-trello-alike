@@ -16,7 +16,8 @@ export const AT = {
     CHANGE_LABEL: 'CHANGE_LABEL',
     SAVE_SCHEDULE: 'SAVE_SCHEDULE',
     CHANGE_LANGUAGE: 'CHANGE_LANGUAGE',
-    LOAD_ARCHIVE: 'LOAD_ARCHIVE'
+    LOAD_ARCHIVE: 'LOAD_ARCHIVE',
+    DRAG_LISTITEM: 'DRAG_LISTITEM'
 };
 
 export function setMessage(result, message){
@@ -145,6 +146,14 @@ export let Actions = {
         return {
             type: AT.LOAD_ARCHIVE,
             data: data
+        };
+    },
+    dragListItem : (itemId, oldListId, newListId) => {
+        return {
+            type: AT.DRAG_LISTITEM,
+            itemId : itemId,
+            oldListId : oldListId,
+            newListId : newListId
         };
     }
 };

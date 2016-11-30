@@ -418,6 +418,56 @@ const Reducer = (state, action) => {
                 }
             };
             break;
+        case AT.DRAG_LISTITEM:
+
+            let oldListIndex = state.currentBoard.lists.findIndex( (list) => { return list.id === parseInt(action.oldListId)});
+            let newListIndex = state.currentBoard.lists.findIndex( (list) => { return list.id === parseInt(action.newListId)});
+
+            let draggedItemIndex = state.currentBoard.lists[oldListIndex].listItems.findIndex( (item) => {
+                return item.id === parseInt(action.itemId);
+            });
+
+            let draggedItem = JSON.parse(JSON.stringify(state.currentBoard.lists[oldListIndex].listItems[draggedItemIndex]));
+
+            let oldList = {
+                ...state.currentBoard.lists[oldListIndex],
+                listItems : [
+                    ...state.currentBoard.lists[oldListIndex].listItems.slice(0, draggedItemIndex),
+                    ...state.currentBoard.lists[oldListIndex].listItems.slice(draggedItemIndex + 1)
+                ]
+            };
+
+            let newList = {
+                ...state.currentBoard.lists[newListIndex],
+                listItems : [
+                    ...state.currentBoard.lists[newListIndex].listItems.concat(draggedItem)
+                ]
+            };
+
+            let tempState = {
+                ...state,
+                currentBoard : {
+                    ...state.currentBoard,
+                    lists : [
+                        ...state.currentBoard.lists.slice(0, oldListIndex),
+                        oldList,
+                        ...state.currentBoard.lists.slice(oldListIndex + 1)
+                    ]
+                }
+            };
+
+            newState = {
+                ...tempState,
+                currentBoard: {
+                    ...tempState.currentBoard,
+                    lists : [
+                        ...tempState.currentBoard.lists.slice(0, newListIndex),
+                        newList,
+                        ...tempState.currentBoard.lists.slice(newListIndex + 1)
+                    ]
+                }
+            };
+            break;
         default:
             console.error(`There is no defined action like ${action.type}`);
             break;

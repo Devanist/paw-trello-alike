@@ -148,7 +148,7 @@ class Board extends Component {
                             title: "IN WORK",
                             listItems: [
                                 {
-                                    id: 0,
+                                    id: 3,
                                     title: "Walk a dog",
                                     schedule : null,
                                     eventLog: [
@@ -167,7 +167,7 @@ class Board extends Component {
                             title: "DONE",
                             listItems: [
                                 {
-                                    id: 0,
+                                    id: 4,
                                     title: "Get some sleep",
                                     schedule : null,
                                     eventLog: [
@@ -180,7 +180,7 @@ class Board extends Component {
                                     ]
                                 },
                                 {
-                                    id: 1,
+                                    id: 5,
                                     title: "Do nothing",
                                     schedule : null,
                                     eventLog: [
@@ -193,7 +193,7 @@ class Board extends Component {
                                     ]
                                 },
                                 {
-                                    id: 2,
+                                    id: 6,
                                     title: "Wake up",
                                     schedule : null,
                                     eventLog: [
