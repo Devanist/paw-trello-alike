@@ -267,7 +267,7 @@ const Reducer = (state, action) => {
             });
 
             let newListItems = [
-                state.currentBoard.lists[modifiedListIndex].listItems.slice(removedItemIndex),
+                state.currentBoard.lists[modifiedListIndex].listItems.slice(0, removedItemIndex),
                 state.currentBoard.lists[modifiedListIndex].listItems.slice(removedItemIndex + 1)
             ];
 
@@ -277,7 +277,10 @@ const Reducer = (state, action) => {
                     ...state.currentBoard,
                     lists: [
                         ...state.currentBoard.lists.slice(0, modifiedListIndex),
-                        Object.assign({}, state.currentBoard.lists[modifiedListIndex], {listItems: newListItems}),
+                        {
+                            ...state.currentBoard.lists[modifiedItemIndex],
+                            listItems : newListItems
+                        },
                         ...state.currentBoard.lists.slice(modifiedListIndex + 1)
                     ]
                 }
@@ -464,6 +467,24 @@ const Reducer = (state, action) => {
                         ...tempState.currentBoard.lists.slice(0, newListIndex),
                         newList,
                         ...tempState.currentBoard.lists.slice(newListIndex + 1)
+                    ]
+                }
+            };
+            break;
+        case AT.ADD_LISTITEM:
+            
+            let listIndex = state.currentBoard.lists.findIndex( (list) => {return list.id === action.listId});
+
+            newState = {
+                ...state,
+                currentBoard : {
+                    ...state.currentBoard,
+                    lists : [
+                        ...state.currentBoard.lists.slice(0, listIndex),
+                        Object.assign({}, state.currentBoard.lists[listIndex], {listItems: [
+                            ...state.currentBoard.lists[listIndex].listItems.concat(action.item)
+                        ]}),
+                        ...state.currentBoard.lists.slice(listIndex + 1),
                     ]
                 }
             };

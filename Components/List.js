@@ -15,30 +15,37 @@ class List extends Component{
 
     toggleListItemNameInput(event) {
         $(event.target).next().toggleClass("hidden");
-        console.log( $(event.target).next() );
     }
 
     toggleListItemNameInputAddCancel(event) {
         $(event.target).parent().toggleClass("hidden");
-        console.log( $(event.target).parent() );
     }
 
     addNewListItem(){
-        /*
-        $.post(`${appConfig.host}/cardlist`, {title: $("#add_list_title").val(), boardId: this.props.board.id}).
+
+        const id = this.props.list.id;
+
+        $.ajax(`${appConfig.host}/listitem`, {
+            method : "POST",
+            data : {
+                title: $(`#add_list_item_title_${id}`).val(),
+                labels: [],
+                schedule: "",
+                listId: id
+            },
+            headers : {
+                "Accept": "application/json"
+            }
+        }).
         done((data) => {
-            console.log(data);
             if(data.error){
                 this.props.dispatch(Actions.setMessage("fail", data.error));
             }
-            this.props.dispatch(Actions.addList(data));
-            //Dokonczyc \/
-            //this.props.router.push(`//`);
+            this.props.dispatch(Actions.addListItem(data, id));
         }).
         fail( (err) => {
             this.props.dispatch(Actions.setMessage("fail", "SERVER ERROR"));
         });
-        */
     }
 
   render(){
@@ -62,8 +69,8 @@ class List extends Component{
                     <section id="addListItemTrigger" onClick={this.toggleListItemNameInput}>
                     </section>
                     <section id="addListItemMenu" className="hidden">
-                        <input type="text" id="add_list_item_title" placeholder={Language[this.props.lang].List.add_list_item_title}/>
-                        <input type="submit" id="add_element_listItem" value={Language[this.props.lang].List.add_element_listItem} onClick={(event)=>{this.toggleListItemNameInputAddCancel(event); this.addNewListItem(event);}}/>
+                        <input className="listItemTitleEditor" type="text" id={`add_list_item_title_${this.props.list.id}`} placeholder={Language[this.props.lang].List.add_list_item_title}/>
+                        <input type="submit" id={`add_element_listItem_${this.props.list.id}`} value={Language[this.props.lang].List.add_element_listItem} onClick={(event)=>{this.addNewListItem(event); this.toggleListItemNameInputAddCancel(event);}}/>
                         <input type="submit" id="cancel_add_element_listItem" value={Language[this.props.lang].List.cancel_add_element_listItem} onClick={this.toggleListItemNameInputAddCancel}/>
                     </section>
                 </div>

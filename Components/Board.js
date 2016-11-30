@@ -33,12 +33,6 @@ class Board extends Component {
         };
     }
 
-    renderLists(){
-        return this.props.currentBoard.lists.map( (list) => {
-            return <List lang={this.props.language} key={`list_${list.id}`} list={list} openDetails={displayDetailsBox.bind(this)} dispatch={this.props.dispatch} />
-        });
-    }
-
     editTitle(){
         $("#saveBoardTitle, #cancelBoardTitle, #editBoardTitle").toggleClass("hidden");
 
@@ -67,7 +61,7 @@ class Board extends Component {
                             item.schedule = {
                                 date: datetime[0],
                                 time: datetime[1]
-                            }
+                            };
                         });
                     });
                     this.props.dispatch(Actions.setCurrentBoard(data));
@@ -223,7 +217,13 @@ class Board extends Component {
     }
 
     addNewList(){
-        $.post(`${appConfig.host}/cardlist`, {title: $("#add_list_title").val(), boardId: this.props.currentBoard.id}).
+        $.ajax(`${appConfig.host}/list`, {
+            data: {title: $("#add_list_title").val(), boardId: this.props.currentBoard.id},
+            headers: {
+                "Accept": "application/json"
+            },
+            method: "POST"
+        }).
         done((data) => {
             if(data.error){
                 setMessage.call(this, "fail", data.error);
@@ -260,7 +260,13 @@ class Board extends Component {
                         <span id="removeBoard"></span>
                         <span id="favBoard" className={this.props.currentBoard.isFav}></span>
                         <span id="boardSettings" className="settings" onClick={showBoardSettings.bind(this)}> </span>
-                        <section id="listsContainer">{this.renderLists()}</section>
+                        <section id="listsContainer">
+                            {
+                                this.props.currentBoard.lists.map( (list) => {
+                                    return <List lang={this.props.language} key={`list_${list.id}`} list={list} openDetails={displayDetailsBox.bind(this)} dispatch={this.props.dispatch} boardId={this.props.currentBoard.id} />
+                                })
+                            }
+                        </section>
                         <section id="confirmRemove" className="hidden">
                             <p>{Language[this.props.language].Board.confirmRemove}</p>
                             <div className="confirmation"><p>
@@ -334,7 +340,7 @@ class Board extends Component {
         });
 
         $("#listsContainer").
-        sortable({cancel: '.list h3, #add_list_item_title, #DetailsBox, .listItem'}).
+        sortable({cancel: '.list h3, #add_list_item_title, #DetailsBox, .listItem, .listItemTitleEditor'}).
         on("sortstop", listOrderChangeHandler.bind(this));
 
         $("#favBoard").on("click", () => {

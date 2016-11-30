@@ -50,7 +50,13 @@ class Beam extends Component{
     addNew(){
 
         if(this.addWhat === "addBoardLink"){
-            $.post(`${appConfig.host}/boards`, {title: $("#add_title").val()}).
+            $.ajax(`${appConfig.host}/board`, {
+                data: {title: $("#add_title").val()},
+                headers : {
+                    "Accept": "application/json"
+                },
+                method : "POST"
+            }).
             done( (data) => {
                 if(data.error){
                     setMessage.call(this, "fail", data.error);

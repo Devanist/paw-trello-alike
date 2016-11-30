@@ -21,7 +21,7 @@ class ListItem extends Component{
         if(Array.isArray(this.props.listItem.labels)){
             labels = this.props.listItem.labels.map(stateToLabels.bind(this));
         }
-        if(this.props.listItem.schedule !== null && this.props.listItem.schedule !== undefined){
+        if(this.props.listItem.schedule && this.props.listItem.schedule.date && this.props.listItem.schedule.time){
             schedule = <p>{this.props.listItem.schedule.date}, {this.props.listItem.schedule.time}</p>
         }
 
@@ -126,8 +126,11 @@ function handleRemoveListItem(e){
     id = id.substr(id.lastIndexOf("_") + 1);
 
     $.ajax({
-        url: `${appConfig.host}/listItem/${id}`,
-        type: 'DELETE'
+        url: `${appConfig.host}/listitem/${id}.json`,
+        type: 'DELETE',
+        headers: {
+            "Accept" : "application/json"
+        }
     }).
     done( (data) => {
         if(data.error){

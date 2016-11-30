@@ -17,7 +17,8 @@ export const AT = {
     SAVE_SCHEDULE: 'SAVE_SCHEDULE',
     CHANGE_LANGUAGE: 'CHANGE_LANGUAGE',
     LOAD_ARCHIVE: 'LOAD_ARCHIVE',
-    DRAG_LISTITEM: 'DRAG_LISTITEM'
+    DRAG_LISTITEM: 'DRAG_LISTITEM',
+    ADD_LISTITEM : 'ADD_LISTITEM'
 };
 
 export function setMessage(result, message){
@@ -56,6 +57,13 @@ export let Actions = {
         return {
             type: AT.ADD_LIST,
             list: list
+        };
+    },
+    addListItem : (item, listId) => {
+        return {
+            type: AT.ADD_LISTITEM,
+            item : item,
+            listId : listId
         };
     },
     logout : () => {
