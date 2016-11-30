@@ -16,7 +16,7 @@ class EventLog extends Component{
     render(){
 
         let logs = "Event log is empty";
-        if(this.props.itemLog.length > 0){
+        if(this.props.itemLog && this.props.itemLog.length > 0){
             logs = this.props.itemLog.map(logsToListElements.bind(this));
         }
 
