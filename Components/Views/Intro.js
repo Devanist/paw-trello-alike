@@ -4,7 +4,8 @@ class Intro extends Component{
 
     render(){
         return <section>
-            <h1>Start your own board today!</h1>
+            <div id="logoBig"/>
+            <h1 id="introText">Start your own board today!</h1>
         </section>
     }
 
