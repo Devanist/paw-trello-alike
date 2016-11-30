@@ -424,7 +424,6 @@ function mapStateToProps(state){
 }
 
 function displayDetailsBox(e, listId, itemId){
-    console.log(e);
     this.setState({
         displayDetails : true,
         detailsList: listId,

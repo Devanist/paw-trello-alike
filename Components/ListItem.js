@@ -44,6 +44,11 @@ class ListItem extends Component{
 }
 
 function archivizeListItem(e){
+
+    e.stopPropagation();
+    e.cancelBubble = true;
+    if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+
     const itemId = this.props.listItem.id;
     const listId = this.props.list.id;
 
