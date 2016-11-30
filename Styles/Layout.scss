@@ -31,6 +31,33 @@ section[data-reactroot]{
     width: 100%;
 }
 
+
+
+#logoBig{
+    background-image: url('../Assets/logo_big.png');
+    width: 412px;
+    height: 217px;
+    position: fixed;
+    top: 70px;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #0F364C;
+    border-radius: 5px;
+}
+
+
+#introText{
+    text-align: center;
+    position: fixed;
+    top: 270px;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 #contentHolder{
     display:flex;
     height: 100%;

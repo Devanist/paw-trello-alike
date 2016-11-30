@@ -93,6 +93,7 @@ class Beam extends Component{
                     <AddNewMenu lang={this.props.lang} />
                     <AddNewMenuInput trigger={this.addNew} lang={this.props.lang} />
                     <Link id="beamHomeLink" to="/">{Language[this.props.lang].Beam.beamHomeLink}</Link>
+                    <div id="logoSmall"> </div>
                     <BeamAside username={this.props.user.fullname} userPic={userPic} trigger={this.extendMenu} />
                     <UserMenu lang={this.props.lang} username={this.props.user.name} dispatch={this.props.dispatch} 
                         trigger={() => {
