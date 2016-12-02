@@ -1,12 +1,7 @@
 import {AT} from './Actions/Actions';
 
-/*
-let user = localStorage.getItem('user') || null;
-*/
-
-const initialState = {
-    language: "en",
-    user: {
+let user = JSON.parse(localStorage.getItem('user'))/* || 
+    {
         id: 0,
         fullname: "Example User",
         name: "exuser1",
@@ -15,9 +10,19 @@ const initialState = {
         token: "as@$AX325d",
         profile_pic: "",
         boardsList: [
-            {id: 0, title: "Example Board", isFav: "fav"}
+            {id: 0, title: "Example Board", isFav: "fav"},
+            {id: 1, title: "New Mexico", isFav: ""}
         ]
-    },
+    }; */
+
+    if(user === ""){
+        user = null;
+    }
+    console.log(user);
+
+const initialState = {
+    language: "en",
+    user: user,
     messagePanel: {
         message: "",
         result: "hidden"

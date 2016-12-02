@@ -43,169 +43,164 @@ class Board extends Component {
 
     getBoard(){
 
-        if(this.props && this.props.board){
-            this.props.currentBoard = this.props.board;
-        }
-        else{
-            $.get(`${appConfig.host}/board/${this.props.params.id}.json`).
-            done( (data) => {
-                if(data.error){
-                    setMessage.call(this, "fail", data.error);
-                    this.props.push('/');
-                }
-                else{
-                    data.lists.forEach( (list) => {
-                        list.listItems.forEach( (item) => {
-                            item.labels = item.labels.split(",");
-                            let datetime = item.schedule.split(",");
-                            item.schedule = {
-                                date: datetime[0],
-                                time: datetime[1]
-                            };
-                        });
+        $.get(`${appConfig.host}/board/${this.props.params.id}.json`).
+        done( (data) => {
+            if(data.error){
+                setMessage.call(this, "fail", data.error);
+                this.props.push('/');
+            }
+            else{
+                data.lists.forEach( (list) => {
+                    list.listItems.forEach( (item) => {
+                        item.labels = item.labels.split(",");
+                        let datetime = item.schedule.split(",");
+                        item.schedule = {
+                            date: datetime[0],
+                            time: datetime[1]
+                        };
                     });
-                    this.props.dispatch(Actions.setCurrentBoard(data));
-                }
-            }).
-            fail( () => {
-                setMessage.call(this, "fail", "SERVER ERROR");
-                this.props.dispatch(Actions.setCurrentBoard({
-                    title: "Example Board",
-                    id: 0,
-                    archive: {
-                        lists: [
-                            {
-                                title: "DONE YESTERDAY",
-                                id: 6
-                            }
-                        ],
-                        items: [{
-                            title: "PET A CAT",
-                            id: 18,
-                            listId: 0
-                        }]
-                    },
-                    isFav: "fav",
+                });
+                this.props.dispatch(Actions.setCurrentBoard(data));
+            }
+        }).
+        fail( () => {
+            setMessage.call(this, "fail", "SERVER ERROR");
+            this.props.dispatch(Actions.setCurrentBoard({
+                title: "Example Board",
+                id: 0,
+                archive: {
                     lists: [
                         {
-                            id: 0,
-                            title: "TO DO",
-                            listItems: [
-                                {
-                                    id: 0,
-                                    title: "Wash dishes",
-                                    labels: [
-                                        "red",
-                                        "green"
-                                    ],
-                                    schedule : null,
-                                    eventLog: [
-                                        {
-                                            author: "Example User",
-                                            action: "creation",
-                                            details: "",
-                                            date: "21-11-2016,22:12"
-                                        }
-                                    ]
-                                },
-                                {
-                                    id: 1,
-                                    title: "Do something",
-                                    schedule : null,
-                                    eventLog: [
-                                        {
-                                            author: "Example User",
-                                            action: "creation",
-                                            details: "",
-                                            date: "21-11-2016,22:12"
-                                        }
-                                    ],
-                                    comments: [
-                                        {
-                                            id: 0,
-                                            author: "Example User",
-                                            addDate: "04-11-2016 15:01:23",
-                                            text: "Something productive"
-                                        },
-                                        {
-                                            id: 1,
-                                            author: "Anonymous",
-                                            addDate: "04-11-2016 15:40:14",
-                                            text: "Like commenting tasks"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            id: 1,
-                            title: "IN WORK",
-                            listItems: [
-                                {
-                                    id: 3,
-                                    title: "Walk a dog",
-                                    schedule : null,
-                                    eventLog: [
-                                        {
-                                            author: "Example User",
-                                            action: "creation",
-                                            details: "",
-                                            date: "21-11-2016,22:12"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            id: 2,
-                            title: "DONE",
-                            listItems: [
-                                {
-                                    id: 4,
-                                    title: "Get some sleep",
-                                    schedule : null,
-                                    eventLog: [
-                                        {
-                                            author: "Example User",
-                                            action: "creation",
-                                            details: "",
-                                            date: "21-11-2016,22:12"
-                                        }
-                                    ]
-                                },
-                                {
-                                    id: 5,
-                                    title: "Do nothing",
-                                    schedule : null,
-                                    eventLog: [
-                                        {
-                                            author: "Example User",
-                                            action: "creation",
-                                            details: "",
-                                            date: "21-11-2016,22:12"
-                                        }
-                                    ]
-                                },
-                                {
-                                    id: 6,
-                                    title: "Wake up",
-                                    schedule : null,
-                                    eventLog: [
-                                        {
-                                            author: "Example User",
-                                            action: "creation",
-                                            details: "",
-                                            date: "21-11-2016,22:12"
-                                        }
-                                    ]
-                                }
-                            ]
+                            title: "DONE YESTERDAY",
+                            id: 6
                         }
-                    ]
-                }));
-                //this.props.push('/');
-            });
-        }
+                    ],
+                    items: [{
+                        title: "PET A CAT",
+                        id: 18,
+                        listId: 0
+                    }]
+                },
+                isFav: "fav",
+                lists: [
+                    {
+                        id: 0,
+                        title: "TO DO",
+                        listItems: [
+                            {
+                                id: 0,
+                                title: "Wash dishes",
+                                labels: [
+                                    "red",
+                                    "green"
+                                ],
+                                schedule : null,
+                                eventLog: [
+                                    {
+                                        author: "Example User",
+                                        action: "creation",
+                                        details: "",
+                                        date: "21-11-2016,22:12"
+                                    }
+                                ]
+                            },
+                            {
+                                id: 1,
+                                title: "Do something",
+                                schedule : null,
+                                eventLog: [
+                                    {
+                                        author: "Example User",
+                                        action: "creation",
+                                        details: "",
+                                        date: "21-11-2016,22:12"
+                                    }
+                                ],
+                                comments: [
+                                    {
+                                        id: 0,
+                                        author: "Example User",
+                                        addDate: "04-11-2016 15:01:23",
+                                        text: "Something productive"
+                                    },
+                                    {
+                                        id: 1,
+                                        author: "Anonymous",
+                                        addDate: "04-11-2016 15:40:14",
+                                        text: "Like commenting tasks"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 1,
+                        title: "IN WORK",
+                        listItems: [
+                            {
+                                id: 3,
+                                title: "Walk a dog",
+                                schedule : null,
+                                eventLog: [
+                                    {
+                                        author: "Example User",
+                                        action: "creation",
+                                        details: "",
+                                        date: "21-11-2016,22:12"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        title: "DONE",
+                        listItems: [
+                            {
+                                id: 4,
+                                title: "Get some sleep",
+                                schedule : null,
+                                eventLog: [
+                                    {
+                                        author: "Example User",
+                                        action: "creation",
+                                        details: "",
+                                        date: "21-11-2016,22:12"
+                                    }
+                                ]
+                            },
+                            {
+                                id: 5,
+                                title: "Do nothing",
+                                schedule : null,
+                                eventLog: [
+                                    {
+                                        author: "Example User",
+                                        action: "creation",
+                                        details: "",
+                                        date: "21-11-2016,22:12"
+                                    }
+                                ]
+                            },
+                            {
+                                id: 6,
+                                title: "Wake up",
+                                schedule : null,
+                                eventLog: [
+                                    {
+                                        author: "Example User",
+                                        action: "creation",
+                                        details: "",
+                                        date: "21-11-2016,22:12"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }));
+            //this.props.push('/');
+        });
     }
 
     componentWillMount(){
@@ -239,6 +234,12 @@ class Board extends Component {
 
     componentWillUnmount(){
         this.props.dispatch(Actions.setCurrentBoard(this.props.emptyBoard));
+    }
+
+    componentWillUpdate(){
+        if(this.props.currentBoard.id !== undefined && this.props.currentBoard.id !== null && parseInt(this.props.params.id) !== this.props.currentBoard.id){
+            this.getBoard();
+        }
     }
     
     render(){
